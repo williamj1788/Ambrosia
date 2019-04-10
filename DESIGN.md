@@ -1,4 +1,4 @@
-# QuezPizza
+# Ambrosia
 
 Ecommerce site for a pizza company
 
