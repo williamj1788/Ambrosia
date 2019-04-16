@@ -1,0 +1,29 @@
+{
+  "name": "williams-pizza",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "client": "npm start --prefix client",
+    "server": "nodemon server.js",
+    "dev": "concurrently \"npm run client\" \"npm run server\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/williamj1788/Williams-Pizza.git"
+  },
+  "author": "Jacquez Williams",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/williamj1788/Ambrosia/issues"
+  },
+  "homepage": "https://github.com/williamj1788/Ambrosia#readme",
+  "dependencies": {
+    "concurrently": "^4.1.0",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.11"
+  }
+}
