@@ -1,0 +1,45 @@
+.navbar{
+    width: 100%;
+    height: 65px;
+    background-color: rgba(0, 0, 0, 0.51);
+    position: fixed;
+    top: -65px;
+    transition: 0.5s;
+}
+
+.container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 0 65px;
+}
+
+.logo{
+    width: auto;
+    height: 55px;
+}
+
+.linkContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 650px;
+    height: 100%;
+    color: white;
+}
+.navLink{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-size: 1.5rem;
+    font-family: 'Playball', cursive;
+    cursor: pointer;
+}
+.linkLogo{
+    width: 25px;
+    height: 25px;
+}
