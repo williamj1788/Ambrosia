@@ -58,6 +58,7 @@ ___
 > * Sign up
 > * Login
 > * Metrics
+> * Chiefs
 
 ### Home
 
