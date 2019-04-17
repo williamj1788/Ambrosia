@@ -8,13 +8,16 @@ class Navbar extends React.Component{
     
     state = {
         isExtended: false,
+        isHamburger: window.innerWidth < 1000,
     }
     
     componentWillMount() {
         window.addEventListener('scroll', this.handleScroll);
+        window.addEventListener('resize', this.handleResize);
     }
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll);
+        window.removeEventListener('resize', this.handleResize);
     }
 
     handleScroll = () => {
@@ -32,37 +35,68 @@ class Navbar extends React.Component{
             })
         }
     }
+
+    handleResize = () => {
+        const { isHamburger } = this.state;
+        const HamburgerTarget = 1100; // 1100px
+        if(window.innerWidth < HamburgerTarget && !isHamburger){
+            this.setState({
+                isHamburger: true,
+            })
+        }else if(window.innerWidth > HamburgerTarget && isHamburger){
+            this.setState({
+                isHamburger: false,
+            })
+        }
+    }
     
     render(){
-        const { isExtended } = this.state;
+        const { isExtended, isHamburger } = this.state;
         const { page } = this.props;
         return(
-            <NavContainer page={page} isExtended={isExtended} >
-                <img className={s.logo} src={logoIcon} alt="Logo" />
-                <div className={s.linkContainer} >
-                    <NavLink>Home</NavLink>
-                    <NavLink>Menu</NavLink>
-                    <NavLink>Meet The Chiefs</NavLink>
-                    <NavLink>Home</NavLink>
-                    <NavLink icon={cartIcon} >Cart</NavLink>
-                    <NavLink icon={userIcon} >Sign up</NavLink>
-                </div>
-            </NavContainer>
+            <nav>
+                <NavContainer transparent={page === 'home' && !isExtended && !isHamburger} isExtended={isExtended} >
+                    <img className={s.logo} src={logoIcon} alt="Logo" />
+                    {isHamburger
+                    ? <button>sdfsd</button>
+                    : <NavLinkContainer className={s.linkContainer} />
+                    }
+                </NavContainer>
+                {isHamburger && <HamburgerDropdown />}
+            </nav>
         )
     }
 }
 
-const NavContainer = ({isExtended, page, ...props}) => {
+const NavContainer = ({isExtended, transparent, ...props}) => {
     const styles = {}
-    if(page === 'home' && !isExtended){
+    if(transparent){
         styles.backgroundColor = 'transparent';
     }
     return (
-        <nav className={`${s.navbar} ${isExtended && s.fixed}`} style={styles}>
+        <div className={`${s.navbar} ${isExtended && s.fixed}`} style={styles}>
             <div className={s.container} >
                 {props.children}
             </div>
-        </nav>
+        </div>
+    )
+}
+
+const NavLinkContainer = ({className}) => {
+    return(
+        <div className={className} >
+            <NavLink>Home</NavLink>
+            <NavLink>Menu</NavLink>
+            <NavLink>Meet The Chiefs</NavLink>
+            <NavLink icon={cartIcon}>Cart</NavLink>
+            <NavLink icon={userIcon}>Sign up</NavLink>
+        </div>
+    )
+}
+
+const HamburgerDropdown = () => {
+    return(
+        <NavLinkContainer className={s.HamburgerDropdown} />
     )
 }
 
@@ -70,7 +104,7 @@ const NavLink = ({icon, ...props}) => {
     return (
         <div className={s.navLink}>
             {icon && <img className={s.linkLogo} src={icon} alt="nav-link icon" />}
-            {props.children}
+            <span>{props.children}</span>
         </div>
     )
 }

@@ -9,14 +9,26 @@ test('componet renders without crashing', () => {
     expect(component).toBeTruthy();
 })
 
-test('navbar is extend when pass extended target', () => {
+test('navbar is extend when above extended target', () => {
     global.window.scrollY = 401;
     instance.handleScroll();
     expect(component.state().isExtended).toBeTruthy();
 })
 
-test('navbar is not extend when under extended target', () => {
+test('navbar is not extend when below extended target', () => {
     global.window.scrollY = 399;
     instance.handleScroll();
     expect(component.state().isExtended).toBeFalsy();
+})
+
+test('navbar shows hamburger when above hamburger target', () => {
+    global.window.innerWidth = 1099;
+    instance.handleResize();
+    expect(component.state().isHamburger).toBeTruthy();
+})
+
+test('navbar does not shows hamburger when below hamburger target', () => {
+    global.window.innerWidth = 1101;
+    instance.handleResize();
+    expect(component.state().isHamburger).toBeFalsy();
 })
