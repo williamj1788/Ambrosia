@@ -7,7 +7,7 @@ import userIcon from '../images/UserIcon.png';
 class Navbar extends React.Component{
     
     state = {
-        isExtended: false
+        isExtended: false,
     }
     
     componentWillMount() {
@@ -20,12 +20,13 @@ class Navbar extends React.Component{
     handleScroll = () => {
         const currentScrollY = window.scrollY;
         const { isExtended } = this.state;
+        const ExtendedTarget = 400;
 
-        if(currentScrollY > 400 && !isExtended){
+        if(currentScrollY > ExtendedTarget && !isExtended){
             this.setState({
                 isExtended: true,
             })
-        }else if(currentScrollY < 400 && isExtended){
+        }else if(currentScrollY < ExtendedTarget && isExtended){
             this.setState({
                 isExtended: false,
             })
@@ -35,31 +36,43 @@ class Navbar extends React.Component{
     render(){
         const { isExtended } = this.state;
         const { page } = this.props;
-        const styles = {}
-        if(page === 'home' && !isExtended){
-            styles.backgroundColor = 'transparent';
-        }
         return(
-            <nav className={`${s.navbar} ${isExtended && s.fixed}`} style={styles}  >
-                <div className={s.container} >
-                    <img className={s.logo} src={logoIcon} alt="Logo" />
-                    <div className={s.linkContainer} >
-                        <span className={s.navLink} >Home</span>
-                        <span className={s.navLink} >Menu</span>
-                        <span className={s.navLink} >Meet The Chiefs</span>
-                        <div className={s.navLink}>
-                            <img className={s.linkLogo} src={cartIcon} alt="Cart logo" />
-                            <span>Cart</span> 
-                        </div>
-                        <div className={s.navLink}>
-                            <img className={s.linkLogo} src={userIcon} alt="Cart logo" />
-                            <span>Sign up</span> 
-                        </div>
-                    </div>
+            <NavContainer page={page} isExtended={isExtended} >
+                <img className={s.logo} src={logoIcon} alt="Logo" />
+                <div className={s.linkContainer} >
+                    <NavLink>Home</NavLink>
+                    <NavLink>Menu</NavLink>
+                    <NavLink>Meet The Chiefs</NavLink>
+                    <NavLink>Home</NavLink>
+                    <NavLink icon={cartIcon} >Cart</NavLink>
+                    <NavLink icon={userIcon} >Sign up</NavLink>
                 </div>
-            </nav>
+            </NavContainer>
         )
     }
+}
+
+const NavContainer = ({isExtended, page, ...props}) => {
+    const styles = {}
+    if(page === 'home' && !isExtended){
+        styles.backgroundColor = 'transparent';
+    }
+    return (
+        <nav className={`${s.navbar} ${isExtended && s.fixed}`} style={styles}>
+            <div className={s.container} >
+                {props.children}
+            </div>
+        </nav>
+    )
+}
+
+const NavLink = ({icon, ...props}) => {
+    return (
+        <div className={s.navLink}>
+            {icon && <img className={s.linkLogo} src={icon} alt="nav-link icon" />}
+            {props.children}
+        </div>
+    )
 }
 
 export default Navbar;
