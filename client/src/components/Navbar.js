@@ -7,7 +7,7 @@ import userIcon from '../images/UserIcon.png';
 class Navbar extends React.Component{
     
     state = {
-        extended: false
+        isExtended: false
     }
     
     componentWillMount() {
@@ -19,22 +19,28 @@ class Navbar extends React.Component{
 
     handleScroll = () => {
         const currentScrollY = window.scrollY;
-        const { extended } = this.state;
+        const { isExtended } = this.state;
 
-        if(currentScrollY > 100 && !extended){
+        if(currentScrollY > 400 && !isExtended){
             this.setState({
-                extended: true,
+                isExtended: true,
             })
-        }else if(currentScrollY < 100 && extended){
+        }else if(currentScrollY < 400 && isExtended){
             this.setState({
-                extended: false,
+                isExtended: false,
             })
         }
     }
     
     render(){
+        const { isExtended } = this.state;
+        const { page } = this.props;
+        const styles = {}
+        if(page === 'home' && !isExtended){
+            styles.backgroundColor = 'transparent';
+        }
         return(
-            <nav className={s.navbar} style={this.state.extended ? {top: '0'}: null} >
+            <nav className={`${s.navbar} ${isExtended && s.fixed}`} style={styles}  >
                 <div className={s.container} >
                     <img className={s.logo} src={logoIcon} alt="Logo" />
                     <div className={s.linkContainer} >
