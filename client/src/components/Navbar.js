@@ -1,5 +1,5 @@
 import React from 'react';
-import s from '../styles/Home.module.scss';
+import s from '../styles/Navbar.module.scss';
 import logoIcon from '../images/Logo.png';
 import cartIcon from '../images/CartIcon.png';
 import userIcon from '../images/UserIcon.png';
@@ -9,6 +9,7 @@ class Navbar extends React.Component{
     state = {
         isExtended: false,
         isHamburger: window.innerWidth < 1000,
+        isHamburgerDropdownOpen: false,
     }
     
     componentWillMount() {
@@ -46,23 +47,30 @@ class Navbar extends React.Component{
         }else if(window.innerWidth > HamburgerTarget && isHamburger){
             this.setState({
                 isHamburger: false,
+                isHamburgerDropdownOpen: false,
             })
         }
     }
+
+    toggleHamburgerDropdown = () => {
+        this.setState({
+            isHamburgerDropdownOpen: !this.state.isHamburgerDropdownOpen,
+        });
+    }
     
     render(){
-        const { isExtended, isHamburger } = this.state;
+        const { isExtended, isHamburger,isHamburgerDropdownOpen } = this.state;
         const { page } = this.props;
         return(
             <nav>
                 <NavContainer transparent={page === 'home' && !isExtended && !isHamburger} isExtended={isExtended} >
                     <img className={s.logo} src={logoIcon} alt="Logo" />
                     {isHamburger
-                    ? <button>sdfsd</button>
+                    ? <button onClick={this.toggleHamburgerDropdown}>sdfsd</button>
                     : <NavLinkContainer className={s.linkContainer} />
                     }
                 </NavContainer>
-                {isHamburger && <HamburgerDropdown />}
+                {isHamburger && <HamburgerDropdown open={isHamburgerDropdownOpen} />}
             </nav>
         )
     }
@@ -82,9 +90,9 @@ const NavContainer = ({isExtended, transparent, ...props}) => {
     )
 }
 
-const NavLinkContainer = ({className}) => {
+const NavLinkContainer = ({ className, style = {} }) => {
     return(
-        <div className={className} >
+        <div className={className} style={style} >
             <NavLink>Home</NavLink>
             <NavLink>Menu</NavLink>
             <NavLink>Meet The Chiefs</NavLink>
@@ -94,9 +102,16 @@ const NavLinkContainer = ({className}) => {
     )
 }
 
-const HamburgerDropdown = () => {
+const HamburgerDropdown = ({ open }) => {
+    const style = {};
+    if(open){
+        style.height = '200px';
+    }else{
+        style.height = '0';
+        style.paddingBottom = '0';
+    }
     return(
-        <NavLinkContainer className={s.HamburgerDropdown} />
+        <NavLinkContainer className={s.HamburgerDropdown} style={style} />
     )
 }
 
