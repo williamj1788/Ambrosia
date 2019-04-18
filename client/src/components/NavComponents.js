@@ -55,15 +55,15 @@ export const HamburgerDropdown = ({ open }) => {
     )
 }
 
-export let NavLink = ({ icon, page, children }) => {
+export let DumbNavLink = ({ icon, page, children }) => {
     return (
         <div className={s.navLink}>
             {icon && <img className={s.linkLogo} src={icon} alt="nav-link icon" />}
-            <span className={page === children && s.active}>{children}</span>
+            <span className={page === children ? s.active: undefined}>{children}</span>
         </div>
     )
 }
-NavLink = connect(state => { return {page: state.page} })(NavLink);
+export const NavLink = connect(state => { return {page: state.page} })(DumbNavLink);
 
 
 export const Logo = () => {

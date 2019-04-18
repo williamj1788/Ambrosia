@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<HamburgerDropdown /> snapshop Test renders <NavLinkContainer /> with correct style hieght when open prop is false 1`] = `
+<NavLinkContainer
+  className="HamburgerDropdown"
+  style={
+    Object {
+      "height": "0",
+      "paddingBottom": "0",
+    }
+  }
+/>
+`;
+
+exports[`<HamburgerDropdown /> snapshop Test renders <NavLinkContainer /> with correct style hieght when open prop is true 1`] = `
+<NavLinkContainer
+  className="HamburgerDropdown"
+  style={
+    Object {
+      "height": "200px",
+    }
+  }
+/>
+`;
+
+exports[`<NavLink /> snapshop Test renders img if icon prop is present 1`] = `
+<div
+  className="navLink"
+>
+  <img
+    alt="nav-link icon"
+    className="linkLogo"
+    src="mock icon"
+  />
+  <span
+    className="active"
+  />
+</div>
+`;
+
+exports[`<NavLink /> snapshop Test renders no img if icon prop is not present 1`] = `
+<div
+  className="navLink"
+>
+  <span
+    className="active"
+  />
+</div>
+`;
+
+exports[`<NavLinkContainer /> snapshop Test renders div with correct classes and inline-styles 1`] = `
+<div
+  className="dummy"
+  style={
+    Object {
+      "color": "blue",
+    }
+  }
+>
+  <ConnectFunction>
+    Home
+  </ConnectFunction>
+  <ConnectFunction>
+    Menu
+  </ConnectFunction>
+  <ConnectFunction>
+    Meet The Chiefs
+  </ConnectFunction>
+  <ConnectFunction
+    icon="CartIcon.png"
+  >
+    Cart
+  </ConnectFunction>
+  <ConnectFunction
+    icon="UserIcon.png"
+  >
+    Sign up
+  </ConnectFunction>
+</div>
+`;
+
+exports[`<Navigation /> Snapshop Tests renders nav with fixed class when fixed prop is true 1`] = `
+<nav
+  className="fixed"
+/>
+`;
+
+exports[`<Navigation /> Snapshop Tests renders nav with no class when fixed prop is false 1`] = `<nav />`;
+
+exports[`<Navigation /> snapshop Test renders div with no transparent background when transparent prop is false 1`] = `
+<div
+  className="navbar"
+  style={Object {}}
+>
+  <div
+    className="container"
+  />
+</div>
+`;
+
+exports[`<Navigation /> snapshop Test renders div with transparent background when transparent prop is true 1`] = `
+<div
+  className="navbar"
+  style={
+    Object {
+      "backgroundColor": "transparent",
+    }
+  }
+>
+  <div
+    className="container"
+  />
+</div>
+`;
