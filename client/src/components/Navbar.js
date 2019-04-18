@@ -3,6 +3,7 @@ import s from '../styles/Navbar.module.scss';
 import logoIcon from '../images/Logo.png';
 import cartIcon from '../images/CartIcon.png';
 import userIcon from '../images/UserIcon.png';
+import HamburgerMenu from 'react-hamburger-menu';
 
 class Navbar extends React.Component{
     
@@ -29,6 +30,7 @@ class Navbar extends React.Component{
         if(currentScrollY > ExtendedTarget && !isExtended){
             this.setState({
                 isExtended: true,
+                isHamburgerDropdownOpen: false,
             })
         }else if(currentScrollY < ExtendedTarget && isExtended){
             this.setState({
@@ -62,11 +64,18 @@ class Navbar extends React.Component{
         const { isExtended, isHamburger,isHamburgerDropdownOpen } = this.state;
         const { page } = this.props;
         return(
-            <nav>
-                <NavContainer transparent={page === 'home' && !isExtended && !isHamburger} isExtended={isExtended} >
+            <nav className={isExtended && s.fixed}>
+                <NavContainer 
+                    transparent={page === 'home' && !isExtended && !isHamburger} 
+                    isExtended={isExtended} 
+                    >
                     <img className={s.logo} src={logoIcon} alt="Logo" />
                     {isHamburger
-                    ? <button onClick={this.toggleHamburgerDropdown}>sdfsd</button>
+                    ? <HamburgerMenu 
+                        isOpen={isHamburgerDropdownOpen}
+                        menuClicked={this.toggleHamburgerDropdown}
+                        color={'#FF7300'}   
+                    />
                     : <NavLinkContainer className={s.linkContainer} />
                     }
                 </NavContainer>
@@ -82,7 +91,7 @@ const NavContainer = ({isExtended, transparent, ...props}) => {
         styles.backgroundColor = 'transparent';
     }
     return (
-        <div className={`${s.navbar} ${isExtended && s.fixed}`} style={styles}>
+        <div className={s.navbar} style={styles}>
             <div className={s.container} >
                 {props.children}
             </div>

@@ -13,6 +13,7 @@ test('navbar is extend when above extended target', () => {
     global.window.scrollY = 401;
     instance.handleScroll();
     expect(component.state().isExtended).toBeTruthy();
+    expect(component.state().isHamburgerDropdownOpen).toBeFalsy();
 })
 
 test('navbar is not extend when below extended target', () => {
@@ -31,4 +32,5 @@ test('navbar does not shows hamburger when below hamburger target', () => {
     global.window.innerWidth = 1101;
     instance.handleResize();
     expect(component.state().isHamburger).toBeFalsy();
+    expect(component.state().isHamburgerDropdownOpen).toBeFalsy();
 })
