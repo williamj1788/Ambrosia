@@ -1,14 +1,21 @@
 import React from 'react';
 import s from '../styles/Navbar.module.scss';
-import logoIcon from '../images/Logo.png';
-import cartIcon from '../images/CartIcon.png';
-import userIcon from '../images/UserIcon.png';
-import HamburgerMenu from 'react-hamburger-menu';
 
-class Navbar extends React.Component{
+import { 
+    Navigation,
+    NavContainer,
+    NavLinkContainer,
+    HamburgerDropdown,
+    Hamburger,
+    Logo,
+ } from './NavComponents';
+
+ import { connect } from 'react-redux';
+
+export class Navbar extends React.Component{
     
     state = {
-        isExtended: false,
+        isFixed: false,
         isHamburger: window.innerWidth < 1000,
         isHamburgerDropdownOpen: false,
     }
@@ -24,17 +31,17 @@ class Navbar extends React.Component{
 
     handleScroll = () => {
         const currentScrollY = window.scrollY;
-        const { isExtended } = this.state;
+        const { isFixed } = this.state;
         const ExtendedTarget = 400;
 
-        if(currentScrollY > ExtendedTarget && !isExtended){
+        if(currentScrollY > ExtendedTarget && !isFixed){
             this.setState({
-                isExtended: true,
+                isFixed: true,
                 isHamburgerDropdownOpen: false,
             })
-        }else if(currentScrollY < ExtendedTarget && isExtended){
+        }else if(currentScrollY < ExtendedTarget && isFixed){
             this.setState({
-                isExtended: false,
+                isFixed: false,
                 isHamburgerDropdownOpen: false,
             })
         }
@@ -60,93 +67,30 @@ class Navbar extends React.Component{
             isHamburgerDropdownOpen: !this.state.isHamburgerDropdownOpen,
         });
     }
-
-    determineContainerContent = () => {
-        const { isHamburger,isHamburgerDropdownOpen } = this.state;
-        const { page } = this.props;
-        if(isHamburger){
-            return (
-                <div style={{cursor: 'pointer'}}>
-                    <HamburgerMenu 
-                        isOpen={isHamburgerDropdownOpen}
-                        menuClicked={this.toggleHamburgerDropdown}
-                        color={'#FF7300'}   
-                    />
-                </div>
-            )
-        }
-        return <NavLinkContainer page={page} className={s.linkContainer} />
-    }
     
     render(){
-        const { isExtended, isHamburger,isHamburgerDropdownOpen } = this.state;
+        const { isFixed, isHamburger,isHamburgerDropdownOpen } = this.state;
         const { page } = this.props;
         return(
-            <nav className={isExtended && s.fixed}>
+            <Navigation fixed={isFixed}>
                 <NavContainer 
-                transparent={page === 'home' && !isExtended && !isHamburger} 
-                isExtended={isExtended} 
+                transparent={page === 'Home' && !isFixed && !isHamburger}
                 >
                     <Logo />
-                    {this.determineContainerContent()}
+                    {isHamburger 
+                    ?<Hamburger 
+                        open={isHamburgerDropdownOpen} 
+                        onClick={this.toggleHamburgerDropdown} 
+                    />
+                    :<NavLinkContainer className={s.linkContainer} />}
                 </NavContainer>
-                {isHamburger && <HamburgerDropdown page={page} open={isHamburgerDropdownOpen} />}
-            </nav>
+                {isHamburger && <HamburgerDropdown open={isHamburgerDropdownOpen} />}
+            </Navigation>
         )
     }
 }
-
-const NavContainer = ({ isExtended, transparent, ...props }) => {
-    let styles = {}
-    if(transparent){
-        styles.backgroundColor = 'transparent';
-    }
-    return (
-        <div className={s.navbar} style={styles}>
-            <div className={s.container} >
-                {props.children}
-            </div>
-        </div>
-    )
-}
-
-const NavLinkContainer = ({ className, page ,style = {} }) => {
-    return(
-        <div className={className} style={style} >
-            <NavLink page={page} >Home</NavLink>
-            <NavLink page={page}>Menu</NavLink>
-            <NavLink page={page}>Meet The Chiefs</NavLink>
-            <NavLink page={page} icon={cartIcon}>Cart</NavLink>
-            <NavLink page={page} icon={userIcon}>Sign up</NavLink>
-        </div>
-    )
-}
-
-const HamburgerDropdown = ({ open, page }) => {
-    let style = {};
-    if(open){
-        style.height = '200px';
-    }else{
-        style.height = '0';
-        style.paddingBottom = '0';
-    }
-    return(
-        <NavLinkContainer page={page} className={s.HamburgerDropdown} style={style} />
-    )
-}
-
-const NavLink = ({ icon, page, children }) => {
-    console.log(page === children);
-    return (
-        <div className={s.navLink}>
-            {icon && <img className={s.linkLogo} src={icon} alt="nav-link icon" />}
-            <span className={page === children && s.active}>{children}</span>
-        </div>
-    )
-}
-
-const Logo = () => {
-    return <img className={s.logo} src={logoIcon} alt="Logo" />
-}
-
-export default Navbar;
+export default connect(state => { 
+    return {
+        page: state.page
+    } 
+})(Navbar);

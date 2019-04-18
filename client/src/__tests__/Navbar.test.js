@@ -1,34 +1,42 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Navbar from '../components/Navbar';
+import { Navbar } from '../components/Navbar';
+import configureStore from 'redux-mock-store';
 
-const component = shallow(<Navbar page={'home'} />);
+const mockStore = configureStore();
+
+const initialState = {
+    page: null
+};
+const store = mockStore(initialState);
+
+const component = shallow(<Navbar />);
 const instance = component.instance();
 
 test('componet renders without crashing', () => {
     expect(component).toBeTruthy();
 })
 
-test('navbar is extend when above extended target', () => {
+test('navbar state is set correctly when above fixed target', () => {
     global.window.scrollY = 401;
     instance.handleScroll();
-    expect(component.state().isExtended).toBeTruthy();
+    expect(component.state().isFixed).toBeTruthy();
     expect(component.state().isHamburgerDropdownOpen).toBeFalsy();
 })
 
-test('navbar is not extend when below extended target', () => {
+test('navbar state is set correctly when below fixed target', () => {
     global.window.scrollY = 399;
     instance.handleScroll();
-    expect(component.state().isExtended).toBeFalsy();
+    expect(component.state().isFixed).toBeFalsy();
 })
 
-test('navbar shows hamburger when above hamburger target', () => {
+test('navbar state is set correctly when above hamburger target', () => {
     global.window.innerWidth = 1099;
     instance.handleResize();
     expect(component.state().isHamburger).toBeTruthy();
 })
 
-test('navbar does not shows hamburger when below hamburger target', () => {
+test('navbar state is set correctly when below hamburger target', () => {
     global.window.innerWidth = 1101;
     instance.handleResize();
     expect(component.state().isHamburger).toBeFalsy();
