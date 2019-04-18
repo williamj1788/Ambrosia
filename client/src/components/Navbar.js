@@ -32,14 +32,14 @@ export class Navbar extends React.Component{
     handleScroll = () => {
         const currentScrollY = window.scrollY;
         const { isFixed } = this.state;
-        const ExtendedTarget = 400;
+        const fixedTarget = 400;
 
-        if(currentScrollY > ExtendedTarget && !isFixed){
+        if(currentScrollY > fixedTarget && !isFixed){
             this.setState({
                 isFixed: true,
                 isHamburgerDropdownOpen: false,
             })
-        }else if(currentScrollY < ExtendedTarget && isFixed){
+        }else if(currentScrollY < fixedTarget && isFixed){
             this.setState({
                 isFixed: false,
                 isHamburgerDropdownOpen: false,

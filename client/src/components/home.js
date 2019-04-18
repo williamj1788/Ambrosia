@@ -14,16 +14,44 @@ class Home extends React.Component{
     render(){
         return(
             <div>
-                <div className={s.hero}>
-                    <div className={s.darken}>
-                        <Navbar />
-                        <p className={s.heroTitle}>Best Pizza in Town</p>
-                        <button className={s.heroButton}>View Menu</button>
+                <Hero />
+                <div>
+                    <h2>About Us</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur</p>
+                    <div>
+                        <div>
+                            <img src="" alt=""/>
+                            <span>Great Pizza</span>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                        </div>
+                        <div>
+                            <img src="" alt=""/>
+                            <span>Great Pizza</span>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                        </div>
+                        <div>
+                            <img src="" alt=""/>
+                            <span>Great Pizza</span>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                        </div>
                     </div>
                 </div>
             </div>
         )
     }
 }
+
+const Hero = () => {
+    return(
+        <div className={s.hero}>
+            <div className={s.darken}>
+                <Navbar />
+                <p className={s.heroTitle}>Best Pizza in Town</p>
+                <button className={s.heroButton}>View Menu</button>
+            </div>
+        </div>
+    )
+}
+
 Home = connect()(Home);
 export default Home;
