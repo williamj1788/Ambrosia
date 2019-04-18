@@ -8,7 +8,7 @@ class Home extends React.Component{
             <div>
                 <div className={s.hero}>
                     <div className={s.darken}>
-                        <Navbar page={'home'} />
+                        <Navbar page={'Home'} />
                         <p className={s.heroTitle}>Best Pizza in Town</p>
                         <button className={s.heroButton}>View Menu</button>
                     </div>

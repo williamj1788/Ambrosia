@@ -35,6 +35,7 @@ class Navbar extends React.Component{
         }else if(currentScrollY < ExtendedTarget && isExtended){
             this.setState({
                 isExtended: false,
+                isHamburgerDropdownOpen: false,
             })
         }
     }
@@ -59,6 +60,23 @@ class Navbar extends React.Component{
             isHamburgerDropdownOpen: !this.state.isHamburgerDropdownOpen,
         });
     }
+
+    determineContainerContent = () => {
+        const { isHamburger,isHamburgerDropdownOpen } = this.state;
+        const { page } = this.props;
+        if(isHamburger){
+            return (
+                <div style={{cursor: 'pointer'}}>
+                    <HamburgerMenu 
+                        isOpen={isHamburgerDropdownOpen}
+                        menuClicked={this.toggleHamburgerDropdown}
+                        color={'#FF7300'}   
+                    />
+                </div>
+            )
+        }
+        return <NavLinkContainer page={page} className={s.linkContainer} />
+    }
     
     render(){
         const { isExtended, isHamburger,isHamburgerDropdownOpen } = this.state;
@@ -66,27 +84,20 @@ class Navbar extends React.Component{
         return(
             <nav className={isExtended && s.fixed}>
                 <NavContainer 
-                    transparent={page === 'home' && !isExtended && !isHamburger} 
-                    isExtended={isExtended} 
-                    >
-                    <img className={s.logo} src={logoIcon} alt="Logo" />
-                    {isHamburger
-                    ? <HamburgerMenu 
-                        isOpen={isHamburgerDropdownOpen}
-                        menuClicked={this.toggleHamburgerDropdown}
-                        color={'#FF7300'}   
-                    />
-                    : <NavLinkContainer className={s.linkContainer} />
-                    }
+                transparent={page === 'home' && !isExtended && !isHamburger} 
+                isExtended={isExtended} 
+                >
+                    <Logo />
+                    {this.determineContainerContent()}
                 </NavContainer>
-                {isHamburger && <HamburgerDropdown open={isHamburgerDropdownOpen} />}
+                {isHamburger && <HamburgerDropdown page={page} open={isHamburgerDropdownOpen} />}
             </nav>
         )
     }
 }
 
-const NavContainer = ({isExtended, transparent, ...props}) => {
-    const styles = {}
+const NavContainer = ({ isExtended, transparent, ...props }) => {
+    let styles = {}
     if(transparent){
         styles.backgroundColor = 'transparent';
     }
@@ -99,20 +110,20 @@ const NavContainer = ({isExtended, transparent, ...props}) => {
     )
 }
 
-const NavLinkContainer = ({ className, style = {} }) => {
+const NavLinkContainer = ({ className, page ,style = {} }) => {
     return(
         <div className={className} style={style} >
-            <NavLink>Home</NavLink>
-            <NavLink>Menu</NavLink>
-            <NavLink>Meet The Chiefs</NavLink>
-            <NavLink icon={cartIcon}>Cart</NavLink>
-            <NavLink icon={userIcon}>Sign up</NavLink>
+            <NavLink page={page} >Home</NavLink>
+            <NavLink page={page}>Menu</NavLink>
+            <NavLink page={page}>Meet The Chiefs</NavLink>
+            <NavLink page={page} icon={cartIcon}>Cart</NavLink>
+            <NavLink page={page} icon={userIcon}>Sign up</NavLink>
         </div>
     )
 }
 
-const HamburgerDropdown = ({ open }) => {
-    const style = {};
+const HamburgerDropdown = ({ open, page }) => {
+    let style = {};
     if(open){
         style.height = '200px';
     }else{
@@ -120,17 +131,22 @@ const HamburgerDropdown = ({ open }) => {
         style.paddingBottom = '0';
     }
     return(
-        <NavLinkContainer className={s.HamburgerDropdown} style={style} />
+        <NavLinkContainer page={page} className={s.HamburgerDropdown} style={style} />
     )
 }
 
-const NavLink = ({icon, ...props}) => {
+const NavLink = ({ icon, page, children }) => {
+    console.log(page === children);
     return (
         <div className={s.navLink}>
             {icon && <img className={s.linkLogo} src={icon} alt="nav-link icon" />}
-            <span>{props.children}</span>
+            <span className={page === children && s.active}>{children}</span>
         </div>
     )
+}
+
+const Logo = () => {
+    return <img className={s.logo} src={logoIcon} alt="Logo" />
 }
 
 export default Navbar;
