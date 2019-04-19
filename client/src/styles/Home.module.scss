@@ -43,8 +43,62 @@
         color: black;
         cursor: pointer;
     }
-
 }
+.about{
+    width: 100%;
+    height: 500px;
+    margin: 25px 0;
+    box-sizing: border-box;
+}
+.aboutTitle{
+    font-family: 'Playball', cursive;
+    font-size: 3rem;
+    font-weight: normal;
+    text-align: center;
+    color: white;
+    margin: 0;
+}
+
+.aboutDesc{
+    color: white;
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+.flexContainer{
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    height: fit-content;
+    margin: 0 auto;
+    box-sizing: border-box;
+    justify-content: space-between;
+}
+
+.AboutUnits{
+    width: 350px;
+    height: 500px;
+}
+.aboutUnitImg{
+    margin: 0 auto;
+    display: block;
+    width: 116px;
+    height: 116px;
+}
+.aboutUnitTitle{
+    display: block;
+    text-align: center;
+    font-weight: 700;
+    color: white;
+    font-size: 1.3rem;
+}
+.aboutUnitDesc{
+    color: white;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+
 
 @media (max-width: 650px){
     .heroTitle{
