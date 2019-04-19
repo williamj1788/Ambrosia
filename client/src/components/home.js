@@ -20,6 +20,37 @@ class Home extends React.Component{
             <div>
                 <Hero />
                 <About />
+                <div>
+                    <h3>Hot Deals</h3>
+                    <div>
+                        <div>
+                            <img src="" alt=""/>
+                            <div>
+                                <span>Pizza Title</span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                                <div>
+                                    <span><s>10.99</s></span>
+                                    <span>7.99</span>
+                                    <button>Place Order</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <img src="" alt=""/>
+                            <div>
+                                <span>Pizza Title</span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                                <div>
+                                    <span><s>10.99</s></span>
+                                    <span>7.99</span>
+                                    <button>Place Order</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }
