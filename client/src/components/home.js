@@ -44,16 +44,8 @@ const About = () => {
             <p className={s.aboutDesc} >Lorem ipsum dolor sit amet, consectetur</p>
             <div className={s.flexContainer} >
                 <PizzaUnit />
-                <div className={s.AboutUnits}>
-                    <img className={s.aboutUnitImg} src={MoneyIcon} alt="Prices Icon"/>
-                    <span className={s.aboutUnitTitle}>Low Prices</span>
-                    <p className={s.aboutUnitDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-                </div>
-                <div className={s.AboutUnits}>
-                    <img className={s.aboutUnitImg} src={TruckIcon} alt="Service Icon"/>
-                    <span className={s.aboutUnitTitle}>Fast Service</span>
-                    <p className={s.aboutUnitDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-                </div>
+                <PriceUnit />
+                <ServiceUnit />
             </div>
         </section>
     )
@@ -64,6 +56,26 @@ const PizzaUnit = () => {
         <div className={s.AboutUnits}>
             <img className={s.aboutUnitImg} src={PizzaIcon} alt="Pizza Icon"/>
             <span className={s.aboutUnitTitle} >Great Pizza</span>
+            <p className={s.aboutUnitDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+        </div>
+    )
+}
+
+const PriceUnit = () => {
+    return(
+        <div className={s.AboutUnits}>
+            <img className={s.aboutUnitImg} src={MoneyIcon} alt="Prices Icon"/>
+            <span className={s.aboutUnitTitle}>Low Prices</span>
+            <p className={s.aboutUnitDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+        </div>
+    )
+}
+
+const ServiceUnit = () => {
+    return(
+        <div className={s.AboutUnits}>
+            <img className={s.aboutUnitImg} src={TruckIcon} alt="Service Icon"/>
+            <span className={s.aboutUnitTitle}>Fast Service</span>
             <p className={s.aboutUnitDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
         </div>
     )
