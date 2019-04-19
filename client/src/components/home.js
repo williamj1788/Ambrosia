@@ -43,23 +43,29 @@ const About = () => {
             <h2 className={s.aboutTitle}>About Us</h2>
             <p className={s.aboutDesc} >Lorem ipsum dolor sit amet, consectetur</p>
             <div className={s.flexContainer} >
+                <PizzaUnit />
                 <div className={s.AboutUnits}>
-                    <img className={s.aboutUnitImg} src={PizzaIcon} alt="Pizza Icon"/>
-                    <span className={s.aboutUnitTitle} >Great Pizza</span>
-                    <p className={s.aboutUnitDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-                </div>
-                <div className={s.AboutUnits}>
-                    <img className={s.aboutUnitImg} src={MoneyIcon} alt="Pizza Icon"/>
+                    <img className={s.aboutUnitImg} src={MoneyIcon} alt="Prices Icon"/>
                     <span className={s.aboutUnitTitle}>Low Prices</span>
                     <p className={s.aboutUnitDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
                 </div>
                 <div className={s.AboutUnits}>
-                    <img className={s.aboutUnitImg} src={TruckIcon} alt="Pizza Icon"/>
+                    <img className={s.aboutUnitImg} src={TruckIcon} alt="Service Icon"/>
                     <span className={s.aboutUnitTitle}>Fast Service</span>
                     <p className={s.aboutUnitDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
                 </div>
             </div>
         </section>
+    )
+}
+
+const PizzaUnit = () => {
+    return(
+        <div className={s.AboutUnits}>
+            <img className={s.aboutUnitImg} src={PizzaIcon} alt="Pizza Icon"/>
+            <span className={s.aboutUnitTitle} >Great Pizza</span>
+            <p className={s.aboutUnitDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+        </div>
     )
 }
 
