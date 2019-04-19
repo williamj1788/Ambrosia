@@ -40,43 +40,43 @@ const Hero = () => {
 const About = () => {
     return(
         <section className={s.about}>
-            <h2 className={s.aboutTitle}>About Us</h2>
-            <p className={s.aboutDesc} >Lorem ipsum dolor sit amet, consectetur</p>
+            <AboutTitle />
             <div className={s.flexContainer} >
-                <PizzaUnit />
-                <PriceUnit />
-                <ServiceUnit />
+                <Unit 
+                img={PizzaIcon}
+                title={'Great Pizza'}
+                desc={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '}
+                />
+                <Unit 
+                img={MoneyIcon}
+                title={'Low Prices'}
+                desc={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '}
+                />
+                <Unit 
+                img={TruckIcon}
+                title={'Fast Service'}
+                desc={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '}
+                />
             </div>
         </section>
     )
 }
 
-const PizzaUnit = () => {
+const AboutTitle = () => {
     return(
-        <div className={s.AboutUnits}>
-            <img className={s.aboutUnitImg} src={PizzaIcon} alt="Pizza Icon"/>
-            <span className={s.aboutUnitTitle} >Great Pizza</span>
-            <p className={s.aboutUnitDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+        <div>
+            <h2 className={s.aboutTitle}>About Us</h2>
+            <p className={s.aboutDesc} >Lorem ipsum dolor sit amet, consectetur</p> 
         </div>
     )
 }
 
-const PriceUnit = () => {
+const Unit = ({ img, title, desc }) => {
     return(
         <div className={s.AboutUnits}>
-            <img className={s.aboutUnitImg} src={MoneyIcon} alt="Prices Icon"/>
-            <span className={s.aboutUnitTitle}>Low Prices</span>
-            <p className={s.aboutUnitDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-        </div>
-    )
-}
-
-const ServiceUnit = () => {
-    return(
-        <div className={s.AboutUnits}>
-            <img className={s.aboutUnitImg} src={TruckIcon} alt="Service Icon"/>
-            <span className={s.aboutUnitTitle}>Fast Service</span>
-            <p className={s.aboutUnitDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+            <img className={s.aboutUnitImg} src={img} alt="Pizza Icon"/>
+            <span className={s.aboutUnitTitle} >{title}</span>
+            <p className={s.aboutUnitDesc}>{desc}</p>
         </div>
     )
 }
