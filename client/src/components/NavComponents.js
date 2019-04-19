@@ -55,7 +55,8 @@ export const HamburgerDropdown = ({ open }) => {
     )
 }
 
-export let DumbNavLink = ({ icon, page, children }) => {
+// Export dumb component for testing
+export const DumbNavLink = ({ icon, page, children }) => {
     return (
         <div className={s.navLink}>
             {icon && <img className={s.linkLogo} src={icon} alt="nav-link icon" />}
