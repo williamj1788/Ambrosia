@@ -46,7 +46,7 @@
 }
 .about{
     width: 100%;
-    height: 500px;
+    height: fit-content;
     margin: 45px 0;
     box-sizing: border-box;
 }
@@ -70,14 +70,14 @@
     width: 100%;
     max-width: 1200px;
     height: fit-content;
-    margin: 0 auto;
+    margin: 70px auto 0 auto;
     box-sizing: border-box;
     justify-content: space-between;
 }
 
 .AboutUnits{
     width: 350px;
-    height: 500px;
+    height: fit-content;
 }
 .aboutUnitImg{
     margin: 0 auto;
@@ -100,10 +100,95 @@
     margin: 10px 0;
 }
 
+.hotDeals{
+    background-color: $light-orange;
+    width: 100%;
+    height: fit-content;
+    padding: 10px 0;
+}
+
+.hotDealsTitle{
+    font-family: 'Playball', cursive;
+    font-size: 3rem;
+    font-weight: normal;
+    text-align: center;
+    margin: 0;
+}
+.dealsContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    height: fit-content;
+    margin: 0 auto;
+}
+
+.deal{
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    height: fit-content;
+    margin: 20px 0;
+}
+
+.dealImg{
+    width: 136px;
+    height: 136px;
+}
+.dealInfo{
+    width: 400px;
+    height: fit-content;
+    margin-left: 10px;
+}
+.dealTitle{
+    display: block;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+.dealDesc{
+    margin: 10px 0;
+    font-weight: normal;
+    font-size: 1.2rem;
+}
+.dealPriceContainer{
+    display: flex;
+    width: fit-content;
+}
+.dealPrice{
+    display: block;
+    color: white;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin: 0 5px;
+}
+.dealButton{
+    width: fit-content;
+    height: 30px;
+    background-color: $blue;
+    color: white;
+    font-weight: bold;
+    border: 1px solid $dark-orange;
+    border-radius: 3px;
+    margin: 0 5px;
+    transition: 0.5s;
+    &:hover{
+        background: blue;
+        color: white;
+        cursor: pointer;
+    }
+}
 
 
 @media (max-width: 650px){
     .heroTitle{
         font-size: 3rem;
+    }
+}
+@media (max-width: 1110px){
+    .dealsContainer{
+        display: block;
+        width: fit-content;
+        margin: 0 auto;
     }
 }
