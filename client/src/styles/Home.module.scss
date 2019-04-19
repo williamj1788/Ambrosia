@@ -13,7 +13,9 @@
     background-color: rgba(0, 0, 0, 0.3);
 }
 .heroTitle{
-    width: fit-content;
+    width: 100%;
+    max-width: fit-content;
+    text-align: center;
     font-family: 'Playball', cursive;
     font-size: 5.5rem;
     margin: 0;
@@ -76,7 +78,8 @@
 }
 
 .AboutUnits{
-    width: 350px;
+    width: 100%;
+    max-width: 350px;
     height: fit-content;
 }
 .aboutUnitImg{
@@ -137,7 +140,8 @@
     height: 136px;
 }
 .dealInfo{
-    width: 400px;
+    max-width: 400px;
+    width: 100%;
     height: fit-content;
     margin-left: 10px;
 }
@@ -190,5 +194,39 @@
         display: block;
         width: fit-content;
         margin: 0 auto;
+    }
+    .flexContainer{
+        flex-direction: column;
+        width: fit-content;
+    }
+    .AboutUnits{
+        margin: 10px 0;
+    }
+}
+
+@media (max-width: 400px){
+    .deal{
+        flex-direction: column;
+        margin: 35px 0;
+    }
+    .dealTitle{
+        text-align: center;
+    }
+    .dealInfo{
+        margin: 0;
+    }
+    .dealDesc{
+        text-align: center;
+    }
+    .dealPriceContainer{
+        flex-direction: column;
+        margin: 0 auto;
+    }
+    .dealPrice{
+        text-align: center;
+        margin: 5px 0;
+    }
+    .dealButton{
+        margin: 5px 0;
     }
 }
