@@ -9,6 +9,7 @@ import { setPage } from '../redux/action';
 import PizzaIcon from '../images/Pizza_icon_white.png';
 import MoneyIcon from '../images/Money_icon.png';
 import TruckIcon from '../images/truck_icon.png';
+import ArrowDown from '../images/arrow-down.png';
 
 class Home extends React.Component{
     componentWillMount(){
@@ -33,6 +34,7 @@ const Hero = () => {
                 <Navbar />
                 <p className={s.heroTitle}>Best Pizza in Town</p>
                 <button className={s.heroButton}>View Menu</button>
+                <img className={s.heroArrow} src={ArrowDown} alt="ArrowDown Icon"/>
             </div>
         </section>
     )
