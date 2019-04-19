@@ -82,7 +82,7 @@
 .aboutUnitImg{
     margin: 0 auto;
     display: block;
-    width: 116px;
+    width: auto;
     height: 116px;
 }
 .aboutUnitTitle{
@@ -91,11 +91,13 @@
     font-weight: 700;
     color: white;
     font-size: 1.3rem;
+    margin: 10px 0;
 }
 .aboutUnitDesc{
     color: white;
     text-align: center;
     font-size: 1.1rem;
+    margin: 10px 0;
 }
 
 

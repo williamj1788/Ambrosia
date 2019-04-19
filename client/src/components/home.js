@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import { setPage } from '../redux/action';
 
 import PizzaIcon from '../images/Pizza_icon_white.png';
+import MoneyIcon from '../images/Money_icon.png';
+import TruckIcon from '../images/truck_icon.png';
 
 class Home extends React.Component{
     componentWillMount(){
@@ -47,13 +49,13 @@ const About = () => {
                     <p className={s.aboutUnitDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
                 </div>
                 <div className={s.AboutUnits}>
-                    <img className={s.aboutUnitImg} src={PizzaIcon} alt="Pizza Icon"/>
-                    <span className={s.aboutUnitTitle}>Great Pizza</span>
+                    <img className={s.aboutUnitImg} src={MoneyIcon} alt="Pizza Icon"/>
+                    <span className={s.aboutUnitTitle}>Low Prices</span>
                     <p className={s.aboutUnitDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
                 </div>
                 <div className={s.AboutUnits}>
-                    <img className={s.aboutUnitImg} src={PizzaIcon} alt="Pizza Icon"/>
-                    <span className={s.aboutUnitTitle}>Great Pizza</span>
+                    <img className={s.aboutUnitImg} src={TruckIcon} alt="Pizza Icon"/>
+                    <span className={s.aboutUnitTitle}>Fast Service</span>
                     <p className={s.aboutUnitDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
                 </div>
             </div>
