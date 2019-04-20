@@ -32,8 +32,8 @@
 .review{
     display: flex;
     // max-width: 400px;
-    width: 500px;
-    margin: 0 180px;
+    width: 600px;
+    margin: 0 130px;
     height: 100%;
 }
 .reviewImg{
@@ -52,7 +52,7 @@
 }
 .reviewStar{
     width: auto;
-    height: 30px;
+    height: 20px;
     margin: 0 5px;
 }
 
@@ -60,4 +60,22 @@
     color: white;
     font-size: 1.2rem;
     margin: 10px 0;
+}
+.selection{
+    width: 200px;
+    margin: 20px auto 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+.sectionButton{
+    background-image: url(../images/dot.png);
+    background-size: cover;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+.active{
+    background-image: url(../images/selected-dot.png);
 }

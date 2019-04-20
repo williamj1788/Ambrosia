@@ -5,42 +5,54 @@ import starFull from '../images/star-full.png';
 
 class ReviewSection extends React.Component{
     state = {
-        offset: 0,
+        selected: 0,
+        numOfReviews: 5, // based on number of reviews in <ReviewContainer />
     }
     componentWillMount(){
-        setTimeout(() => {
-            this.setState({
-                offset: this.state.offset + 500,
-            });
+        setInterval(() => {
+            const { selected, numOfReviews } = this.state;
+            if(selected > numOfReviews - 2){
+                this.setSelected(0);
+            }else{
+                this.setSelected(selected + 1);
+            }
         }, 3000);
     }
 
+    setSelected =  (index) => {
+        this.setState({
+            selected: index,
+        });
+    }
+
     render(){
+        const { selected, numOfReviews } = this.state;
         return(
             <section className={s.reviewSection}>
                 <h3 className={s.Title}>Reviews</h3>
                 <div className={s.slideShow}>
-                    <ReviewContainer offset={this.state.offset} />
-                    <Selection />
+                    <ReviewContainer selected={selected}>
+                        <Review />
+                        <Review />
+                        <Review />
+                        <Review />
+                        <Review />
+                    </ReviewContainer>
+                    <Selection selected={selected} numOfReviews={numOfReviews} />
                 </div>
             </section>
         )
     }
 }
 
-const ReviewContainer = ({ offset }) => {
-    
+const ReviewContainer = ({ selected, children }) => {
     let style = {
-        right: `${offset}px`
+        right: `${selected * 860}px`
     };
     return(
         <div className={s.view}>
             <div className={s.container} style={style}>
-                <Review />
-                <Review />
-                <Review />
-                <Review />
-                <Review />
+                {children}
             </div>  
         </div>
         
@@ -65,14 +77,14 @@ const Review = () => {
     )
 }
 
-const Selection = () => {
+const Selection = ({ selected, numOfReviews }) => {
+    let buttons = [];
+    for(let i = 0; i < numOfReviews; i++){
+        buttons.push(<button key={i} className={`${s.sectionButton} ${selected === i ? s.active: undefined}`}></button>);
+    };
     return(
-        <div>
-            {/* <img src={starFull} alt="Star"/>
-            <img src={starFull} alt="Star"/>
-            <img src={starFull} alt="Star"/>
-            <img src={starFull} alt="Star"/>
-            <img src={starFull} alt="Star"/> */}
+        <div className={s.selection}>
+            {buttons}
         </div>
     )
 }
