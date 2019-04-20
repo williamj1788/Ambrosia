@@ -38,7 +38,11 @@ class ReviewSection extends React.Component{
                         <Review />
                         <Review />
                     </ReviewContainer>
-                    <Selection selected={selected} numOfReviews={numOfReviews} />
+                    <Selection 
+                    selected={selected} 
+                    numOfReviews={numOfReviews} 
+                    setSelected={this.setSelected} 
+                    />
                 </div>
             </section>
         )
@@ -77,10 +81,16 @@ const Review = () => {
     )
 }
 
-const Selection = ({ selected, numOfReviews }) => {
+const Selection = ({ selected, numOfReviews, setSelected }) => {
     let buttons = [];
     for(let i = 0; i < numOfReviews; i++){
-        buttons.push(<button key={i} className={`${s.sectionButton} ${selected === i ? s.active: undefined}`}></button>);
+        buttons.push(
+            <button 
+            key={i}
+            onClick={() => setSelected(i)} 
+            className={`${s.sectionButton} ${selected === i ? s.active: undefined}`}
+            />
+        );
     };
     return(
         <div className={s.selection}>
