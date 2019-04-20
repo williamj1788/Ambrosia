@@ -2,6 +2,7 @@ import React from 'react';
 import s from '../styles/ReviewSection.module.scss';
 import Person from '../images/Person.jpg';
 import starFull from '../images/star-full.png';
+import starEmpty from '../images/star.png';
 
 class ReviewSection extends React.Component{
     state = {
@@ -16,7 +17,7 @@ class ReviewSection extends React.Component{
             }else{
                 this.setSelected(selected + 1);
             }
-        }, 3000);
+        }, 6000);
     }
 
     setSelected =  (index) => {
@@ -32,11 +33,31 @@ class ReviewSection extends React.Component{
                 <h3 className={s.Title}>Reviews</h3>
                 <div className={s.slideShow}>
                     <ReviewContainer selected={selected}>
-                        <Review />
-                        <Review />
-                        <Review />
-                        <Review />
-                        <Review />
+                        <Review 
+                        img={Person}
+                        rating={5}
+                        desc={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer bibendum'}
+                        />
+                        <Review 
+                        img={Person}
+                        rating={4}
+                        desc={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer bibendum'}
+                        />
+                        <Review 
+                        img={Person}
+                        rating={4}
+                        desc={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer bibendum'}
+                        />
+                        <Review 
+                        img={Person}
+                        rating={5}
+                        desc={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer bibendum'}
+                        />
+                        <Review 
+                        img={Person}
+                        rating={5}
+                        desc={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer bibendum'}
+                        />
                     </ReviewContainer>
                     <Selection 
                     selected={selected} 
@@ -63,19 +84,28 @@ const ReviewContainer = ({ selected, children }) => {
     )
 }
 
-const Review = () => {
+const Review = ({ img, rating, desc }) => {
+    const stars = [];
+    if(rating < 1){
+        rating = 1;
+    }else if (rating > 5){
+        rating = 5;
+    }
+    for(let i = 0; i < 5; i++){
+        if(i < rating){
+            stars.push(<img key={i} className={s.reviewStar} src={starFull} alt="Star"/>)
+        }else{
+            stars.push(<img key={i} className={s.reviewStar} src={starEmpty} alt="Star"/>)
+        }
+    };
     return(
         <div className={s.review}>
-            <img className={s.reviewImg} src={Person} alt="Person Image" />
+            <img className={s.reviewImg} src={img} alt="Person Image" />
             <div className={s.reviewInfo}>
                 <div className={s.reviewStarsContainer}>
-                    <img className={s.reviewStar} src={starFull} alt="Star"/>
-                    <img className={s.reviewStar} src={starFull} alt="Star"/>
-                    <img className={s.reviewStar} src={starFull} alt="Star"/>
-                    <img className={s.reviewStar} src={starFull} alt="Star"/>
-                    <img className={s.reviewStar} src={starFull} alt="Star"/>
+                    {stars}
                 </div>
-                <p className={s.reviewDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer bibendum  </p>
+                <p className={s.reviewDesc}>{desc}</p>
             </div>
         </div>
     )
