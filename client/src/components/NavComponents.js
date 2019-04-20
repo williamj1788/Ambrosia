@@ -17,7 +17,7 @@ export const Navigation = ({ fixed, children }) => {
 }
 
 export const NavContainer = ({ transparent, children }) => {
-    let styles = {}
+    let styles = {};
     if(transparent){
         styles.backgroundColor = 'transparent';
     }
