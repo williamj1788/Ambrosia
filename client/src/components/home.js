@@ -22,6 +22,7 @@ class Home extends React.Component{
                 <Hero />
                 <About />
                 <HotDeals />
+                <ReviewSection />
             </div>
         )
     }
@@ -127,6 +128,49 @@ const Deal = () => {
         </div>
     )
 }
+
+const ReviewSection = () => {
+    return(
+        <section className={s.review}>
+            <h3 className={s.reviewTitle}>Reviews</h3>
+            <div>
+                <ReviewContainer />
+                <div>
+                    
+                </div>
+            </div>
+        </section>
+    )
+}
+
+const ReviewContainer = () => {
+    return(
+        <div>
+            <Review />
+            <Review />
+            <Review />
+        </div>
+    )
+}
+
+const Review = () => {
+    return(
+        <div>
+            <img src="" alt=""/>
+            <div>
+                <div>
+                    <img src="" alt=""/>
+                    <img src="" alt=""/>
+                    <img src="" alt=""/>
+                    <img src="" alt=""/>
+                    <img src="" alt=""/>
+                </div>
+                <p></p>
+            </div>
+        </div>
+    )
+}
+
 
 Home = connect()(Home);
 export default Home;
