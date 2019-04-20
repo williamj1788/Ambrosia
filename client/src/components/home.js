@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from './Navbar';
+import ReviewSection from './ReviewSection';
 import s from '../styles/Home.module.scss';
 
 import { connect } from 'react-redux';
@@ -10,6 +11,7 @@ import PizzaIcon from '../images/Pizza_icon_white.png';
 import MoneyIcon from '../images/Money_icon.png';
 import TruckIcon from '../images/truck_icon.png';
 import ArrowDown from '../images/arrow-down.png';
+
 
 class Home extends React.Component{
     componentWillMount(){
@@ -124,48 +126,6 @@ const Deal = () => {
                     <span className={s.dealPrice}>7.99</span>
                     <button className={s.dealButton}>Place Order</button>
                 </div>
-            </div>
-        </div>
-    )
-}
-
-const ReviewSection = () => {
-    return(
-        <section className={s.review}>
-            <h3 className={s.reviewTitle}>Reviews</h3>
-            <div>
-                <ReviewContainer />
-                <div>
-                    
-                </div>
-            </div>
-        </section>
-    )
-}
-
-const ReviewContainer = () => {
-    return(
-        <div>
-            <Review />
-            <Review />
-            <Review />
-        </div>
-    )
-}
-
-const Review = () => {
-    return(
-        <div>
-            <img src="" alt=""/>
-            <div>
-                <div>
-                    <img src="" alt=""/>
-                    <img src="" alt=""/>
-                    <img src="" alt=""/>
-                    <img src="" alt=""/>
-                    <img src="" alt=""/>
-                </div>
-                <p></p>
             </div>
         </div>
     )
