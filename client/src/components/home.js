@@ -13,7 +13,7 @@ import TruckIcon from '../images/truck_icon.png';
 import ArrowDown from '../images/arrow-down.png';
 
 
-class Home extends React.Component{
+export class Home extends React.Component{
     componentWillMount(){
         this.props.dispatch(setPage('Home'));
     }
@@ -77,7 +77,7 @@ const AboutTitle = () => {
     )
 }
 
-const Unit = ({ img, title, desc }) => {
+export const Unit = ({ img, title, desc }) => {
     return(
         <div className={s.AboutUnits}>
             <img className={s.aboutUnitImg} src={img} alt="Icon"/>
@@ -132,5 +132,4 @@ const Deal = () => {
 }
 
 
-Home = connect()(Home);
-export default Home;
+export default connect()(Home);

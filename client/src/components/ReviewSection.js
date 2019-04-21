@@ -17,7 +17,7 @@ class ReviewSection extends React.Component{
             }else{
                 this.setSelected(selected + 1);
             }
-        }, 6000);
+        }, 4000);
     }
 
     setSelected =  (index) => {
@@ -71,8 +71,14 @@ class ReviewSection extends React.Component{
 }
 
 const ReviewContainer = ({ selected, children }) => {
+    const { innerWidth } = window;
+    const viewWidth = 800; //based on .view width property
+    let margin = (innerWidth - viewWidth) / 2;
+    if(margin < 0){
+        margin = 0;
+    }
     let style = {
-        right: `${selected * 860}px`
+        right: `${(selected * innerWidth) + margin}px`
     };
     return(
         <div className={s.view}>
@@ -85,12 +91,12 @@ const ReviewContainer = ({ selected, children }) => {
 }
 
 const Review = ({ img, rating, desc }) => {
-    const stars = [];
     if(rating < 1){
         rating = 1;
     }else if (rating > 5){
         rating = 5;
     }
+    const stars = [];
     for(let i = 0; i < 5; i++){
         if(i < rating){
             stars.push(<img key={i} className={s.reviewStar} src={starFull} alt="Star"/>)
@@ -100,12 +106,14 @@ const Review = ({ img, rating, desc }) => {
     };
     return(
         <div className={s.review}>
-            <img className={s.reviewImg} src={img} alt="Person Image" />
-            <div className={s.reviewInfo}>
-                <div className={s.reviewStarsContainer}>
-                    {stars}
+            <div className={s.reviewContain}>
+                <img className={s.reviewImg} src={img} alt="Person Image" />
+                <div className={s.reviewInfo}>
+                    <div className={s.reviewStarsContainer}>
+                        {stars}
+                    </div>
+                    <p className={s.reviewDesc}>{desc}</p>
                 </div>
-                <p className={s.reviewDesc}>{desc}</p>
             </div>
         </div>
     )

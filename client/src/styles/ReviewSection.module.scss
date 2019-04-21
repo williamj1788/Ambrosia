@@ -17,7 +17,8 @@
     margin-top: 20px;
 }
 .view{
-    width: 800px;
+    width: 100%;
+    max-width: 800px;
     height: 100%;
     margin: 0 auto;
     overflow: hidden;
@@ -26,16 +27,23 @@
     display: flex;
     width: fit-content;
     position: relative;
+    // right: 500px;
     transition: 1s;
 }
 
 .review{
     display: flex;
-    // max-width: 400px;
-    width: 100%;
-    max-width: 600px;
-    margin: 0 130px;
+    box-sizing: border-box;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    // width: 100%;
+    // max-width: 600px;
+    // margin: 0 130px;
     height: 100%;
+}
+.reviewContain{
+    display: flex;
 }
 .reviewImg{
     width: 100px;
@@ -79,4 +87,13 @@
 }
 .active{
     background-image: url(../images/selected-dot.png);
+}
+
+@media(max-width: 425px){
+    // .review{
+    //     margin: 0 20px;
+    // }
+    // .reviewInfo{
+    //     width: 150px;
+    // }
 }

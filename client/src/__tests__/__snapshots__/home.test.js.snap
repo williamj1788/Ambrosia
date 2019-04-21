@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render an img, span with title, and desc 1`] = `
+<div
+  className="AboutUnits"
+>
+  <img
+    alt="Icon"
+    className="aboutUnitImg"
+    src="mock img"
+  />
+  <span
+    className="aboutUnitTitle"
+  >
+    mock title
+  </span>
+  <p
+    className="aboutUnitDesc"
+  >
+    mock desc
+  </p>
+</div>
+`;
