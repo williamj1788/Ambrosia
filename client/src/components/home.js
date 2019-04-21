@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './Navbar';
 import ReviewSection from './ReviewSection';
+import Footer from './Footer';
 import s from '../styles/Home.module.scss';
 
 import { connect } from 'react-redux';
@@ -25,6 +26,7 @@ export class Home extends React.Component{
                 <About />
                 <HotDeals />
                 <ReviewSection />
+                <Footer />
             </div>
         )
     }
