@@ -27,6 +27,7 @@ export class Home extends React.Component{
                 <HotDeals />
                 <ReviewSection />
                 <Footer />
+                <Copyright />
             </div>
         )
     }
@@ -133,5 +134,12 @@ const Deal = () => {
     )
 }
 
+const Copyright = () => {
+    return(
+        <div className={s.copyright}>
+            <p className={s.copyrightText}>Copyright ©2019 All rights reserved</p>
+        </div>
+    )
+}
 
 export default connect()(Home);

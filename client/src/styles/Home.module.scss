@@ -200,6 +200,18 @@
     }
 }
 
+.copyright{
+    background-color: rgb(32, 32, 32);
+    width: 100%;
+    padding: 10px 0;
+}
+.copyrightText{
+    margin: 0;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
 @keyframes Up-Down{
     0%{
         transform: translateY(0px)
