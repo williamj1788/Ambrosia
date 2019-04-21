@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Selection component test should render correct buttons 1`] = `
+<div
+  className="selection"
+>
+  <button
+    className="sectionButton active"
+    key="0"
+    onClick={[Function]}
+  />
+  <button
+    className="sectionButton undefined"
+    key="1"
+    onClick={[Function]}
+  />
+  <button
+    className="sectionButton undefined"
+    key="2"
+    onClick={[Function]}
+  />
+  <button
+    className="sectionButton undefined"
+    key="3"
+    onClick={[Function]}
+  />
+  <button
+    className="sectionButton undefined"
+    key="4"
+    onClick={[Function]}
+  />
+</div>
+`;
