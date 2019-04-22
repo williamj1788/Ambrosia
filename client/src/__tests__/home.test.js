@@ -7,6 +7,9 @@ import { SET_PAGE } from '../redux/actionTypes';
 test('<Home /> should call dispatch with correct action on mount', () => {
     const props = {
         dispatch: jest.fn(),
+        match: {
+            path: '/'
+        }
     }
     
     const component = shallow(<Home {...props} />);
@@ -16,7 +19,7 @@ test('<Home /> should call dispatch with correct action on mount', () => {
 
     const expectedAction = {
         type: SET_PAGE,
-        payload: 'Home'
+        payload: '/'
     }
 
     expect(props.dispatch).toBeCalledWith(expectedAction);

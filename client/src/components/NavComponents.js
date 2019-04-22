@@ -7,6 +7,7 @@ import userIcon from '../images/UserIcon.png';
 import HamburgerMenu from 'react-hamburger-menu';
 
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 export const Navigation = ({ fixed, children }) => {
     return(
@@ -33,11 +34,11 @@ export const NavContainer = ({ transparent, children }) => {
 export const NavLinkContainer = ({ className, style = {} }) => {
     return(
         <div className={className} style={style} >
-            <NavLink>Home</NavLink>
-            <NavLink>Menu</NavLink>
-            <NavLink>Meet The Chiefs</NavLink>
+            <NavLink to='/'>Home</NavLink>
+            <NavLink to='/menu'>Menu</NavLink>
+            <NavLink to='/meet' >Meet The Chiefs</NavLink>
             <NavLink icon={cartIcon}>Cart</NavLink>
-            <NavLink icon={userIcon}>Sign up</NavLink>
+            <NavLink to='/signup' icon={userIcon}>Sign up</NavLink>
         </div>
     )
 }
@@ -56,13 +57,31 @@ export const HamburgerDropdown = ({ open }) => {
 }
 
 // Export dumb component for testing
-export const DumbNavLink = ({ icon, page, children }) => {
-    return (
-        <div className={s.navLink}>
-            {icon && <img className={s.linkLogo} src={icon} alt="nav-link icon" />}
-            <span className={page === children ? s.active: undefined}>{children}</span>
-        </div>
-    )
+
+export class DumbNavLink extends React.Component{
+    state = {
+        redirect: false,
+    }
+    
+    handleClick = () => {
+        const { page, to } = this.props;
+        if(to && page !== to){
+            this.setState({redirect: true});
+        }
+    }
+
+    render(){
+        const { icon, page, children, to } = this.props;
+        if(this.state.redirect){
+            return <Redirect push to={to} />
+        }
+        return(
+            <div className={s.navLink} onClick={this.handleClick}>
+                {icon && <img className={s.linkLogo} src={icon} alt="nav-link icon" />}
+                <span className={page === to ? s.active: undefined}>{children}</span>
+            </div>
+        )
+    }
 }
 export const NavLink = connect(state => { return {page: state.page} })(DumbNavLink);
 

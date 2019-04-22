@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 
 import Home from './components/home';
+import Menu from './components/Menu';
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
             <div>
                 <Switch>
                     <Route exact path="/" component={Home} />
+                    <Route path="/menu" component={Menu} />
                 </Switch>
             </div>
         </Router>

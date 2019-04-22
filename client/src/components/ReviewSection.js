@@ -44,7 +44,7 @@ export class ReviewSection extends React.Component{
                         <Review 
                         img={Person}
                         rating={4}
-                        desc={'I really enjoy their dedication to there customers, and they always provide me with excellent service'}
+                        desc={'I really enjoy their dedication to their customers, and they always provide me with excellent service'}
                         />
                         <Review 
                         img={Person}
@@ -54,7 +54,7 @@ export class ReviewSection extends React.Component{
                         <Review 
                         img={Person}
                         rating={5}
-                        desc={'Best pizzeria you will ever go to. I go there all the time!'}
+                        desc={'Best pizzeria there is. I go there all the time!'}
                         />
                         <Review 
                         img={Person}

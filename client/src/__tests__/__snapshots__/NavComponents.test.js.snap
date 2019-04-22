@@ -57,13 +57,19 @@ exports[`<NavLinkContainer /> snapshop Test renders div with correct classes and
     }
   }
 >
-  <ConnectFunction>
+  <ConnectFunction
+    to="/"
+  >
     Home
   </ConnectFunction>
-  <ConnectFunction>
+  <ConnectFunction
+    to="/menu"
+  >
     Menu
   </ConnectFunction>
-  <ConnectFunction>
+  <ConnectFunction
+    to="/meet"
+  >
     Meet The Chiefs
   </ConnectFunction>
   <ConnectFunction
@@ -73,6 +79,7 @@ exports[`<NavLinkContainer /> snapshop Test renders div with correct classes and
   </ConnectFunction>
   <ConnectFunction
     icon="UserIcon.png"
+    to="/login"
   >
     Sign up
   </ConnectFunction>

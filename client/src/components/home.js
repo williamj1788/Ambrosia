@@ -19,7 +19,7 @@ import ArrowDown from '../images/arrow-down.png';
 
 export class Home extends React.Component{
     componentWillMount(){
-        this.props.dispatch(setPage('Home'));
+        this.props.dispatch(setPage(this.props.match.path));
     }
     
     render(){
