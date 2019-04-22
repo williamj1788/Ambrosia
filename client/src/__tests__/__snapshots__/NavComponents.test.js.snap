@@ -26,6 +26,7 @@ exports[`<HamburgerDropdown /> snapshop Test renders <NavLinkContainer /> with c
 exports[`<NavLink /> snapshop Test renders img if icon prop is present 1`] = `
 <div
   className="navLink"
+  onClick={[Function]}
 >
   <img
     alt="nav-link icon"
@@ -41,6 +42,7 @@ exports[`<NavLink /> snapshop Test renders img if icon prop is present 1`] = `
 exports[`<NavLink /> snapshop Test renders no img if icon prop is not present 1`] = `
 <div
   className="navLink"
+  onClick={[Function]}
 >
   <span
     className="active"
@@ -79,7 +81,7 @@ exports[`<NavLinkContainer /> snapshop Test renders div with correct classes and
   </ConnectFunction>
   <ConnectFunction
     icon="UserIcon.png"
-    to="/login"
+    to="/signup"
   >
     Sign up
   </ConnectFunction>

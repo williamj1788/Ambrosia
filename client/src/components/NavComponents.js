@@ -57,7 +57,6 @@ export const HamburgerDropdown = ({ open }) => {
 }
 
 // Export dumb component for testing
-
 export class DumbNavLink extends React.Component{
     state = {
         redirect: false,
@@ -72,9 +71,8 @@ export class DumbNavLink extends React.Component{
 
     render(){
         const { icon, page, children, to } = this.props;
-        if(this.state.redirect){
-            return <Redirect push to={to} />
-        }
+
+        if(this.state.redirect){ return <Redirect push to={to} />}
         return(
             <div className={s.navLink} onClick={this.handleClick}>
                 {icon && <img className={s.linkLogo} src={icon} alt="nav-link icon" />}
@@ -92,12 +90,12 @@ export const Logo = () => {
 
 export const Hamburger = ({open, onClick}) => {
     return(
-    <div style={{cursor: 'pointer'}}>
-        <HamburgerMenu 
-            isOpen={open}
-            menuClicked={onClick}
-            color={'#FF7300'}   
-        />
-    </div>
+        <div style={{cursor: 'pointer'}}>
+            <HamburgerMenu 
+                isOpen={open}
+                menuClicked={onClick}
+                color={'#FF7300'}   
+            />
+        </div>
     )
 }
