@@ -11,7 +11,7 @@ export class ReviewSection extends React.Component{
     }
 
     componentWillMount(){
-        setInterval(this.incrementSelected, 4000);
+        setInterval(this.incrementSelected, 6000);
     }
 
     incrementSelected = () => {
@@ -39,27 +39,27 @@ export class ReviewSection extends React.Component{
                         <Review 
                         img={Person}
                         rating={5}
-                        desc={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer bibendum'}
+                        desc={"You can't ask for better pizza, worth every penny"}
                         />
                         <Review 
                         img={Person}
                         rating={4}
-                        desc={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer bibendum'}
+                        desc={'I really enjoy their dedication to there customers, and they always provide me with excellent service'}
                         />
                         <Review 
                         img={Person}
                         rating={4}
-                        desc={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer bibendum'}
+                        desc={'Quality pizza delivered in a timing manner. What more can I ask for?'}
                         />
                         <Review 
                         img={Person}
                         rating={5}
-                        desc={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer bibendum'}
+                        desc={'Best pizzeria you will ever go to. I go there all the time!'}
                         />
                         <Review 
                         img={Person}
                         rating={5}
-                        desc={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer bibendum'}
+                        desc={"Pizza is amazing! From now on, I'm only ordering from here."}
                         />
                     </ReviewContainer>
                     <Selection 

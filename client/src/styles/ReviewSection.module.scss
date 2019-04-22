@@ -11,7 +11,6 @@
     margin: 0;
 }
 .slideShow{
-    // max-width: 1000px;
     height: 100%;
     width: 100%;
     margin-top: 20px;
@@ -27,7 +26,6 @@
     display: flex;
     width: fit-content;
     position: relative;
-    // right: 500px;
     transition: 1s;
 }
 
@@ -37,9 +35,6 @@
     width: 100vw;
     display: flex;
     justify-content: center;
-    // width: 100%;
-    // max-width: 600px;
-    // margin: 0 130px;
     height: 100%;
 }
 .reviewContain{
@@ -89,11 +84,20 @@
     background-image: url(../images/selected-dot.png);
 }
 
-@media(max-width: 425px){
-    // .review{
-    //     margin: 0 20px;
-    // }
-    // .reviewInfo{
-    //     width: 150px;
-    // }
+@media (min-width: 1981px){
+    .reviewContain{
+        align-items: center;
+    }
+    .reviewInfo{
+        max-width: 600px;
+    }
+    .reviewImg{
+        width: 150px;
+        height: 150px;
+    }
+    
+    .reviewStar{
+        height: 40px;
+        margin: 0 5px;
+    }
 }

@@ -73,7 +73,6 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    // max-width: fit-content;
 }
 .contactSectionIcon{
     width: 35px;
@@ -97,6 +96,28 @@
     font-size: 1.3rem;
     font-weight: 500;
     width: 100%;
+}
+
+@media (min-width: 1981px){
+    .container{
+        max-width: 1800px;
+    }
+    .hours{
+        width: fit-content;
+        margin: 0 auto;
+    }
+    .hoursTitle{
+        width: 350px;
+    }
+    .opening{
+        max-width: 800px;
+    }
+    .contact{
+        max-width: 700px;
+    }
+    .contactSection{
+        align-items: center;
+    }
 }
 
 @media(max-width: 960px){

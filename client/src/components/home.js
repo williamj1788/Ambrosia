@@ -57,17 +57,17 @@ const About = () => {
                 <Unit 
                 img={PizzaIcon}
                 title={'Great Pizza'}
-                desc={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '}
+                desc={'We go through multiple checks of each ingredient to ensure that our pizza is top quality'}
                 />
                 <Unit 
                 img={MoneyIcon}
                 title={'Low Prices'}
-                desc={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '}
+                desc={'We work with our local farmers to provide affordable and quality ingredients and pass the savings to our customers'}
                 />
                 <Unit 
                 img={TruckIcon}
                 title={'Fast Service'}
-                desc={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '}
+                desc={'With active drivers that are always on standby, we guarantee a delivery in under 30 mins or the order is free'}
                 />
             </div>
         </section>
@@ -78,7 +78,7 @@ const AboutTitle = () => {
     return(
         <div>
             <h2 className={s.aboutTitle}>About Us</h2>
-            <p className={s.aboutDesc} >Lorem ipsum dolor sit amet, consectetur</p> 
+            <p className={s.aboutDesc}>We are committed to providing our customers with excellent service that makes us deserving of being the best pizzeria in town</p> 
         </div>
     )
 }

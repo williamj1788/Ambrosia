@@ -12,11 +12,11 @@ describe('ReviewSection component test' , () => {
     const component = shallow(<ReviewSection />);
     const instance = component.instance();
 
-    test('incrementSelected should be called every 4s when <ReviewSection /> mounts', () => {
+    test('incrementSelected should be called every 6s when <ReviewSection /> mounts', () => {
         jest.useFakeTimers();
         jest.spyOn(instance, 'incrementSelected');
         instance.componentWillMount();
-        expect(setInterval).toHaveBeenCalledWith(instance.incrementSelected, 4000);
+        expect(setInterval).toHaveBeenCalledWith(instance.incrementSelected, 6000);
     });
     
     test('setInterval should be called once when <ReviewSection /> mounts', () => {

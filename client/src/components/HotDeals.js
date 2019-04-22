@@ -1,5 +1,5 @@
 import React from 'react';
-import s from '../styles/Home.module.scss';
+import s from '../styles/HotDeals.module.scss';
 import PizzaIcon from '../images/Pizza_icon_white.png';
 
 class HotDeals extends React.Component{
