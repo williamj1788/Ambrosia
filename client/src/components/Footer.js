@@ -16,7 +16,7 @@ const Footer = () => {
     )
 }
 
-const Opening = () => {
+export const Opening = () => {
     return(
         <div className={s.opening}>
             <h4 className={s.title}>Opening Hours</h4>
@@ -29,7 +29,7 @@ const Opening = () => {
     )
 }
 
-const HoursSection = ({ date, time }) => {
+export const HoursSection = ({ date, time }) => {
     return(
         <div className={s.hoursSection}>
             <p className={s.hoursTitle}>{date}</p>
@@ -38,7 +38,7 @@ const HoursSection = ({ date, time }) => {
     )
 }
 
-const Contact = () => {
+export const Contact = () => {
     return(
         <div className={s.contact}>
             <h4 className={s.title}>Contact Us</h4>
@@ -54,16 +54,16 @@ const Contact = () => {
     )
 }
 
-const LinkIcon = ({ href, className }) => {
+export const LinkIcon = ({ href, className }) => {
     return(
         <a href={href} target='_blank' rel="noopener noreferrer" className={`${s.contactSocialIcon} ${className}`} ></a>
     )
 }
 
-const ContactSection = ({ img, text }) => {
+export const ContactSection = ({ img, text }) => {
     return(
         <div className={s.contactSection}>
-            <img className={s.contactSectionIcon} src={img} alt="Email Icon"/>
+            <img className={s.contactSectionIcon} src={img} alt="Icon"/>
             <p className={s.contactSectionText}>{text}</p>
         </div>
     )
