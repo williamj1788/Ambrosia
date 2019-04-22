@@ -1,5 +1,10 @@
 import React from 'react';
+
 import Navbar from './Navbar';
+import ReviewSection from './ReviewSection';
+import Footer from './Footer';
+import HotDeals from './HotDeals';
+
 import s from '../styles/Home.module.scss';
 
 import { connect } from 'react-redux';
@@ -9,8 +14,10 @@ import { setPage } from '../redux/action';
 import PizzaIcon from '../images/Pizza_icon_white.png';
 import MoneyIcon from '../images/Money_icon.png';
 import TruckIcon from '../images/truck_icon.png';
+import ArrowDown from '../images/arrow-down.png';
 
-class Home extends React.Component{
+
+export class Home extends React.Component{
     componentWillMount(){
         this.props.dispatch(setPage('Home'));
     }
@@ -21,6 +28,9 @@ class Home extends React.Component{
                 <Hero />
                 <About />
                 <HotDeals />
+                <ReviewSection />
+                <Footer />
+                <Copyright />
             </div>
         )
     }
@@ -33,6 +43,7 @@ const Hero = () => {
                 <Navbar />
                 <p className={s.heroTitle}>Best Pizza in Town</p>
                 <button className={s.heroButton}>View Menu</button>
+                <img className={s.heroArrow} src={ArrowDown} alt="ArrowDown Icon"/>
             </div>
         </section>
     )
@@ -46,17 +57,17 @@ const About = () => {
                 <Unit 
                 img={PizzaIcon}
                 title={'Great Pizza'}
-                desc={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '}
+                desc={'We go through multiple checks of each ingredient to ensure that our pizza is top quality'}
                 />
                 <Unit 
                 img={MoneyIcon}
                 title={'Low Prices'}
-                desc={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '}
+                desc={'We work with our local farmers to provide affordable and quality ingredients and pass the savings to our customers'}
                 />
                 <Unit 
                 img={TruckIcon}
                 title={'Fast Service'}
-                desc={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '}
+                desc={'With active drivers that are always on standby, we guarantee a delivery in under 30 mins or the order is free'}
                 />
             </div>
         </section>
@@ -67,12 +78,12 @@ const AboutTitle = () => {
     return(
         <div>
             <h2 className={s.aboutTitle}>About Us</h2>
-            <p className={s.aboutDesc} >Lorem ipsum dolor sit amet, consectetur</p> 
+            <p className={s.aboutDesc}>We are committed to providing our customers with excellent service that makes us deserving of being the best pizzeria in town</p> 
         </div>
     )
 }
 
-const Unit = ({ img, title, desc }) => {
+export const Unit = ({ img, title, desc }) => {
     return(
         <div className={s.AboutUnits}>
             <img className={s.aboutUnitImg} src={img} alt="Icon"/>
@@ -82,49 +93,12 @@ const Unit = ({ img, title, desc }) => {
     )
 }
 
-const HotDeals = () => {
+const Copyright = () => {
     return(
-        <section className={s.hotDeals}>
-            <h3 className={s.hotDealsTitle}>Hot Deals</h3>
-            <DealContainer />
-        </section>
-    )
-}
-
-const DealContainer = () => {
-    return(
-        <div className={s.dealsContainer}>
-            <Deal />
-            <Deal />
-            <Deal />
-            <Deal />
-            <Deal />
-            <Deal />
-            <Deal />
-            <Deal />
-            <Deal />
-            <Deal />
+        <div className={s.copyright}>
+            <p className={s.copyrightText}>Copyright ©2019 All rights reserved</p>
         </div>
     )
 }
 
-const Deal = () => {
-    return(
-        <div className={s.deal}>
-            <img className={s.dealImg} src={PizzaIcon} alt=""/>
-            <div className={s.dealInfo}>
-                <span className={s.dealTitle}>Pizza Title</span>
-                <p className={s.dealDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-                <div className={s.dealPriceContainer}>
-                    <span className={s.dealPrice}><s>10.99</s></span>
-                    <span className={s.dealPrice}>7.99</span>
-                    <button className={s.dealButton}>Place Order</button>
-                </div>
-            </div>
-        </div>
-    )
-}
-
-Home = connect()(Home);
-export default Home;
+export default connect()(Home);

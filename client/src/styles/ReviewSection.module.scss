@@ -1,0 +1,103 @@
+.reviewSection{
+    width: 100%;
+    margin: 75px 0;
+}
+.Title{
+    font-size: 3rem;
+    color: white;
+    font-family: 'Playball', cursive;
+    font-weight: normal;
+    text-align: center;
+    margin: 0;
+}
+.slideShow{
+    height: 100%;
+    width: 100%;
+    margin-top: 20px;
+}
+.view{
+    width: 100%;
+    max-width: 800px;
+    height: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.container{
+    display: flex;
+    width: fit-content;
+    position: relative;
+    transition: 1s;
+}
+
+.review{
+    display: flex;
+    box-sizing: border-box;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+}
+.reviewContain{
+    display: flex;
+}
+.reviewImg{
+    width: 100px;
+    height: 100px;
+}
+
+.reviewInfo{
+    margin-left: 15px;
+    width: 100%;
+    max-width: 475px;
+}
+.reviewStarsContainer{
+    display: flex;
+    width: 100%;
+}
+.reviewStar{
+    width: auto;
+    height: 20px;
+    margin: 0 5px;
+}
+
+.reviewDesc{
+    color: white;
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+.selection{
+    width: 200px;
+    margin: 20px auto 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+.sectionButton{
+    background-image: url(../images/dot.png);
+    background-size: cover;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+.active{
+    background-image: url(../images/selected-dot.png);
+}
+
+@media (min-width: 1981px){
+    .reviewContain{
+        align-items: center;
+    }
+    .reviewInfo{
+        max-width: 600px;
+    }
+    .reviewImg{
+        width: 150px;
+        height: 150px;
+    }
+    
+    .reviewStar{
+        height: 40px;
+        margin: 0 5px;
+    }
+}

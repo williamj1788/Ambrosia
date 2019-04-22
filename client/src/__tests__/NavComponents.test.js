@@ -9,6 +9,7 @@ import {
  } from '../components/NavComponents';
 import toJson from 'enzyme-to-json';
 
+
 describe('<Navigation /> Snapshop Tests',() => {
     test('renders nav with fixed class when fixed prop is true', () => {
         const component = shallow(<Navigation fixed={true} />);

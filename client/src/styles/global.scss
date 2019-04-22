@@ -3,10 +3,20 @@
 $light-orange: #FFB300;
 $dark-orange: #FF7300;
 $blue: #0033ff;
-body{
+
+html{
     font-family: 'Raleway', sans-serif;
     font-size: 16px;
-    height: 3000px;
+}
+body{
+    min-height: 100vh;
+    height: 100%;
     background-image: url('../images/wallpaper.jpg');
     background-attachment: fixed;
+}
+
+@media (min-width: 1981px){
+    html{
+        font-size: 27px;
+    }
 }

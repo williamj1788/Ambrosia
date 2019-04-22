@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ContactSection /> should render correct image and text  1`] = `
+<ContactSection
+  img="mock img"
+  text="mock text"
+>
+  <div
+    className="contactSection"
+  >
+    <img
+      alt="Icon"
+      className="contactSectionIcon"
+      src="mock img"
+    />
+    <p
+      className="contactSectionText"
+    >
+      mock text
+    </p>
+  </div>
+</ContactSection>
+`;
+
+exports[`<HoursSection /> should render correct date and time 1`] = `
+<HoursSection
+  date="mock date"
+  time="mock time"
+>
+  <div
+    className="hoursSection"
+  >
+    <p
+      className="hoursTitle"
+    >
+      mock date
+    </p>
+    <p
+      className="hoursText"
+    >
+      mock time
+    </p>
+  </div>
+</HoursSection>
+`;
+
+exports[`<LinkIcon /> should render an achor with correct class and href 1`] = `
+<LinkIcon
+  className="mock classname"
+  href="mock href"
+>
+  <a
+    className="contactSocialIcon mock classname"
+    href="mock href"
+    rel="noopener noreferrer"
+    target="_blank"
+  />
+</LinkIcon>
+`;

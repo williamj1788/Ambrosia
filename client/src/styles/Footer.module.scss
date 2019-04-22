@@ -1,0 +1,153 @@
+@import '../styles/global.scss';
+.footer{
+    width: 100%;
+    height: fit-content;
+    padding: 20px 0;
+    background-color: $light-orange;
+}
+
+.container{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+// Open Hours Section
+.opening{
+    display: block;
+    box-sizing: content-box;
+    width: 100%;
+    max-width: 400px;
+    height: fit-content;
+}
+.title{
+    font-size: 3rem;
+    font-family: 'Playball', cursive;
+    font-weight: normal;
+    text-align: center;
+    margin: 0;
+}
+.hours{
+    width: 100%;
+}
+.hoursSection{
+    display: flex;
+    width: fit-content;
+    margin: 20px 0;
+}
+.hoursTitle{
+    margin: 0;
+    width: 200px;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+.hoursText{
+    margin: 0;
+    font-weight: 500;
+    font-size: 1.3rem;
+}
+
+// Contanct Section
+.contact{
+    width: 100%;
+    max-width: 500px;
+}
+
+.contactSocialIconContainer{
+    display: flex;
+    margin: 10px auto;
+    justify-content: space-between;
+    width: 250px;
+}
+
+.contactSocialIcon{
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+}
+
+.contactSection{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.contactSectionIcon{
+    width: 35px;
+    height: 35px;
+}
+.facebookIcon{
+    background: url(../images/Facebook-Icon.png);
+    background-size: cover;
+}
+.twitterIcon{
+    background-image: url(../images/twitter_icon.png);
+    background-size: cover;
+}
+.instagramIcon{
+    background-image: url(../images/instagram.png);
+    background-size: cover;
+}
+
+.contactSectionText{
+    margin: 0 0 0 30px;
+    font-size: 1.3rem;
+    font-weight: 500;
+    width: 100%;
+}
+
+@media (min-width: 1981px){
+    .container{
+        max-width: 1800px;
+    }
+    .hours{
+        width: fit-content;
+        margin: 0 auto;
+    }
+    .hoursTitle{
+        width: 350px;
+    }
+    .opening{
+        max-width: 800px;
+    }
+    .contact{
+        max-width: 700px;
+    }
+    .contactSection{
+        align-items: center;
+    }
+}
+
+@media(max-width: 960px){
+    .container{
+        flex-direction: column;
+        max-width: fit-content;
+    }
+    .opening{
+        margin: 0 auto;
+    }
+    .contact{
+        margin-top: 30px;
+    }
+}
+
+@media(max-width: 400px){
+    .hoursSection{
+        margin: 0 auto;
+        flex-direction: column;
+    }
+    .contactSectionText{
+        font-size: 1rem;
+    }
+    .hoursText{
+        margin: 0 auto;
+    }
+    .hoursTitle{
+        width: fit-content;
+        font-weight: bold;
+        font-size: 1.3rem;
+        margin: 15px auto;
+    }
+}
