@@ -1,3 +1,4 @@
+@import '../styles/global.scss';
 
 .content{
     position: absolute;
@@ -12,4 +13,20 @@
     text-align: center;
     color: white;
     margin: 50px 0 0 0;
+}
+
+.tabContainer{
+    display: flex;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.tab{
+    width: 175px;
+    height: 55px;
+    background: transparent;
+    border: 2px solid $light-orange;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
 }

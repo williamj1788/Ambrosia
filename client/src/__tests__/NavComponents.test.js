@@ -60,7 +60,7 @@ describe('<HamburgerDropdown /> snapshop Test', () => {
     });
 });
 
-describe('<NavLinkWrapper /> snapshop Test', () => {
+describe('<NavLinkWrapper /> Test', () => {
     test('renders img if icon prop is present', () => {
         const component = shallow(<NavLinkWrapper icon={'mock icon'} />); 
         expect(component.find('img')).toHaveLength(1); 

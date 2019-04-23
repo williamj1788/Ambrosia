@@ -6,8 +6,7 @@ import userIcon from '../images/UserIcon.png';
 
 import HamburgerMenu from 'react-hamburger-menu';
 
-import { connect } from 'react-redux';
-import { Redirect, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export const Navigation = ({ fixed, children }) => {
     return(

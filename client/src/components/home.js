@@ -9,8 +9,6 @@ import s from '../styles/Home.module.scss';
 
 import { connect } from 'react-redux';
 
-import { setPage } from '../redux/action';
-
 import PizzaIcon from '../images/Pizza_icon_white.png';
 import MoneyIcon from '../images/Money_icon.png';
 import TruckIcon from '../images/truck_icon.png';
@@ -18,9 +16,6 @@ import ArrowDown from '../images/arrow-down.png';
 
 
 export class Home extends React.Component{
-    componentWillMount(){
-        this.props.dispatch(setPage(this.props.match.path));
-    }
     
     render(){
         return(
