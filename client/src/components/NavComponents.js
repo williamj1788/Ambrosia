@@ -56,7 +56,7 @@ export const HamburgerDropdown = ({ open }) => {
     )
 }
 
-const NavLinkWrapper = ({ to, icon, children }) => {
+export const NavLinkWrapper = ({ to, icon, children }) => {
     return(
         <div className={s.navLink}>
             {icon && <img className={s.linkLogo} src={icon} alt="nav-link icon" />}

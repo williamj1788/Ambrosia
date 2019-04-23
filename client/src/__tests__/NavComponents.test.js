@@ -5,7 +5,7 @@ import {
     NavContainer,
     NavLinkContainer,
     HamburgerDropdown,
-    DumbNavLink,
+    NavLinkWrapper,
  } from '../components/NavComponents';
 import toJson from 'enzyme-to-json';
 import { Redirect } from 'react-router-dom';
@@ -60,37 +60,19 @@ describe('<HamburgerDropdown /> snapshop Test', () => {
     });
 });
 
-describe('<NavLink /> snapshop Test', () => {
+describe('<NavLinkWrapper /> snapshop Test', () => {
     test('renders img if icon prop is present', () => {
-        const component = shallow(<DumbNavLink icon={'mock icon'} />); 
-        expect(toJson(component)).toMatchSnapshot(); 
+        const component = shallow(<NavLinkWrapper icon={'mock icon'} />); 
+        expect(component.find('img')).toHaveLength(1); 
     });
 
     test('renders no img if icon prop is not present', () => {
-        const component = shallow(<DumbNavLink />); 
-        expect(toJson(component)).toMatchSnapshot(); 
-    });
-});
-
-describe('<NavLink /> functional Test', () => {
-    test('handleClick should set state redirect to true if to is a different page', () => {
-        const component = shallow(<DumbNavLink to='/' page='/menu' />);
-        const instance = component.instance();
-        instance.handleClick();
-        expect(component.state().redirect).toEqual(true); 
+        const component = shallow(<NavLinkWrapper />); 
+        expect(component.find('img')).toHaveLength(0); 
     });
 
-    test('handleClick should not set state redirect to true if to is the same page', () => {
-        const component = shallow(<DumbNavLink to='/' page='/' />);
-        const instance = component.instance();
-        instance.handleClick();
-        expect(component.state().redirect).toEqual(false); 
-    });
-
-    test('<NavLink /> should redirect to different page when redirect state is true', () => {
-        const component = shallow(<DumbNavLink to='/' page='/menu' />);
-        const instance = component.instance();
-        instance.handleClick();
-        expect(instance.render()).toEqual(<Redirect push to='/' />); 
+    test('renders span with correct style if TO prop is not present', () => {
+        const component = shallow(<NavLinkWrapper />); 
+        expect(component.find('span').prop('style')).toHaveProperty('cursor', 'pointer');
     });
 });

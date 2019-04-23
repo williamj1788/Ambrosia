@@ -23,33 +23,6 @@ exports[`<HamburgerDropdown /> snapshop Test renders <NavLinkContainer /> with c
 />
 `;
 
-exports[`<NavLink /> snapshop Test renders img if icon prop is present 1`] = `
-<div
-  className="navLink"
-  onClick={[Function]}
->
-  <img
-    alt="nav-link icon"
-    className="linkLogo"
-    src="mock icon"
-  />
-  <span
-    className="active"
-  />
-</div>
-`;
-
-exports[`<NavLink /> snapshop Test renders no img if icon prop is not present 1`] = `
-<div
-  className="navLink"
-  onClick={[Function]}
->
-  <span
-    className="active"
-  />
-</div>
-`;
-
 exports[`<NavLinkContainer /> snapshop Test renders div with correct classes and inline-styles 1`] = `
 <div
   className="dummy"
@@ -59,32 +32,32 @@ exports[`<NavLinkContainer /> snapshop Test renders div with correct classes and
     }
   }
 >
-  <ConnectFunction
+  <NavLinkWrapper
     to="/"
   >
     Home
-  </ConnectFunction>
-  <ConnectFunction
-    to="/menu"
+  </NavLinkWrapper>
+  <NavLinkWrapper
+    to="/menu/pizza"
   >
     Menu
-  </ConnectFunction>
-  <ConnectFunction
+  </NavLinkWrapper>
+  <NavLinkWrapper
     to="/meet"
   >
     Meet The Chiefs
-  </ConnectFunction>
-  <ConnectFunction
+  </NavLinkWrapper>
+  <NavLinkWrapper
     icon="CartIcon.png"
   >
     Cart
-  </ConnectFunction>
-  <ConnectFunction
+  </NavLinkWrapper>
+  <NavLinkWrapper
     icon="UserIcon.png"
     to="/signup"
   >
     Sign up
-  </ConnectFunction>
+  </NavLinkWrapper>
 </div>
 `;
 
