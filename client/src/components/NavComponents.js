@@ -33,8 +33,8 @@ export const NavContainer = ({ transparent, children }) => {
 export const NavLinkContainer = ({ className, style = {} }) => {
     return(
         <div className={className} style={style} >
-            <NavLinkWrapper to='/' >Home</NavLinkWrapper>
-            <NavLinkWrapper to='/menu/pizza'>Menu</NavLinkWrapper>
+            <NavLinkWrapper exact to='/' >Home</NavLinkWrapper>
+            <NavLinkWrapper strict to='/menu'>Menu</NavLinkWrapper>
             <NavLinkWrapper to='/meet' >Meet The Chiefs</NavLinkWrapper>
             <NavLinkWrapper icon={cartIcon}>Cart</NavLinkWrapper>
             <NavLinkWrapper to='/signup' icon={userIcon}>Sign up</NavLinkWrapper>
@@ -55,12 +55,27 @@ export const HamburgerDropdown = ({ open }) => {
     )
 }
 
-export const NavLinkWrapper = ({ to, icon, children }) => {
+function isMatch(match, location) {
+    console.log(match);
+}
+
+export const NavLinkWrapper = ({ to, icon, exact, strict, children }) => {
+    let props = {
+        to,
+        activeClassName: s.active,
+    }
+    if(exact){
+        props.exact = true;
+    }
+    if(strict){
+        props.strict = true
+    }
+
     return(
         <div className={s.navLink}>
             {icon && <img className={s.linkLogo} src={icon} alt="nav-link icon" />}
             {to 
-            ?<NavLink exact strict to={to} activeClassName={s.active}>{children}</NavLink>
+            ?<NavLink {...props}>{children}</NavLink>
             :<span style={{cursor: 'pointer'}}>{children}</span>
             }
         </div>

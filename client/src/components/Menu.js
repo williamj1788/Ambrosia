@@ -17,15 +17,20 @@ export class Menu extends React.Component{
             productTarget,
         });
     }
-    
-    render(){
-        const { redirect, productTarget } = this.state;
-        if(redirect){ 
-            // set state back to default or else you get a infinite redirect loop
+
+    componentDidUpdate(){
+        // set state back to default or else you get a infinite redirect loop
+        if(this.state.redirect){
             this.setState({
                 redirect: false,
                 productTarget: null,
             });
+        }
+    }
+    
+    render(){
+        const { redirect, productTarget } = this.state;
+        if(redirect){ 
             return <Redirect to={`/menu/${productTarget}`} /> 
         }
         return(

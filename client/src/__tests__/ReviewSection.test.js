@@ -15,14 +15,14 @@ describe('ReviewSection component test' , () => {
     test('incrementSelected should be called every 6s when <ReviewSection /> mounts', () => {
         jest.useFakeTimers();
         jest.spyOn(instance, 'incrementSelected');
-        instance.componentWillMount();
+        instance.componentDidMount();
         expect(setInterval).toHaveBeenCalledWith(instance.incrementSelected, 6000);
     });
     
     test('setInterval should be called once when <ReviewSection /> mounts', () => {
         jest.useFakeTimers();
         jest.spyOn(instance, 'incrementSelected');
-        instance.componentWillMount();
+        instance.componentDidMount();
         expect(setInterval).toHaveBeenCalledTimes(1);
     });
     

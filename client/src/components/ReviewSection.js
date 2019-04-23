@@ -10,7 +10,7 @@ export class ReviewSection extends React.Component{
         numOfReviews: 5, // based on number of reviews in <ReviewContainer />
     }
 
-    componentWillMount(){
+    componentDidMount(){
         setInterval(this.incrementSelected, 6000);
     }
 
