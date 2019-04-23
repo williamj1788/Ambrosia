@@ -1,12 +1,25 @@
 import React from 'react';
+import Navbar from './Navbar';
+import { connect } from 'react-redux';
+import { setPage } from '../redux/action';
+import s from '../styles/Menu.module.scss';
 
-class Menu extends React.Component{
+export class Menu extends React.Component{
+    
+    componentWillMount(){
+        this.props.dispatch(setPage(this.props.match.path));
+    }
+    
     render(){
-        console.log(this.props);
         return(
-            <div>sdfsf</div>
+            <div>
+                <Navbar />
+                <div className={s.content}>
+                    <h1 className={s.title}>Menu</h1>
+                </div>
+            </div>
         )
     }
 }
 
-export default Menu;
+export default connect()(Menu);

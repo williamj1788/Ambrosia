@@ -7,7 +7,7 @@ import userIcon from '../images/UserIcon.png';
 import HamburgerMenu from 'react-hamburger-menu';
 
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, NavLink } from 'react-router-dom';
 
 export const Navigation = ({ fixed, children }) => {
     return(
@@ -34,11 +34,11 @@ export const NavContainer = ({ transparent, children }) => {
 export const NavLinkContainer = ({ className, style = {} }) => {
     return(
         <div className={className} style={style} >
-            <NavLink to='/'>Home</NavLink>
-            <NavLink to='/menu'>Menu</NavLink>
-            <NavLink to='/meet' >Meet The Chiefs</NavLink>
-            <NavLink icon={cartIcon}>Cart</NavLink>
-            <NavLink to='/signup' icon={userIcon}>Sign up</NavLink>
+            <NavLinkWrapper to='/' >Home</NavLinkWrapper>
+            <NavLinkWrapper to='/menu/pizza'>Menu</NavLinkWrapper>
+            <NavLinkWrapper to='/meet' >Meet The Chiefs</NavLinkWrapper>
+            <NavLinkWrapper icon={cartIcon}>Cart</NavLinkWrapper>
+            <NavLinkWrapper to='/signup' icon={userIcon}>Sign up</NavLinkWrapper>
         </div>
     )
 }
@@ -56,32 +56,17 @@ export const HamburgerDropdown = ({ open }) => {
     )
 }
 
-// Export dumb component for testing
-export class DumbNavLink extends React.Component{
-    state = {
-        redirect: false,
-    }
-    
-    handleClick = () => {
-        const { page, to } = this.props;
-        if(to && page !== to){
-            this.setState({redirect: true});
-        }
-    }
-
-    render(){
-        const { icon, page, children, to } = this.props;
-
-        if(this.state.redirect){ return <Redirect push to={to} />}
-        return(
-            <div className={s.navLink} onClick={this.handleClick}>
-                {icon && <img className={s.linkLogo} src={icon} alt="nav-link icon" />}
-                <span className={page === to ? s.active: undefined}>{children}</span>
-            </div>
-        )
-    }
+const NavLinkWrapper = ({ to, icon, children }) => {
+    return(
+        <div className={s.navLink}>
+            {icon && <img className={s.linkLogo} src={icon} alt="nav-link icon" />}
+            {to 
+            ?<NavLink exact strict to={to} activeClassName={s.active}>{children}</NavLink>
+            :<span style={{cursor: 'pointer'}}>{children}</span>
+            }
+        </div>
+    )
 }
-export const NavLink = connect(state => { return {page: state.page} })(DumbNavLink);
 
 
 export const Logo = () => {
