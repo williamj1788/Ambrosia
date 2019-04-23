@@ -25,8 +25,16 @@
     width: 175px;
     height: 55px;
     background: transparent;
-    border: 2px solid $light-orange;
+    border: 1px solid $light-orange;
     font-size: 2rem;
     color: white;
     cursor: pointer;
+    transition: 500ms;
+    &:hover{
+        background: $light-orange;
+    }
+    &.active{
+        background: $light-orange;
+        cursor: default;
+    }
 }

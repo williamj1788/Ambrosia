@@ -20,14 +20,20 @@ export class Menu extends React.Component{
     
     render(){
         const { redirect, productTarget } = this.state;
-        if(redirect){ return <Redirect to={productTarget} /> }
-
+        if(redirect){ 
+            // set state back to default or else you get a infinite redirect loop
+            this.setState({
+                redirect: false,
+                productTarget: null,
+            });
+            return <Redirect to={`/menu/${productTarget}`} /> 
+        }
         return(
             <div>
                 <Navbar />
                 <div className={s.content}>
                     <h1 className={s.title}>Menu</h1>
-                    <TabContainer>
+                    <TabContainer redirect={this.redirectToProduct} productPage={this.props.match.params.product} >
                         <Tab product='pizza'>Pizza</Tab>
                         <Tab product='pasta'>Pasta</Tab>
                         <Tab product='bread'>Bread</Tab>
@@ -47,8 +53,8 @@ const TabContainer = ({ redirect, productPage, children }) => {
             productPage,
 
         });
-    }); 
-    
+    });
+
     return(
         <div className={s.tabContainer}>
             {children}
@@ -58,7 +64,7 @@ const TabContainer = ({ redirect, productPage, children }) => {
 
 const Tab = ({ productPage, redirect, product, children }) => {
     return(
-        <button onClick={productPage !== product ? redirect : undefined} className={`${s.tab} ${productPage !== product ? s.active : ''}`}>{children}</button>
+        <button onClick={productPage !== product ? () =>{ redirect(product) } : undefined} className={`${s.tab} ${productPage === product ? s.active : ''}`}>{children}</button>
     )
 } 
 
