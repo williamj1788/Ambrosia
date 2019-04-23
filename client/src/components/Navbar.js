@@ -10,8 +10,6 @@ import {
     Logo,
  } from './NavComponents';
 
- import { connect } from 'react-redux';
-
 export class Navbar extends React.Component{
     
     state = {
@@ -89,8 +87,4 @@ export class Navbar extends React.Component{
         )
     }
 }
-export default connect(state => { 
-    return {
-        page: state.page
-    } 
-})(Navbar);
+export default Navbar;

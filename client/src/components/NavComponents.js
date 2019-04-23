@@ -55,10 +55,6 @@ export const HamburgerDropdown = ({ open }) => {
     )
 }
 
-function isMatch(match, location) {
-    console.log(match);
-}
-
 export const NavLinkWrapper = ({ to, icon, exact, strict, children }) => {
     let props = {
         to,

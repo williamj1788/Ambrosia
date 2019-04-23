@@ -51,15 +51,14 @@ export class Menu extends React.Component{
     }
 }
 
-const TabContainer = ({ redirect, productPage, children }) => {
-    children = React.Children.map(children, child => {
-        return React.cloneElement(child, {
-            redirect,
-            productPage,
-
-        });
+function giveChildrenProps(children, props) {
+    return React.Children.map(children, child => {
+        return React.cloneElement(child, props);
     });
+}
 
+const TabContainer = ({ redirect, productPage, children }) => {
+    children = giveChildrenProps(children, { redirect, productPage });
     return(
         <div className={s.tabContainer}>
             {children}

@@ -33,12 +33,14 @@ exports[`<NavLinkContainer /> snapshop Test renders div with correct classes and
   }
 >
   <NavLinkWrapper
+    exact={true}
     to="/"
   >
     Home
   </NavLinkWrapper>
   <NavLinkWrapper
-    to="/menu/pizza"
+    strict={true}
+    to="/menu"
   >
     Menu
   </NavLinkWrapper>
