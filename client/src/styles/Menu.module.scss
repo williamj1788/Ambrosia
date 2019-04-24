@@ -135,13 +135,36 @@ $product-width: 500px;
     cursor: pointer;
 }
 
+@media (min-width: 1981px){
+    .tab{
+        width: $tab-width * 1.4;
+        height: 55px * 1.4;
+    }
+    .product{
+        width: 500px * 1.1;
+    }
+    .productImg{
+        width: 130px * 1.1;
+        height: 130px * 1.1;
+    }
+    .productLabel{
+        height: fit-content;
+    }
+    .productButton{
+        width: 100px * 1.5;
+        height: 30px * 1.5;
+    }
+    .productSelect{
+        width: 40px * 1.5;
+        height: 30px * 1.5;
+    }
+}
+
 @media (max-width: 1020px){
     .productContainer{
         width: $product-width;
     }
 }
-
-
 
 @media (max-width: 900px){
     .tabContainer{
