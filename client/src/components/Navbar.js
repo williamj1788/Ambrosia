@@ -71,9 +71,7 @@ export class Navbar extends React.Component{
         const { page } = this.props;
         return(
             <Navigation fixed={isFixed}>
-                <NavContainer 
-                transparent={page === 'Home' && !isFixed && !isHamburger}
-                >
+                <NavContainer transparent={page === 'Home' && !isFixed && !isHamburger}>
                     <Logo />
                     {isHamburger 
                     ?<Hamburger 

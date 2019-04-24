@@ -4,9 +4,12 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import s from '../styles/Menu.module.scss';
 
+import Pizza from '../images/Pizza_Background.jpg';
+
 export class Menu extends React.Component{
     
     state = {
+        productData: null,
         redirect: false,
         productTarget: null,
     }
@@ -45,6 +48,7 @@ export class Menu extends React.Component{
                         <Tab product='dessert'>Desserts</Tab>
                         <Tab product='drink'>Drinks</Tab>
                     </TabContainer>
+                    <ProductContainer />
                 </div>
             </div>
         )
@@ -71,5 +75,46 @@ const Tab = ({ productPage, redirect, product, children }) => {
         <button onClick={productPage !== product ? () =>{ redirect(product) } : undefined} className={`${s.tab} ${productPage === product ? s.active : ''}`}>{children}</button>
     )
 } 
+
+const ProductContainer = () => {
+    return(
+        <div className={s.productContainer} >
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+        </div>
+    )
+}
+
+const Product = () => {
+    return(
+        <div className={s.product}>
+            <img className={s.productImg} src={Pizza} alt="Product"/>
+            <div className={s.productInfo}>
+                <p className={s.productName}>Tombstone Pizza</p>
+                <p className={s.productDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,</p>
+                <div className={s.productOrder}>
+                    <span className={s.productPrice}>7.99</span>
+                    <form className={s.productForm}>
+                    <label className={s.productLabel} htmlFor="quantity">Qty:</label>
+                        <select className={s.productSelect} defaultValue='1' name="quantity">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                        </select>
+                        <button type='submit' className={s.productButton}>Place Order</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    )
+}
 
 export default connect()(Menu);
