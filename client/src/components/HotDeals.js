@@ -2,7 +2,7 @@ import React from 'react';
 import s from '../styles/HotDeals.module.scss';
 import PizzaIcon from '../images/Pizza_icon_white.png';
 
-class HotDeals extends React.Component{
+export class HotDeals extends React.Component{
     render(){
         return(
             <section className={s.hotDeals}>
@@ -13,7 +13,7 @@ class HotDeals extends React.Component{
     }
 }
 
-const DealContainer = () => {
+export const DealContainer = () => {
     return(
         <div className={s.dealsContainer}>
             <Deal />
@@ -30,7 +30,7 @@ const DealContainer = () => {
     )
 }
 
-const Deal = () => {
+export const Deal = () => {
     return(
         <div className={s.deal}>
             <img className={s.dealImg} src={PizzaIcon} alt=""/>

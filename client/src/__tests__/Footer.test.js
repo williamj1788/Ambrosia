@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
 import { HoursSection, LinkIcon, ContactSection, Footer, Opening, Contact } from '../components/Footer';
@@ -25,7 +25,7 @@ describe('<HoursSection />', () => {
     });
 
     test('<HoursSection /> should render two p element with correct date and time', () => {
-        const component = mount(<HoursSection date={'mock date'} time={'mock time'} />);
+        const component = shallow(<HoursSection date={'mock date'} time={'mock time'} />);
         expect(component.find('p').findWhere(n => n.props().children === 'mock date')).toHaveLength(1);
         expect(component.find('p').findWhere(n => n.props().children === 'mock time')).toHaveLength(1);
     });
@@ -45,7 +45,7 @@ describe('<LinkIcon />', () => {
     });
 
     test('<LinkIcon /> should render an achor with correct class and href', () => {
-        const component = mount(<LinkIcon href={'mock href'} className={'mockClassname'} />);
+        const component = shallow(<LinkIcon href={'mock href'} className={'mockClassname'} />);
         expect(component.find('a').props().href).toEqual('mock href');
         expect(component.find('a').hasClass('mockClassname')).toBeTruthy();
     });
@@ -58,7 +58,7 @@ describe('<ContactSection />', () => {
     });
 
     test('<ContactSection /> should render correct image and text ', () => {
-        const component = mount(<ContactSection img={'mock img'} text={'mock text'} />);
+        const component = shallow(<ContactSection img={'mock img'} text={'mock text'} />);
         expect(component.find('img').props().src).toEqual('mock img');
         expect(component.find('p').props().children).toEqual('mock text');
     });

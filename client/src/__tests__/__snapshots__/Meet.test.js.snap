@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Chief /> Snapshot Test 1`] = `
+<div
+  className="chief"
+>
+  <img
+    alt="mock name"
+    className="chiefImg"
+    src="mock img"
+  />
+  <p
+    className="chiefDesc"
+  >
+    mock desc
+  </p>
+</div>
+`;
+
+exports[`<Meet /> Snapshot Test 1`] = `
+<div>
+  <Navbar />
+  <div
+    className="content"
+  >
+    <h1
+      className="title"
+    >
+      Meet The Cheifs
+    </h1>
+    <div
+      className="chiefContainer"
+    >
+      <Chief
+        desc="Lorem ipsum dolor sit amet, 
+ consectetur adipiscing elit. Nullam sit amet purus porta, 
+ dapibus felis in malesuada diam. Integer quis imperdiet 
+ arcu, ut ornare sem. Phasellus magna justo, tincidunt quis"
+        img="chef.jpg"
+        name="joe down"
+      />
+      <Chief
+        desc="Lorem ipsum dolor sit amet, 
+ consectetur adipiscing elit. Nullam sit amet purus porta, 
+ dapibus felis in malesuada diam. Integer quis imperdiet 
+ arcu, ut ornare sem. Phasellus magna justo, tincidunt quis"
+        img="chef.jpg"
+        name="joe down"
+      />
+      <Chief
+        desc="Lorem ipsum dolor sit amet, 
+ consectetur adipiscing elit. Nullam sit amet purus porta, 
+ dapibus felis in malesuada diam. Integer quis imperdiet 
+ arcu, ut ornare sem. Phasellus magna justo, tincidunt quis"
+        img="chef.jpg"
+        name="joe down"
+      />
+      <Chief
+        desc="Lorem ipsum dolor sit amet, 
+ consectetur adipiscing elit. Nullam sit amet purus porta, 
+ dapibus felis in malesuada diam. Integer quis imperdiet 
+ arcu, ut ornare sem. Phasellus magna justo, tincidunt quis"
+        img="chef.jpg"
+        name="joe down"
+      />
+    </div>
+  </div>
+</div>
+`;
