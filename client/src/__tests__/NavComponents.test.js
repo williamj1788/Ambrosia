@@ -5,9 +5,10 @@ import {
     NavContainer,
     NavLinkContainer,
     HamburgerDropdown,
-    DumbNavLink,
+    NavLinkWrapper,
  } from '../components/NavComponents';
 import toJson from 'enzyme-to-json';
+import { Redirect } from 'react-router-dom';
 
 
 describe('<Navigation /> Snapshop Tests',() => {
@@ -59,14 +60,19 @@ describe('<HamburgerDropdown /> snapshop Test', () => {
     });
 });
 
-describe('<NavLink /> snapshop Test', () => {
+describe('<NavLinkWrapper /> Test', () => {
     test('renders img if icon prop is present', () => {
-        const component = shallow(<DumbNavLink icon={'mock icon'} />); 
-        expect(toJson(component)).toMatchSnapshot(); 
+        const component = shallow(<NavLinkWrapper icon={'mock icon'} />); 
+        expect(component.find('img')).toHaveLength(1); 
     });
 
     test('renders no img if icon prop is not present', () => {
-        const component = shallow(<DumbNavLink />); 
-        expect(toJson(component)).toMatchSnapshot(); 
+        const component = shallow(<NavLinkWrapper />); 
+        expect(component.find('img')).toHaveLength(0); 
+    });
+
+    test('renders span with correct style if TO prop is not present', () => {
+        const component = shallow(<NavLinkWrapper />); 
+        expect(component.find('span').prop('style')).toHaveProperty('cursor', 'pointer');
     });
 });

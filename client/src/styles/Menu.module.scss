@@ -1,0 +1,195 @@
+@import '../styles/global.scss';
+
+.content{
+    position: absolute;
+    width: 100%;
+    height: fit-content;
+    margin-bottom: 40px;
+    top: 65px; // size of navbar
+}
+
+.title{
+    font-family: 'Playball', cursive;
+    font-size: 4rem;
+    font-weight: normal;
+    text-align: center;
+    color: white;
+    margin: 50px 0 0 0;
+}
+
+.tabContainer{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: fit-content;
+    margin: 20px auto 0 auto;
+}
+
+$tab-width: 175px;
+.tab{
+    width: $tab-width;
+    height: 55px;
+    background: transparent;
+    border: 1px solid $light-orange;
+    font-size: 2rem;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    transition: 500ms;
+    &:hover{
+        background: $light-orange;
+    }
+    &.active{
+        background: $light-orange;
+        cursor: default;
+    }
+}
+
+.productContainer{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+$product-width: 500px;
+.product{
+    display: flex;
+    width: $product-width;
+    margin-top: 40px;
+}
+
+.productImg{
+    flex-shrink: 0;
+    width: 130px;
+    height: 130px;
+    border-radius: 3px;
+}
+
+.productInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 20px;
+}
+
+.productName{
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.productDesc{
+    color: white;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.productOrder{
+    display: flex;
+    align-items: center;
+}
+
+.productPrice{
+    display: block;
+    color: white;
+    font-size: 1.1rem;
+    height: fit-content;
+}
+.productForm{
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+}
+
+.productLabel{
+    color: white;
+    font-size: 1.1rem;
+    height: 18px;
+}
+
+.productSelect{
+    width: 40px;
+    height: 30px;
+    font-size: 1.2rem;
+    text-align: center;
+    border-radius: 3px;
+    margin: 0 10px;
+    option{
+        text-align: center;
+        text-align-last: center;
+    }
+}
+
+.productButton{
+    width: 100px;
+    height: 30px;
+    background-color: $dark-orange;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 0;
+    cursor: pointer;
+}
+
+@media (max-width: 1020px){
+    .productContainer{
+        width: $product-width;
+    }
+}
+
+
+
+@media (max-width: 900px){
+    .tabContainer{
+        width: $tab-width * 4;
+    }
+}
+
+@media (max-width: 725px){
+    .tabContainer{
+        width: $tab-width * 3;
+    }
+}
+
+@media (max-width: 550px){
+    .tabContainer{
+        width: $tab-width * 2;
+    }
+    .productContainer{
+        width: 300px;
+    }
+    .product{
+        flex-direction: column;
+        align-items: center;
+        width: 300px;
+    }
+    .productInfo{
+        margin: 0;
+        height: 160px;
+    }
+    .productName{
+        text-align: center;
+    }
+    .productDesc{
+        text-align: center;
+    }
+    .productOrder{
+        flex-direction: column;
+        justify-content: space-between;
+        height: 60px;
+    }
+}
+
+@media (max-width: 360px){
+    .tab{
+        width: 125px;
+        font-size: 1.6rem;
+    }
+    .tabContainer{
+        width: 125px * 2;
+    }
+}

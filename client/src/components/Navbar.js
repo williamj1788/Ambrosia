@@ -10,8 +10,6 @@ import {
     Logo,
  } from './NavComponents';
 
- import { connect } from 'react-redux';
-
 export class Navbar extends React.Component{
     
     state = {
@@ -73,9 +71,7 @@ export class Navbar extends React.Component{
         const { page } = this.props;
         return(
             <Navigation fixed={isFixed}>
-                <NavContainer 
-                transparent={page === 'Home' && !isFixed && !isHamburger}
-                >
+                <NavContainer transparent={page === 'Home' && !isFixed && !isHamburger}>
                     <Logo />
                     {isHamburger 
                     ?<Hamburger 
@@ -89,8 +85,4 @@ export class Navbar extends React.Component{
         )
     }
 }
-export default connect(state => { 
-    return {
-        page: state.page
-    } 
-})(Navbar);
+export default Navbar;

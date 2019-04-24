@@ -7,5 +7,5 @@ test('Handle setPage', () => {
         type: Types.SET_PAGE,
         payload: 'Home',
     }
-    expect(actions.setPage(payload)).toEqual(expectedAction);;
+    expect(actions.setPage(payload)).toEqual(expectedAction);
 });

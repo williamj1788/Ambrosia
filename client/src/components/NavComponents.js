@@ -6,11 +6,11 @@ import userIcon from '../images/UserIcon.png';
 
 import HamburgerMenu from 'react-hamburger-menu';
 
-import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 export const Navigation = ({ fixed, children }) => {
     return(
-        <nav className={fixed ? s.fixed: undefined} >
+        <nav className={fixed ? s.fixed: undefined}>
             {children}
         </nav>
     )
@@ -33,11 +33,11 @@ export const NavContainer = ({ transparent, children }) => {
 export const NavLinkContainer = ({ className, style = {} }) => {
     return(
         <div className={className} style={style} >
-            <NavLink>Home</NavLink>
-            <NavLink>Menu</NavLink>
-            <NavLink>Meet The Chiefs</NavLink>
-            <NavLink icon={cartIcon}>Cart</NavLink>
-            <NavLink icon={userIcon}>Sign up</NavLink>
+            <NavLinkWrapper exact to='/' >Home</NavLinkWrapper>
+            <NavLinkWrapper strict to='/menu'>Menu</NavLinkWrapper>
+            <NavLinkWrapper to='/meet' >Meet The Chiefs</NavLinkWrapper>
+            <NavLinkWrapper icon={cartIcon}>Cart</NavLinkWrapper>
+            <NavLinkWrapper to='/signup' icon={userIcon}>Sign up</NavLinkWrapper>
         </div>
     )
 }
@@ -55,16 +55,28 @@ export const HamburgerDropdown = ({ open }) => {
     )
 }
 
-// Export dumb component for testing
-export const DumbNavLink = ({ icon, page, children }) => {
-    return (
+export const NavLinkWrapper = ({ to, icon, exact, strict, children }) => {
+    let props = {
+        to,
+        activeClassName: s.active,
+    }
+    if(exact){
+        props.exact = true;
+    }
+    if(strict){
+        props.strict = true
+    }
+
+    return(
         <div className={s.navLink}>
             {icon && <img className={s.linkLogo} src={icon} alt="nav-link icon" />}
-            <span className={page === children ? s.active: undefined}>{children}</span>
+            {to 
+            ?<NavLink {...props}>{children}</NavLink>
+            :<span style={{cursor: 'pointer'}}>{children}</span>
+            }
         </div>
     )
 }
-export const NavLink = connect(state => { return {page: state.page} })(DumbNavLink);
 
 
 export const Logo = () => {
@@ -73,12 +85,12 @@ export const Logo = () => {
 
 export const Hamburger = ({open, onClick}) => {
     return(
-    <div style={{cursor: 'pointer'}}>
-        <HamburgerMenu 
-            isOpen={open}
-            menuClicked={onClick}
-            color={'#FF7300'}   
-        />
-    </div>
+        <div style={{cursor: 'pointer'}}>
+            <HamburgerMenu 
+                isOpen={open}
+                menuClicked={onClick}
+                color={'#FF7300'}   
+            />
+        </div>
     )
 }

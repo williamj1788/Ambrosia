@@ -8,8 +8,7 @@ import HotDeals from './HotDeals';
 import s from '../styles/Home.module.scss';
 
 import { connect } from 'react-redux';
-
-import { setPage } from '../redux/action';
+import { Redirect } from 'react-router-dom';
 
 import PizzaIcon from '../images/Pizza_icon_white.png';
 import MoneyIcon from '../images/Money_icon.png';
@@ -18,14 +17,24 @@ import ArrowDown from '../images/arrow-down.png';
 
 
 export class Home extends React.Component{
-    componentWillMount(){
-        this.props.dispatch(setPage('Home'));
+    
+    state = {
+        redirectToMenu: false
+    }
+
+    setRedirect = () => {
+        this.setState({
+            redirectToMenu: true,
+        });
     }
     
     render(){
+        if(this.state.redirectToMenu){ 
+            return <Redirect to='/menu' />
+        }
         return(
             <div>
-                <Hero />
+                <Hero redirect={this.setRedirect}/>
                 <About />
                 <HotDeals />
                 <ReviewSection />
@@ -36,13 +45,13 @@ export class Home extends React.Component{
     }
 }
 
-const Hero = () => {
+const Hero = ({ redirect }) => {
     return(
         <section className={s.hero}>
             <div className={s.darken}>
                 <Navbar />
                 <p className={s.heroTitle}>Best Pizza in Town</p>
-                <button className={s.heroButton}>View Menu</button>
+                <button onClick={redirect} className={s.heroButton}>View Menu</button>
                 <img className={s.heroArrow} src={ArrowDown} alt="ArrowDown Icon"/>
             </div>
         </section>

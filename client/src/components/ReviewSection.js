@@ -1,6 +1,10 @@
 import React from 'react';
 import s from '../styles/ReviewSection.module.scss';
 import Person from '../images/Person.jpg';
+import Person2 from '../images/Person2.jpg';
+import Person3 from '../images/Person3.jpg';
+import Person4 from '../images/Person4.jpg';
+import Person5 from '../images/Person5.jpg';
 import starFull from '../images/star-full.png';
 import starEmpty from '../images/star.png';
 
@@ -10,7 +14,7 @@ export class ReviewSection extends React.Component{
         numOfReviews: 5, // based on number of reviews in <ReviewContainer />
     }
 
-    componentWillMount(){
+    componentDidMount(){
         setInterval(this.incrementSelected, 6000);
     }
 
@@ -42,22 +46,22 @@ export class ReviewSection extends React.Component{
                         desc={"You can't ask for better pizza, worth every penny"}
                         />
                         <Review 
-                        img={Person}
+                        img={Person2}
                         rating={4}
-                        desc={'I really enjoy their dedication to there customers, and they always provide me with excellent service'}
+                        desc={'I really enjoy their dedication to their customers, and they always provide me with excellent service'}
                         />
                         <Review 
-                        img={Person}
+                        img={Person3}
                         rating={4}
                         desc={'Quality pizza delivered in a timing manner. What more can I ask for?'}
                         />
                         <Review 
-                        img={Person}
+                        img={Person4}
                         rating={5}
-                        desc={'Best pizzeria you will ever go to. I go there all the time!'}
+                        desc={'Best pizzeria there is. I go there all the time!'}
                         />
                         <Review 
-                        img={Person}
+                        img={Person5}
                         rating={5}
                         desc={"Pizza is amazing! From now on, I'm only ordering from here."}
                         />
@@ -111,7 +115,7 @@ export const Review = ({ img, rating, desc }) => {
     return(
         <div className={s.review}>
             <div className={s.reviewContain}>
-                <img className={s.reviewImg} src={img} alt="Person Image" />
+                <img className={s.reviewImg} src={img} alt="Person icon" />
                 <div className={s.reviewInfo}>
                     <div className={s.reviewStarsContainer}>
                         {stars}

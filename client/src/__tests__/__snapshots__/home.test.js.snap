@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render an img, span with title, and desc 1`] = `
+exports[`Unit component Tests should render an img, span with title, and desc 1`] = `
 <div
   className="AboutUnits"
 >
