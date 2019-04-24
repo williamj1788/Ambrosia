@@ -23,7 +23,7 @@ describe('Home Tests', () => {
         const component = shallow(<Home />);
         const instance = component.instance();
         component.setState({redirectToMenu: true});
-        expect(instance.render()).toEqual(<Redirect to='/menu' />);
+        expect(instance.render()).toEqual(<Redirect push to='/menu' />);
     });
 });
 
