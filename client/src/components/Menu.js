@@ -144,9 +144,9 @@ const Tab = ({ productPage, redirect, product, children }) => {
 export const ProductContainer = ({ products }) => {
     return(
         <div className={s.productContainer} >
-            {products.map(product => {
+            {products.map((product, index) => {
                 return(
-                    <Product {...product} />
+                    <Product key={index} {...product} />
                 )
             })}
         </div>

@@ -27,12 +27,14 @@ describe('Home Tests', () => {
     });
 });
 
-test('<Unit /> should render', () => {
-    const component = shallow(<Unit />);
-    expect(component).toBeTruthy();
-});
-
-test('should render an img, span with title, and desc', () => {
-    const component = shallow(<Unit img={'mock img'} title={'mock title'} desc={'mock desc'} />);
-    expect(toJson(component)).toMatchSnapshot();
+describe('Unit component Tests', () => {
+    test('<Unit /> should render', () => {
+        const component = shallow(<Unit />);
+        expect(component).toBeTruthy();
+    });
+    
+    test('should render an img, span with title, and desc', () => {
+        const component = shallow(<Unit img={'mock img'} title={'mock title'} desc={'mock desc'} />);
+        expect(toJson(component)).toMatchSnapshot();
+    });
 });

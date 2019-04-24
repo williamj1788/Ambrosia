@@ -115,7 +115,7 @@ export const Review = ({ img, rating, desc }) => {
     return(
         <div className={s.review}>
             <div className={s.reviewContain}>
-                <img className={s.reviewImg} src={img} alt="Person Image" />
+                <img className={s.reviewImg} src={img} alt="Person icon" />
                 <div className={s.reviewInfo}>
                     <div className={s.reviewStarsContainer}>
                         {stars}
