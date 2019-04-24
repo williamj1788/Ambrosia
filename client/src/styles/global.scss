@@ -4,6 +4,21 @@ $light-orange: #FFB300;
 $dark-orange: #FF7300;
 $blue: #0033ff;
 
+%content{
+    position: absolute;
+    width: 100%;
+    height: fit-content;
+    top: 65px; // size of navbar
+}
+
+%title{
+    font-family: 'Playball', cursive;
+    font-size: 4rem;
+    font-weight: normal;
+    text-align: center;
+    color: white;
+}
+
 html{
     font-family: 'Raleway', sans-serif;
     font-size: 16px;
@@ -13,11 +28,11 @@ body{
     height: 100%;
     background-image: url('../images/wallpaper.jpg');
     background-attachment: fixed;
-    background-size: cover;
 }
 
 @media (min-width: 1981px){
     html{
         font-size: 27px;
+        background-size: cover;
     }
 }

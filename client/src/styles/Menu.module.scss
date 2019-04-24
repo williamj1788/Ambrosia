@@ -1,19 +1,12 @@
 @import '../styles/global.scss';
 
 .content{
-    position: absolute;
-    width: 100%;
-    height: fit-content;
+    @extend %content;
     margin-bottom: 40px;
-    top: 65px; // size of navbar
 }
 
 .title{
-    font-family: 'Playball', cursive;
-    font-size: 4rem;
-    font-weight: normal;
-    text-align: center;
-    color: white;
+    @extend %title;
     margin: 50px 0 0 0;
 }
 

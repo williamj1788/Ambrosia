@@ -9,6 +9,7 @@ import store from './redux/store';
 
 import Home from './components/home';
 import Menu from './components/Menu';
+import Meet from './components/Meet';
 
 class App extends Component {
   render() {
@@ -19,8 +20,9 @@ class App extends Component {
                 <ScrollMemory />
                 <Switch>
                     <Route exact path="/" component={Home} />
+                    <Route exact path="/menu" component={RedirectToMenuProduct} />
                     <Route path="/menu/:product" component={Menu} />
-                    <Route path="/menu" component={RedirectToMenuProduct} />
+                    <Route path='/meet' component={Meet} />
                 </Switch>
             </div>
         </Router>

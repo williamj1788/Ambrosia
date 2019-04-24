@@ -30,7 +30,7 @@ export class Home extends React.Component{
     
     render(){
         if(this.state.redirectToMenu){ 
-            return <Redirect to='/menu' />
+            return <Redirect push to='/menu' />
         }
         return(
             <div>
