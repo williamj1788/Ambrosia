@@ -17,12 +17,15 @@
 
 .tabContainer{
     display: flex;
-    width: fit-content;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: fit-content;
     margin: 20px auto;
 }
 
+$tab-width: 175px;
 .tab{
-    width: 175px;
+    width: $tab-width;
     height: 55px;
     background: transparent;
     border: 1px solid $light-orange;
@@ -37,5 +40,33 @@
     &.active{
         background: $light-orange;
         cursor: default;
+    }
+}
+
+@media (max-width: 900px){
+    .tabContainer{
+        width: $tab-width * 4;
+    }
+}
+
+@media (max-width: 725px){
+    .tabContainer{
+        width: $tab-width * 3;
+    }
+}
+
+@media (max-width: 550px){
+    .tabContainer{
+        width: $tab-width * 2;
+    }
+}
+
+@media (max-width: 360px){
+    .tab{
+        width: 125px;
+        font-size: 1.6rem;
+    }
+    .tabContainer{
+        width: 125px * 2;
     }
 }

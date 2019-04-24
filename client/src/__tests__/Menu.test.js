@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { Redirect } from 'react-router-dom';
 import { Menu } from '../components/Menu';
 
 let props,
@@ -13,7 +14,9 @@ beforeEach(() => {
             }
         }
     }
-    component = shallow(<Menu {...props} />);
+    component = shallow(<Menu {...props} />,{
+        disableLifecycleMethods: true,
+    });
     instance = component.instance();
 });
 
@@ -31,14 +34,18 @@ test('redirectToProduct should called setState with correct args' , () => {
     expect(instance.setState).toBeCalledWith(expectArgs);
 });
 
-test('componentDidUpdate should called setState with correct args if state redirect is true' , () => {
+test('componentDidUpdate should called setState with correct args if redirect state is true' , () => {
     jest.spyOn(instance, 'setState');
+    component.setState({redirect: true});
+    instance.componentDidUpdate();
     const expectArgs = {
         redirect: false,
         productTarget: null,
     }
-    component.setState({redirect: true});
-
     expect(instance.setState).toBeCalledWith(expectArgs);
-    expect(instance.setState).toBeCalledTimes(1);
+});
+
+test('should redirect to product if redirect state is true', () => {
+    component.setState({redirect: true, productTarget: 'mockTarget'});
+    expect(instance.render()).toEqual(<Redirect to={'/menu/mockTarget'} />);
 });
