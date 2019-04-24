@@ -141,7 +141,7 @@ const Tab = ({ productPage, redirect, product, children }) => {
     )
 } 
 
-const ProductContainer = ({ products }) => {
+export const ProductContainer = ({ products }) => {
     return(
         <div className={s.productContainer} >
             {products.map(product => {
@@ -153,7 +153,7 @@ const ProductContainer = ({ products }) => {
     )
 }
 
-const Product = ({ img, name, description, price }) => {
+export const Product = ({ img, name, description, price }) => {
     return(
         <div className={s.product}>
             <img className={s.productImg} src={img} alt="Product"/>

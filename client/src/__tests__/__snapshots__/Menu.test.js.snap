@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Product Tests Snapshot Test 1`] = `
+<div
+  className="product"
+>
+  <img
+    alt="Product"
+    className="productImg"
+    src="mock img"
+  />
+  <div
+    className="productInfo"
+  >
+    <p
+      className="productName"
+    >
+      mock name
+    </p>
+    <p
+      className="productDesc"
+    >
+      mock description
+    </p>
+    <div
+      className="productOrder"
+    >
+      <span
+        className="productPrice"
+      />
+      <form
+        className="productForm"
+      >
+        <label
+          className="productLabel"
+          htmlFor="quantity"
+        >
+          Qty:
+        </label>
+        <select
+          className="productSelect"
+          defaultValue="1"
+          name="quantity"
+        >
+          <option
+            value="1"
+          >
+            1
+          </option>
+          <option
+            value="2"
+          >
+            2
+          </option>
+          <option
+            value="3"
+          >
+            3
+          </option>
+          <option
+            value="4"
+          >
+            4
+          </option>
+          <option
+            value="5"
+          >
+            5
+          </option>
+          <option
+            value="6"
+          >
+            6
+          </option>
+          <option
+            value="7"
+          >
+            7
+          </option>
+        </select>
+        <button
+          className="productButton"
+          type="submit"
+        >
+          Place Order
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+`;
