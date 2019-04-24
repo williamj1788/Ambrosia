@@ -1,0 +1,40 @@
+@import '../styles/global.scss';
+.content{
+    @extend %content;
+}
+
+.title{
+    @extend %title;
+    margin: 50px 0 0 0;
+}
+
+.chiefContainer{
+    width: 100%;
+    max-width: 1300px;
+    margin: 50px auto;
+}
+
+.chief{
+    display: flex;
+    align-items: center;
+    &:nth-child(even){
+        .chiefImg{
+            order: 2;
+        }
+        .chiefDesc{
+            order: 1;
+            margin: 0 20px 0 0;
+        }
+    }
+}
+
+.chiefImg{
+    width: 225px;
+    height: 225px;
+}
+
+.chiefDesc{
+    color: white;
+    font-size: 2rem;
+    margin: 0 0 0 20px;
+}
