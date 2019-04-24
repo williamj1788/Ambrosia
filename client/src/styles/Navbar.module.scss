@@ -12,6 +12,7 @@
     position: fixed;
     top: -65px;
     animation: slide-in 1s forwards;
+    z-index: 99;
 }
 
 .container{

@@ -10,7 +10,7 @@ import { NavLink } from 'react-router-dom';
 
 export const Navigation = ({ fixed, children }) => {
     return(
-        <nav className={fixed ? s.fixed: undefined} >
+        <nav className={fixed ? s.fixed: undefined}>
             {children}
         </nav>
     )
