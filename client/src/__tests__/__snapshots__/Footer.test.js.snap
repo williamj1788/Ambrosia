@@ -1,59 +1,121 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ContactSection /> should render correct image and text  1`] = `
-<ContactSection
-  img="mock img"
-  text="mock text"
+exports[`<Contact /> Snapshot Test 1`] = `
+<div
+  className="contact"
 >
-  <div
-    className="contactSection"
+  <h4
+    className="title"
   >
-    <img
-      alt="Icon"
-      className="contactSectionIcon"
-      src="mock img"
+    Contact Us
+  </h4>
+  <div
+    className="contactSocialIconContainer"
+  >
+    <LinkIcon
+      className="twitterIcon"
+      href="https://www.twitter.com"
     />
-    <p
-      className="contactSectionText"
-    >
-      mock text
-    </p>
+    <LinkIcon
+      className="facebookIcon"
+      href="https://www.facebook.com"
+    />
+    <LinkIcon
+      className="instagramIcon"
+      href="https://www.instagram.com"
+    />
   </div>
-</ContactSection>
+  <ContactSection
+    img="location-icon.png"
+    text="203 Fake St. Mountain View, San Francisco, California, USA"
+  />
+  <ContactSection
+    img="phone-icon.png"
+    text="+1 978-236-7889"
+  />
+  <ContactSection
+    img="email-icon.svg"
+    text="JacquezWilliams@teleworm.us"
+  />
+</div>
 `;
 
-exports[`<HoursSection /> should render correct date and time 1`] = `
-<HoursSection
-  date="mock date"
-  time="mock time"
+exports[`<ContactSection /> Snapshot Test 1`] = `
+<div
+  className="contactSection"
+>
+  <img
+    alt="Icon"
+    className="contactSectionIcon"
+    src="mock img"
+  />
+  <p
+    className="contactSectionText"
+  >
+    mock text
+  </p>
+</div>
+`;
+
+exports[`<Footer /> Snapshot Test 1`] = `
+<footer
+  className="footer"
 >
   <div
-    className="hoursSection"
+    className="container"
   >
-    <p
-      className="hoursTitle"
-    >
-      mock date
-    </p>
-    <p
-      className="hoursText"
-    >
-      mock time
-    </p>
+    <Opening />
+    <Contact />
   </div>
-</HoursSection>
+</footer>
 `;
 
-exports[`<LinkIcon /> should render an achor with correct class and href 1`] = `
-<LinkIcon
-  className="mock classname"
-  href="mock href"
+exports[`<HoursSection /> Snapshot Test 1`] = `
+<div
+  className="hoursSection"
 >
-  <a
-    className="contactSocialIcon mock classname"
-    href="mock href"
-    rel="noopener noreferrer"
-    target="_blank"
+  <p
+    className="hoursTitle"
   />
-</LinkIcon>
+  <p
+    className="hoursText"
+  />
+</div>
+`;
+
+exports[`<LinkIcon /> Snapshot Test 1`] = `
+<a
+  className="contactSocialIcon mockClassname"
+  href="mock href"
+  rel="noopener noreferrer"
+  target="_blank"
+/>
+`;
+
+exports[`<Opening /> Snapshot Test 1`] = `
+<div
+  className="opening"
+>
+  <h4
+    className="title"
+  >
+    Opening Hours
+  </h4>
+  <div
+    className="hours"
+  >
+    <HoursSection
+      date="Monday - Friday"
+      time="8.00 am - 10.00 pm"
+    />
+    <HoursSection
+      date="Saturday"
+      time="10.00 am - 5.00 pm"
+    />
+    <HoursSection
+      date="Sunday"
+      time="Closed"
+    />
+  </div>
+</div>
 `;

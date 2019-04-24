@@ -5,7 +5,7 @@ import locationIcon from '../images/location-icon.png';
 import phoneIcon from '../images/phone-icon.png';
 import emailIcon from '../images/email-icon.svg';
 
-const Footer = () => {
+export const Footer = () => {
     return(
         <footer className={s.footer}>
             <div className={s.container}>
