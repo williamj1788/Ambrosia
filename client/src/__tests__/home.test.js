@@ -1,7 +1,31 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Unit } from '../components/home';
+import { Unit, Home } from '../components/home';
+import { Redirect } from 'react-router-dom';
 import toJson from 'enzyme-to-json';
+
+describe('Home Tests', () => {
+    test('setRedirect should call setState with correct args', () => {
+        const component = shallow(<Home />);
+        const instance = component.instance();
+        jest.spyOn(instance, 'setState');
+        instance.setRedirect();
+
+        const expectedArgs = {
+            redirectToMenu: true,
+        }
+
+        expect(instance.setState).toBeCalledTimes(1);
+        expect(instance.setState).toBeCalledWith(expectedArgs);
+    });
+
+    test('should redirect to menu when redirectToMenu state is true', () => {
+        const component = shallow(<Home />);
+        const instance = component.instance();
+        component.setState({redirectToMenu: true});
+        expect(instance.render()).toEqual(<Redirect to='/menu' />);
+    });
+});
 
 test('<Unit /> should render', () => {
     const component = shallow(<Unit />);
