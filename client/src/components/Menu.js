@@ -5,11 +5,76 @@ import { Redirect } from 'react-router-dom';
 import s from '../styles/Menu.module.scss';
 
 import Pizza from '../images/Pizza_Background.jpg';
+import Pasta from '../images/Money_icon.png';
+import Drink from '../images/chef.jpg';
 
 export class Menu extends React.Component{
     
     state = {
-        productData: null,
+        productData: { // will load from a server when its set up
+            pizza:[
+                {
+                    img: Pizza,
+                    name: 'Tombstone Pizza',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,',
+                    price: '9.99',
+                },
+                {
+                    img: Pizza,
+                    name: 'Tombstone Pizza',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,',
+                    price: '7.99',
+                },
+                {
+                    img: Pizza,
+                    name: 'Tombstone Pizza',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,',
+                    price: '2.99',
+                },
+            ],
+            pasta:[
+                {
+                    img: Pasta,
+                    name: 'Tombstone passta',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,',
+                    price: '1.99',
+                },
+                {
+                    img: Pasta,
+                    name: 'Tombstone passta',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,',
+                    price: '12.99',
+                },
+                {
+                    img: Pasta,
+                    name: 'Tombstone passta',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,',
+                    price: '13.99',
+                }
+            ],
+            drink:[
+                {
+                    img: Drink,
+                    name: 'Tombstone drink',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,',
+                    price: '11.99',
+                },
+                {
+                    img: Drink,
+                    name: 'Tombstone drink',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,',
+                    price: '131.99',
+                },
+                {
+                    img: Drink,
+                    name: 'Tombstone drink',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,',
+                    price: '111.99',
+                },
+            ],
+            bread:[],
+            dessert:[]
+        },
         redirect: false,
         productTarget: null,
     }
@@ -32,7 +97,7 @@ export class Menu extends React.Component{
     }
     
     render(){
-        const { redirect, productTarget } = this.state;
+        const { redirect, productTarget, productData } = this.state;
         if(redirect){ 
             return <Redirect to={`/menu/${productTarget}`} /> 
         }
@@ -48,7 +113,7 @@ export class Menu extends React.Component{
                         <Tab product='dessert'>Desserts</Tab>
                         <Tab product='drink'>Drinks</Tab>
                     </TabContainer>
-                    <ProductContainer />
+                    <ProductContainer products={productData[this.props.match.params.product]}  />
                 </div>
             </div>
         )
@@ -76,28 +141,27 @@ const Tab = ({ productPage, redirect, product, children }) => {
     )
 } 
 
-const ProductContainer = () => {
+const ProductContainer = ({ products }) => {
     return(
         <div className={s.productContainer} >
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
+            {products.map(product => {
+                return(
+                    <Product {...product} />
+                )
+            })}
         </div>
     )
 }
 
-const Product = () => {
+const Product = ({ img, name, description, price }) => {
     return(
         <div className={s.product}>
-            <img className={s.productImg} src={Pizza} alt="Product"/>
+            <img className={s.productImg} src={img} alt="Product"/>
             <div className={s.productInfo}>
-                <p className={s.productName}>Tombstone Pizza</p>
-                <p className={s.productDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,</p>
+                <p className={s.productName}>{name}</p>
+                <p className={s.productDesc}>{description}</p>
                 <div className={s.productOrder}>
-                    <span className={s.productPrice}>7.99</span>
+                    <span className={s.productPrice}>{price}</span>
                     <form className={s.productForm}>
                     <label className={s.productLabel} htmlFor="quantity">Qty:</label>
                         <select className={s.productSelect} defaultValue='1' name="quantity">
