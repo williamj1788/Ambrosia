@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Deal /> Snapshot Test 1`] = `
+<div
+  className="deal"
+>
+  <img
+    alt=""
+    className="dealImg"
+    src="Pizza_icon_white.png"
+  />
+  <div
+    className="dealInfo"
+  >
+    <span
+      className="dealTitle"
+    >
+      Pizza Title
+    </span>
+    <p
+      className="dealDesc"
+    >
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+    </p>
+    <div
+      className="dealPriceContainer"
+    >
+      <span
+        className="dealPrice"
+      >
+        <s>
+          10.99
+        </s>
+      </span>
+      <span
+        className="dealPrice"
+      >
+        7.99
+      </span>
+      <button
+        className="dealButton"
+      >
+        Place Order
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<DealContainer /> Snapshot Test 1`] = `
+<div
+  className="dealsContainer"
+>
+  <Deal />
+  <Deal />
+  <Deal />
+  <Deal />
+  <Deal />
+  <Deal />
+  <Deal />
+  <Deal />
+  <Deal />
+  <Deal />
+</div>
+`;
+
+exports[`<HotDeals /> Snapshot Test 1`] = `
+<section
+  className="hotDeals"
+>
+  <h3
+    className="hotDealsTitle"
+  >
+    Hot Deals
+  </h3>
+  <DealContainer />
+</section>
+`;

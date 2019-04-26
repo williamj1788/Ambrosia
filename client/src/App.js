@@ -11,7 +11,7 @@ import Home from './components/home';
 import Menu from './components/Menu';
 import Meet from './components/Meet';
 
-class App extends Component {
+export class App extends Component {
   render() {
     return (
       <Provider store={store}>
@@ -31,7 +31,7 @@ class App extends Component {
   }
 }
 
-const RedirectToMenuProduct = () => {
+export const RedirectToMenuProduct = () => {
   return(
     <Redirect to='/menu/pizza' />
   )

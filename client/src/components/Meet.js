@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 import s from '../styles/Meet.module.scss';
 import chef from '../images/chef.jpg';
 
-class Meet extends React.Component{
+export class Meet extends React.Component{
     render(){
         return(
             <div>
@@ -51,7 +51,7 @@ class Meet extends React.Component{
     }
 }
 
-const Chief = ({ img, name, desc }) => {
+export const Chief = ({ img, name, desc }) => {
     return(
         <div className={s.chief}>
             <img className={s.chiefImg} src={img} alt={name}/>
