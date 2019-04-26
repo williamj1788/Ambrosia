@@ -1,5 +1,7 @@
 import React from 'react';
+
 import Navbar from './Navbar';
+import SignUpForm from './SignUpForm';
 import s from '../styles/SignUp.module.scss';
 
 import SaveIcon from '../images/save-icon.png';
@@ -14,6 +16,7 @@ class SignUp extends React.Component{
                 <Navbar />
                 <div className={s.flexContainer}>
                     <AccountPerks />
+                    <SignUpForm />
                 </div>
             </div>
         )
@@ -39,6 +42,7 @@ const AccountPerks = () => {
     )
 }
 
+
 const Perk = ({ img, text }) => {
     return(
         <div className={s.perk}>
@@ -47,5 +51,7 @@ const Perk = ({ img, text }) => {
         </div>
     )
 }
+
+
 
 export default SignUp;
