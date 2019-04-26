@@ -33,9 +33,9 @@ export const NavContainer = ({ transparent, children }) => {
 export const NavLinkContainer = ({ className, style = {} }) => {
     return(
         <div className={className} style={style} >
-            <NavLinkWrapper exact to='/' >Home</NavLinkWrapper>
-            <NavLinkWrapper strict to='/menu'>Menu</NavLinkWrapper>
-            <NavLinkWrapper to='/meet' >Meet The Chiefs</NavLinkWrapper>
+            <NavLinkWrapper active exact to='/' >Home</NavLinkWrapper>
+            <NavLinkWrapper active strict to='/menu'>Menu</NavLinkWrapper>
+            <NavLinkWrapper active to='/meet' >Meet The Chiefs</NavLinkWrapper>
             <NavLinkWrapper icon={cartIcon}>Cart</NavLinkWrapper>
             <NavLinkWrapper to='/signup' icon={userIcon}>Sign up</NavLinkWrapper>
         </div>
@@ -55,10 +55,10 @@ export const HamburgerDropdown = ({ open }) => {
     )
 }
 
-export const NavLinkWrapper = ({ to, icon, exact, strict, children }) => {
-    let props = {
-        to,
-        activeClassName: s.active,
+export const NavLinkWrapper = ({ to, icon, exact, strict, active , children }) => {
+    let props = { to };
+    if(active){
+        props.activeClassName = s.active;
     }
     if(exact){
         props.exact = true;

@@ -1,0 +1,34 @@
+@import '../styles/global.scss';
+
+.flexContainer{
+    display: flex;
+    justify-content: space-between;
+    max-width: 1000px;
+    width: 100%;
+    margin: 70px auto 0 auto;
+}
+
+.accountPerks{
+    display: flex;
+    flex-direction: column;
+    height: 650px;
+    justify-content: space-between;
+}
+
+.perk{
+    width: fit-content;
+}
+
+.perkImg{
+    display: block;
+    width: 127px;
+    height: 127px;
+    margin: 0 auto;
+}
+
+.perkText{
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 15px 0 0 0;
+}

@@ -10,6 +10,7 @@ import store from './redux/store';
 import Home from './components/home';
 import Menu from './components/Menu';
 import Meet from './components/Meet';
+import SignUp from './components/SignUp';
 
 export class App extends Component {
   render() {
@@ -23,6 +24,7 @@ export class App extends Component {
                     <Route exact path="/menu" component={RedirectToMenuProduct} />
                     <Route path="/menu/:product" component={Menu} />
                     <Route path='/meet' component={Meet} />
+                    <Route path='/signup' component={SignUp} />
                 </Switch>
             </div>
         </Router>
