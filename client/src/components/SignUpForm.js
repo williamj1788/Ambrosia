@@ -6,9 +6,9 @@ class SignUpForm extends React.Component{
     state = {
         activeFormBlock: 0,
         formBlockProgress: 0,
-        emailError: false,
-        passwordError: false,
-        confirmPasswordError: false,
+        emailError: null,
+        passwordError: null,
+        confirmPasswordError: null,
     }
 
     setActiveFromBlock = target => {
@@ -25,57 +25,74 @@ class SignUpForm extends React.Component{
         console.log('TODO');
     }
 
-    validateEmail = () => {
+    handleEmailBlur = () => {
         const { emailError } = this.state;
-        const email = document.querySelector('input[name = Email]').value;
-        const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        const isValid = emailRegex.test(email);
+        const email = this.getInputValuebyName('Email');
+        const validationError = this.validateEmail(email);
         
-        if(isValid && emailError){
+        if(emailError !== validationError){
             this.setState({
-                emailError: false
-            });
-        }else if(!isValid && !emailError){
-            this.setState({
-                emailError: 'Invalid Email'
+                emailError: validationError
             });
         }
-        return isValid
     }
 
-    validatePassword = () => {
+    handlePasswordBlur = () => {
         const { passwordError } = this.state;
-        const password = document.querySelector('input[name = Password]').value;
-        const isValid = password.length >= 5;
-        
-        if(isValid && passwordError){
+        const password = this.getInputValuebyName('Password');
+        const validationError = this.validatePassword(password);
+
+        if(passwordError !== validationError){
             this.setState({
-                passwordError: false
-            })
-        }else if(!isValid && !passwordError){
-            this.setState({
-                passwordError: 'Password must be 5 or more characters'
-            })
+                passwordError: validationError
+            });
         }
-        return isValid
     }
 
-    validateConfirmPassword = () => {
+    handleConfirmPasswordBlur = () => {
         const { confirmPasswordError } = this.state;
-        const password = document.querySelector('input[name = Password]').value;
-        const confirmPassword = document.querySelector('input[name = ConfirmPassword]').value;
-        const isValid = password === confirmPassword;
-
-        if(isValid && confirmPasswordError){
+        const password = this.getInputValuebyName('Password');
+        const confirmPassword = this.getInputValuebyName('ConfirmPassword');
+        const validationError = this.validateConfirmPassword(password, confirmPassword);
+        
+        if(confirmPasswordError !== validationError){
             this.setState({
-                confirmPasswordError: false
-            });
-        }else if(!isValid && !confirmPasswordError){
-            this.setState({
-                confirmPasswordError: 'Must be the same as password'
+                confirmPasswordError: validationError
             });
         }
-        return isValid
+
+    }
+
+    validateEmail = email => {
+        const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if(email.length <= 0){
+            return 'Email Required';
+        }
+        if(!emailRegex.test(email)){
+            return 'Invalid Email';
+        }
+        return null;
+    }
+
+    validatePassword = password => {
+        if(password.length <= 0){
+            return 'Password Required';
+        }
+        if(password.length < 5){
+            return 'Password must be 5 or more characters';
+        }
+        return null;
+    }
+
+    validateConfirmPassword = (password, confirmPassword) => {
+        if(password !== confirmPassword){
+            return "Does not match password";
+        }
+        return null;
+    }
+
+    getInputValuebyName = name => {
+        return document.querySelector(`input[name = ${name}]`).value;
     }
     
     render(){
@@ -92,9 +109,9 @@ class SignUpForm extends React.Component{
                 <View>
                     <Form id='signUP-form' active={activeFormBlock} >
                         <FormBlock>
-                            <Input type='text' placeholder='Email *' name='Email' onBlur={this.validateEmail} error={emailError} />
-                            <Input type='password' placeholder='Password *' name='Password' onBlur={this.validatePassword} error={passwordError} />
-                            <Input type='password' placeholder='Confirm Password *' name='ConfirmPassword' label="Confirm Password" onBlur={this.validateConfirmPassword} error={confirmPasswordError} />
+                            <Input type='text' placeholder='Email *' name='Email' onBlur={this.handleEmailBlur} error={emailError} />
+                            <Input type='password' placeholder='Password *' name='Password' onBlur={this.handlePasswordBlur} error={passwordError} />
+                            <Input type='password' placeholder='Confirm Password *' name='ConfirmPassword' label="Confirm Password" onBlur={this.handleConfirmPasswordBlur} error={confirmPasswordError} />
                         </FormBlock>
                         <FormBlock>
                             <Input  type='text' placeholder='First Name *' name='Firstname' />
@@ -195,7 +212,7 @@ const Input = ({ type, placeholder, label , onBlur, name, error }) => {
     }
     return(
         <div className={s.inputContainer}>
-            <label htmlFor={name}>{label || name}</label>
+            <label style={{fontWeight: '500'}} htmlFor={name}>{label || name}</label>
             <input {...props} />
             {error && <p className={s.error}>{error}</p>}
         </div>
