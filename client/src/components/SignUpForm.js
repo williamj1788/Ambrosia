@@ -1,6 +1,8 @@
 import React from 'react';
 import s from '../styles/SignUpForm.module.scss';
 
+import { NavLink } from 'react-router-dom';
+
 class SignUpForm extends React.Component{
     
     state = {
@@ -41,6 +43,14 @@ class SignUpForm extends React.Component{
             this.setState({
                 activeFormBlock: 0 
             });
+            return
+        }
+        const isSecondBlockValid = this.validateSecondFormBlock();
+        if(!isSecondBlockValid){
+            this.setState({
+                activeFormBlock: 1 
+            });
+            return
         }
         console.log('TODO');
     }
@@ -51,6 +61,13 @@ class SignUpForm extends React.Component{
         const isConfirmPassword = this.handleConfirmPasswordBlur();
         
         return isEmailValid && isPasswordValid && isConfirmPassword;
+    }
+
+    validateSecondFormBlock = () => {
+        const isFirstnameValid = this.handleFirstnameBlur();
+        const isLastnameValid = this.handleLastnameBlur();
+        
+        return isFirstnameValid && isLastnameValid;
     }
 
     handleEmailBlur = () => {
@@ -196,6 +213,10 @@ class SignUpForm extends React.Component{
                 </View>
                 <Controllers active={activeFormBlock} progress={formBlockProgress} onClick={this.handleOnClick} />
                 <ControllerButtons active={activeFormBlock} onClick={this.handleOnClick} submit={this.handleSubmit} />
+                <div className={s.account}>
+                    <p className={s.accountText}>Already have an account?</p>
+                    <NavLink to='/login'>Login Here</NavLink>
+                </div>
             </div>
         )
     }
@@ -250,7 +271,7 @@ const ControllerButtons = ({ active, onClick, submit }) => {
 }
 
 const Form = ({ id, active, children }) => {
-    const FormWidth = 540; // from SignUpForm.module.scss
+    const FormWidth = window.innerWidth < 540 ? window.innerWidth : 540; // from SignUpForm.module.scss
     const style = {
         right: FormWidth * active
     };

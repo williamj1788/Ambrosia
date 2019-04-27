@@ -14,9 +14,11 @@ class SignUp extends React.Component{
         return(
             <div>
                 <Navbar />
-                <div className={s.flexContainer}>
-                    <AccountPerks />
-                    <SignUpForm />
+                <div className={s.content}>
+                    <div className={s.flexContainer}>
+                        <AccountPerks />
+                        <SignUpForm />
+                    </div>
                 </div>
             </div>
         )

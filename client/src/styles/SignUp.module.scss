@@ -1,5 +1,9 @@
 @import '../styles/global.scss';
 
+.content{
+    @extend %content;
+}
+
 .flexContainer{
     display: flex;
     justify-content: space-between;
@@ -11,12 +15,14 @@
 .accountPerks{
     display: flex;
     flex-direction: column;
+    width: fit-content;
     height: 650px;
     justify-content: space-between;
 }
 
 .perk{
     width: fit-content;
+    height: fit-content;
 }
 
 .perkImg{
@@ -31,4 +37,33 @@
     font-size: 2rem;
     font-weight: bold;
     margin: 15px 0 0 0;
+    text-align: center;
+}
+
+@media (max-width: 1025px){
+    .flexContainer{
+        flex-direction: column;
+    }
+    .accountPerks{
+        flex-direction: row;
+        width: 100%;
+        max-width: 900px;
+        height: fit-content;
+        margin: 0 auto;
+    }
+    
+}
+
+@media (max-width: 630px){
+    .accountPerks{
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    
+}
+
+@media (max-width: 570px){
+    .perkText{
+        font-size: 1.5rem;
+    } 
 }

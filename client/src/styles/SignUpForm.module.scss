@@ -1,9 +1,11 @@
 @import '../styles/global.scss';
 
 $Width: 540px;
+$mobile-width: 100%;
 
 .SignUp{
     width: $Width;
+    height: fit-content;
     background-color: white;
     border-radius: 16px;
 }
@@ -56,6 +58,7 @@ $Width: 540px;
     border-radius: 6px;
     padding-left: 10px;
     font-size: 1.5rem;
+    box-sizing: border-box;
 }
 
 .error{
@@ -104,4 +107,45 @@ $Width: 540px;
     color: white;
     border: 0;
     cursor: pointer;
+}
+
+.account{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 10px auto ;
+    a{
+        text-decoration: none;
+        font-size: 1.2rem;
+        color: blue;
+    }
+}
+
+.accountText{
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+@media (max-width: 1025px){
+    .SignUp{
+        margin: 25px auto 0 auto;
+    }
+    
+}
+
+@media (max-width: 570px){
+    .SignUp{
+        width: $mobile-width;
+        margin-bottom: 80px;
+    }
+    .view{
+        width: $mobile-width;
+    }
+    .formBlock{
+        width: 100vw;
+    }
+    .account{
+        width: 90%;
+    }
+
 }
