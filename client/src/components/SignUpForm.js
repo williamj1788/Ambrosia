@@ -14,7 +14,7 @@ export class SignUpForm extends React.Component{
         firstnameError: null,
         lastwordError: null,
     }
-    
+
     handleOnClick = target => {
         const { activeFormBlock, formBlockProgress } = this.state;
         if(target === activeFormBlock){ // don't unnecessarily set the state
@@ -70,8 +70,13 @@ export class SignUpForm extends React.Component{
         return isFirstnameValid && isLastnameValid;
     }
 
-    handleEmailBlur = () => {
-        const email = this.getInputValuebyName('Email');
+    handleEmailBlur = event => {
+        let email;
+        if(event){
+            email = event.target.value;
+        }else{
+            email = this.getInputValuebyName('Email');
+        }
         const validationError = this.validateEmail(email);
         
         this.handleValidationErrors(validationError, 'emailError');
@@ -79,17 +84,27 @@ export class SignUpForm extends React.Component{
         return !validationError;
     }
 
-    handlePasswordBlur = () => {
-        const password = this.getInputValuebyName('Password');
+    handlePasswordBlur = event => {
+        let password;
+        if(event){
+            password = event.target.value;
+        }else{
+            password = this.getInputValuebyName('Password');
+        }
         const validationError = this.validatePassword(password);
 
         this.handleValidationErrors(validationError, 'passwordError');
         return !validationError;
     }
 
-    handleConfirmPasswordBlur = () => {
+    handleConfirmPasswordBlur = event => {
+        let confirmPassword;
+        if(event){
+            confirmPassword = event.target.value;
+        }else{
+            confirmPassword = this.getInputValuebyName('ConfirmPassword');
+        }
         const password = this.getInputValuebyName('Password');
-        const confirmPassword = this.getInputValuebyName('ConfirmPassword');
         const validationError = this.validateConfirmPassword(password, confirmPassword);
         
         this.handleValidationErrors(validationError, 'confirmPasswordError');
@@ -97,26 +112,36 @@ export class SignUpForm extends React.Component{
 
     }
 
-    handleFirstnameBlur = () => {
-        const firstname = this.getInputValuebyName('Firstname');
+    handleFirstnameBlur = event => {
+        let firstname;
+        if(event){
+            firstname = event.target.value;
+        }else{
+            firstname = this.getInputValuebyName('Firstname');
+        }
         const validationError = this.validateFirstname(firstname);
 
         this.handleValidationErrors(validationError, 'firstnameError');
         return !validationError;
     }
 
-    handleLastnameBlur = () => {
-        const lastname = this.getInputValuebyName('Lastname');
+    handleLastnameBlur = event => {
+        let lastname;
+        if(event){
+            lastname = event.target.value;
+        }else{
+            lastname = this.getInputValuebyName('Lastname');
+        }
         const validationError = this.validateLastname(lastname);
 
         this.handleValidationErrors(validationError, 'lastwordError');
         return !validationError;
     }
 
-    handleValidationErrors = (validationError, stateError) => {
-        if(this.state[stateError] !== validationError){
+    handleValidationErrors = (validationError, stateErrorProperty) => {
+        if(this.state[stateErrorProperty] !== validationError){
             this.setState({
-                [stateError]: validationError
+                [stateErrorProperty]: validationError
             });
         }
     }
