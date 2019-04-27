@@ -60,5 +60,48 @@ $Width: 540px;
 
 .error{
     color: red;
+    margin-bottom: 0;
 }
 
+.controllerContainer{
+    display: flex;
+    justify-content: space-between;
+    width: 65px;
+    margin: 0 auto;
+}
+
+.controller{
+    border: 0;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    cursor: pointer;
+    &:focus{
+        outline: none;
+    }
+    &.defualt{
+        background-color: gray;
+    }
+    &.active{
+        background-color: $dark-orange;
+    }
+    &.visted{
+        background-color: rgba(255, 115, 0, 0.5);
+    }
+}
+.buttonContainer{
+    display: flex;
+    width: 250px;
+    justify-content: space-around;
+    margin: 10px auto 0 auto;
+}
+
+.button{
+    width: 110px;
+    height: 40px;
+    background-color: $dark-orange;
+    color: white;
+    border: 0;
+    cursor: pointer;
+}
