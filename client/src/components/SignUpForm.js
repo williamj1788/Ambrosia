@@ -9,20 +9,48 @@ class SignUpForm extends React.Component{
         emailError: null,
         passwordError: null,
         confirmPasswordError: null,
+        firstnameError: null,
+        lastwordError: null,
     }
 
-    setActiveFromBlock = target => {
-        let newState = {
-            activeFormBlock: target
+    handleOnClick = target => {
+        const { activeFormBlock, formBlockProgress } = this.state;
+        if(target === activeFormBlock){ // don't unnecessarily set the state
+            return
         }
-        if(target > this.state.formBlockProgress){
-            newState.formBlockProgress = target
+        if(target > formBlockProgress + 1){ // User can only Progress one block at a time 
+            return
         }
-        this.setState(newState);
+        if(target > formBlockProgress){
+            if(formBlockProgress === 0 && this.validateFirstFormBlock()){
+                this.setState({
+                    activeFormBlock: target,
+                    formBlockProgress: target
+                });
+            }
+        }else if(target <= formBlockProgress){
+            this.setState({
+                activeFormBlock: target,
+            });
+        }
     }
 
     handleSubmit = () => {
+        const isFirstBlockValid = this.validateFirstFormBlock();
+        if(!isFirstBlockValid){
+            this.setState({
+                activeFormBlock: 0 
+            });
+        }
         console.log('TODO');
+    }
+
+    validateFirstFormBlock = () => {
+        const isEmailValid = this.handleEmailBlur();
+        const isPasswordValid = this.handlePasswordBlur();
+        const isConfirmPassword = this.handleConfirmPasswordBlur();
+        
+        return isEmailValid && isPasswordValid && isConfirmPassword;
     }
 
     handleEmailBlur = () => {
@@ -35,6 +63,8 @@ class SignUpForm extends React.Component{
                 emailError: validationError
             });
         }
+
+        return !validationError;
     }
 
     handlePasswordBlur = () => {
@@ -47,6 +77,7 @@ class SignUpForm extends React.Component{
                 passwordError: validationError
             });
         }
+        return !validationError;
     }
 
     handleConfirmPasswordBlur = () => {
@@ -60,7 +91,34 @@ class SignUpForm extends React.Component{
                 confirmPasswordError: validationError
             });
         }
+        return !validationError;
 
+    }
+
+    handleFirstnameBlur = () => {
+        const { firstnameError } = this.state
+        const firstname = this.getInputValuebyName('Firstname');
+        const validationError = this.validateFirstname(firstname);
+
+        if(firstnameError !== validationError){
+            this.setState({
+                firstnameError: validationError
+            });
+        }
+        return !validationError;
+    }
+
+    handleLastnameBlur = () => {
+        const { lastwordError } = this.state
+        const lastname = this.getInputValuebyName('Lastname');
+        const validationError = this.validateLastname(lastname);
+
+        if(lastwordError !== validationError){
+            this.setState({
+                lastwordError: validationError
+            });
+        }
+        return !validationError;
     }
 
     validateEmail = email => {
@@ -91,6 +149,20 @@ class SignUpForm extends React.Component{
         return null;
     }
 
+    validateFirstname = firstname => {
+        if(firstname.length <= 0){
+            return 'Firstname Required';
+        }
+        return null;
+    }
+
+    validateLastname = lastname => {
+        if(lastname.length <= 0){
+            return 'Lastname Required';
+        }
+        return null;
+    }
+
     getInputValuebyName = name => {
         return document.querySelector(`input[name = ${name}]`).value;
     }
@@ -102,6 +174,8 @@ class SignUpForm extends React.Component{
             emailError,
             passwordError,
             confirmPasswordError,
+            firstnameError,
+            lastwordError,
         } = this.state;
         return(
             <div className={s.SignUp}>
@@ -114,14 +188,14 @@ class SignUpForm extends React.Component{
                             <Input type='password' placeholder='Confirm Password *' name='ConfirmPassword' label="Confirm Password" onBlur={this.handleConfirmPasswordBlur} error={confirmPasswordError} />
                         </FormBlock>
                         <FormBlock>
-                            <Input  type='text' placeholder='First Name *' name='Firstname' />
-                            <Input  type='text' placeholder='Last Name *' name='Lastname' />
+                            <Input  type='text' placeholder='First Name *' name='Firstname' onBlur={this.handleFirstnameBlur} error={firstnameError} />
+                            <Input  type='text' placeholder='Last Name *' name='Lastname' onBlur={this.handleLastnameBlur} error={lastwordError} />
                             <Input  type='text' placeholder='Address' name='Address' />
                         </FormBlock>
                     </Form>
                 </View>
-                <Controllers active={activeFormBlock} progress={formBlockProgress} setActive={this.setActiveFromBlock} />
-                <ControllerButtons active={activeFormBlock} setActive={this.setActiveFromBlock} submit={this.handleSubmit} />
+                <Controllers active={activeFormBlock} progress={formBlockProgress} onClick={this.handleOnClick} />
+                <ControllerButtons active={activeFormBlock} onClick={this.handleOnClick} submit={this.handleSubmit} />
             </div>
         )
     }
@@ -143,7 +217,7 @@ const View = ({ children }) => {
     )
 }
 
-const Controllers = ({ active, progress, setActive }) => {
+const Controllers = ({ active, progress, onClick }) => {
     
     let buttons = [];
     for(let i = 0; i < 2; i++){
@@ -155,7 +229,7 @@ const Controllers = ({ active, progress, setActive }) => {
         }else{
             state = 'default'
         }
-        buttons.push(<button onClick={state === 'visted' ? () => setActive(i) : undefined} className={`${s.controller} ${s[state]}`} ></button>);
+        buttons.push(<button key={i} onClick={state === 'visted' ? () => onClick(i) : undefined} className={`${s.controller} ${s[state]}`} ></button>);
     }
 
     return(
@@ -165,11 +239,11 @@ const Controllers = ({ active, progress, setActive }) => {
     )
 }
 
-const ControllerButtons = ({ active, setActive, submit }) => {
+const ControllerButtons = ({ active, onClick, submit }) => {
     return(
         <div className={s.buttonContainer}>
-            {active !== 0 && <button className={s.button} onClick={() => setActive(--active)}>Back</button> }
-            {active < 1 && <button className={s.button} onClick={() => setActive(++active)}>Next</button>}
+            {active !== 0 && <button className={s.button} onClick={() => onClick(active - 1)}>Back</button> }
+            {active < 1 && <button className={s.button} onClick={() => onClick(active + 1)}>Next</button>}
             {active === 1 && <button className={s.button} onClick={submit}>Sign Up</button>} 
         </div>
     )
