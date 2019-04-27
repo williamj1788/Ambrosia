@@ -1,5 +1,94 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<ControllerButtons /> Snapshot test 1`] = `
+<div
+  className="buttonContainer"
+>
+  <button
+    className="button"
+    onClick={[Function]}
+  >
+    Next
+  </button>
+</div>
+`;
+
+exports[`<Controllers /> Snapshot test 1`] = `
+<div
+  className="controllerContainer"
+>
+  <button
+    className="controller active"
+    key="0"
+  />
+  <button
+    className="controller visted"
+    key="1"
+    onClick={[Function]}
+  />
+</div>
+`;
+
+exports[`<Form /> Snapshot test 1`] = `
+<form
+  className="form"
+  id="mockId"
+  style={
+    Object {
+      "right": 540,
+    }
+  }
+>
+  <div>
+    mock children
+  </div>
+</form>
+`;
+
+exports[`<FormBlock /> Snapshot test 1`] = `
+<div
+  className="formBlock"
+>
+  <div>
+    mock
+  </div>
+</div>
+`;
+
+exports[`<Input /> Snapshot test 1`] = `
+<div
+  className="inputContainer"
+>
+  <label
+    htmlFor="mockName"
+    style={
+      Object {
+        "fontWeight": "500",
+      }
+    }
+  >
+    mock label
+  </label>
+  <input
+    className="input"
+    name="mockName"
+    onBlur={[MockFunction]}
+    placeholder="mock placeholder"
+    style={
+      Object {
+        "border": "2px solid red",
+      }
+    }
+    type="text"
+  />
+  <p
+    className="error"
+  >
+    mock error
+  </p>
+</div>
+`;
+
 exports[`<SignUpForm /> Snapshot test 1`] = `
 <div
   className="SignUp"
@@ -68,5 +157,15 @@ exports[`<SignUpForm /> Snapshot test 1`] = `
     submit={[Function]}
   />
   <Account />
+</div>
+`;
+
+exports[`<View /> Snapshot test 1`] = `
+<div
+  className="view"
+>
+  <div>
+    mock
+  </div>
 </div>
 `;

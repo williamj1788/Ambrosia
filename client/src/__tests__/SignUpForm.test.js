@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { SignUpForm } from '../components/SignUpForm';
+import { SignUpForm, View, Controllers, ControllerButtons, Form, FormBlock,Input } from '../components/SignUpForm';
 import toBeType from "jest-tobetype";
 import toJson from 'enzyme-to-json';
 
@@ -168,3 +168,45 @@ describe('<SignUpForm />', () => {
         expect(instance.validateLastname('mock')).toBeNull();
     });
 });
+
+describe('<View />', () => {
+    const component = shallow(<View><div>mock</div></View>);
+    test('Snapshot test', () => {
+        expect(toJson(component)).toMatchSnapshot();
+    });
+})
+
+describe('<Controllers />', () => {
+    const component = shallow(<Controllers active={0} progress={1} onClick={jest.fn()} />);
+    test('Snapshot test', () => {
+        expect(toJson(component)).toMatchSnapshot();
+    });
+})
+
+describe('<ControllerButtons />', () => {
+    const component = shallow(<ControllerButtons active={0} submit={jest.fn()} onClick={jest.fn()} />);
+    test('Snapshot test', () => {
+        expect(toJson(component)).toMatchSnapshot();
+    });
+})
+
+describe('<Form />', () => {
+    const component = shallow(<Form active={1} id={'mockId'}><div>mock children</div></Form>);
+    test('Snapshot test', () => {
+        expect(toJson(component)).toMatchSnapshot();
+    });
+})
+
+describe('<FormBlock />', () => {
+    const component = shallow(<FormBlock><div>mock</div></FormBlock>);
+    test('Snapshot test', () => {
+        expect(toJson(component)).toMatchSnapshot();
+    });
+})
+
+describe('<Input />', () => {
+    const component = shallow(<Input type='text' placeholder="mock placeholder" label='mock label' onBlur={jest.fn()} name={'mockName'} error={'mock error'} />);
+    test('Snapshot test', () => {
+        expect(toJson(component)).toMatchSnapshot();
+    });
+})

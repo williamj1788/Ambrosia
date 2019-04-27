@@ -227,7 +227,7 @@ export class SignUpForm extends React.Component{
     }
 }
 
-export const Header = () => {
+const Header = () => {
     return(
         <div className={s.header}>
             <span className={s.headerText}>Sign Up</span>
