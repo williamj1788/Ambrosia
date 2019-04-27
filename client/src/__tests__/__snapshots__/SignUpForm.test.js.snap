@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SignUpForm /> Snapshot test 1`] = `
+<div
+  className="SignUp"
+>
+  <Header />
+  <View>
+    <Form
+      active={0}
+      id="signUP-form"
+    >
+      <FormBlock>
+        <Input
+          error={null}
+          name="Email"
+          onBlur={[Function]}
+          placeholder="Email *"
+          type="text"
+        />
+        <Input
+          error={null}
+          name="Password"
+          onBlur={[Function]}
+          placeholder="Password *"
+          type="password"
+        />
+        <Input
+          error={null}
+          label="Confirm Password"
+          name="ConfirmPassword"
+          onBlur={[Function]}
+          placeholder="Confirm Password *"
+          type="password"
+        />
+      </FormBlock>
+      <FormBlock>
+        <Input
+          error={null}
+          name="Firstname"
+          onBlur={[Function]}
+          placeholder="First Name *"
+          type="text"
+        />
+        <Input
+          error={null}
+          name="Lastname"
+          onBlur={[Function]}
+          placeholder="Last Name *"
+          type="text"
+        />
+        <Input
+          name="Address"
+          placeholder="Address"
+          type="text"
+        />
+      </FormBlock>
+    </Form>
+  </View>
+  <Controllers
+    active={0}
+    onClick={[Function]}
+    progress={0}
+  />
+  <ControllerButtons
+    active={0}
+    onClick={[Function]}
+    submit={[Function]}
+  />
+  <Account />
+</div>
+`;

@@ -3,7 +3,7 @@ import s from '../styles/SignUpForm.module.scss';
 
 import { NavLink } from 'react-router-dom';
 
-class SignUpForm extends React.Component{
+export class SignUpForm extends React.Component{
     
     state = {
         activeFormBlock: 0,
@@ -14,7 +14,7 @@ class SignUpForm extends React.Component{
         firstnameError: null,
         lastwordError: null,
     }
-
+    
     handleOnClick = target => {
         const { activeFormBlock, formBlockProgress } = this.state;
         if(target === activeFormBlock){ // don't unnecessarily set the state
@@ -71,71 +71,54 @@ class SignUpForm extends React.Component{
     }
 
     handleEmailBlur = () => {
-        const { emailError } = this.state;
         const email = this.getInputValuebyName('Email');
         const validationError = this.validateEmail(email);
         
-        if(emailError !== validationError){
-            this.setState({
-                emailError: validationError
-            });
-        }
+        this.handleValidationErrors(validationError, 'emailError');
 
         return !validationError;
     }
 
     handlePasswordBlur = () => {
-        const { passwordError } = this.state;
         const password = this.getInputValuebyName('Password');
         const validationError = this.validatePassword(password);
 
-        if(passwordError !== validationError){
-            this.setState({
-                passwordError: validationError
-            });
-        }
+        this.handleValidationErrors(validationError, 'passwordError');
         return !validationError;
     }
 
     handleConfirmPasswordBlur = () => {
-        const { confirmPasswordError } = this.state;
         const password = this.getInputValuebyName('Password');
         const confirmPassword = this.getInputValuebyName('ConfirmPassword');
         const validationError = this.validateConfirmPassword(password, confirmPassword);
         
-        if(confirmPasswordError !== validationError){
-            this.setState({
-                confirmPasswordError: validationError
-            });
-        }
+        this.handleValidationErrors(validationError, 'confirmPasswordError');
         return !validationError;
 
     }
 
     handleFirstnameBlur = () => {
-        const { firstnameError } = this.state
         const firstname = this.getInputValuebyName('Firstname');
         const validationError = this.validateFirstname(firstname);
 
-        if(firstnameError !== validationError){
-            this.setState({
-                firstnameError: validationError
-            });
-        }
+        this.handleValidationErrors(validationError, 'firstnameError');
         return !validationError;
     }
 
     handleLastnameBlur = () => {
-        const { lastwordError } = this.state
         const lastname = this.getInputValuebyName('Lastname');
         const validationError = this.validateLastname(lastname);
 
-        if(lastwordError !== validationError){
+        this.handleValidationErrors(validationError, 'lastwordError');
+        return !validationError;
+    }
+
+    handleValidationErrors = (validationError, stateError) => {
+        if(this.state[stateError] !== validationError){
             this.setState({
-                lastwordError: validationError
+                [stateError]: validationError
             });
         }
-        return !validationError;
     }
 
     validateEmail = email => {
@@ -213,16 +196,13 @@ class SignUpForm extends React.Component{
                 </View>
                 <Controllers active={activeFormBlock} progress={formBlockProgress} onClick={this.handleOnClick} />
                 <ControllerButtons active={activeFormBlock} onClick={this.handleOnClick} submit={this.handleSubmit} />
-                <div className={s.account}>
-                    <p className={s.accountText}>Already have an account?</p>
-                    <NavLink to='/login'>Login Here</NavLink>
-                </div>
+                <Account />
             </div>
         )
     }
 }
 
-const Header = () => {
+export const Header = () => {
     return(
         <div className={s.header}>
             <span className={s.headerText}>Sign Up</span>
@@ -230,7 +210,7 @@ const Header = () => {
     )
 }
 
-const View = ({ children }) => {
+export const View = ({ children }) => {
     return(
         <div className={s.view}>
             {children}
@@ -238,7 +218,7 @@ const View = ({ children }) => {
     )
 }
 
-const Controllers = ({ active, progress, onClick }) => {
+export const Controllers = ({ active, progress, onClick }) => {
     
     let buttons = [];
     for(let i = 0; i < 2; i++){
@@ -260,7 +240,7 @@ const Controllers = ({ active, progress, onClick }) => {
     )
 }
 
-const ControllerButtons = ({ active, onClick, submit }) => {
+export const ControllerButtons = ({ active, onClick, submit }) => {
     return(
         <div className={s.buttonContainer}>
             {active !== 0 && <button className={s.button} onClick={() => onClick(active - 1)}>Back</button> }
@@ -270,7 +250,7 @@ const ControllerButtons = ({ active, onClick, submit }) => {
     )
 }
 
-const Form = ({ id, active, children }) => {
+export const Form = ({ id, active, children }) => {
     const FormWidth = window.innerWidth < 540 ? window.innerWidth : 540; // from SignUpForm.module.scss
     const style = {
         right: FormWidth * active
@@ -284,7 +264,7 @@ const Form = ({ id, active, children }) => {
     )
 }
 
-const FormBlock = ({ children }) => {
+export const FormBlock = ({ children }) => {
     return(
         <div className={s.formBlock}>
             {children}
@@ -292,7 +272,7 @@ const FormBlock = ({ children }) => {
     )
 }
 
-const Input = ({ type, placeholder, label , onBlur, name, error }) => {
+export const Input = ({ type, placeholder, label , onBlur, name, error }) => {
     let props = { 
         className: s.input,
         type,
@@ -310,6 +290,15 @@ const Input = ({ type, placeholder, label , onBlur, name, error }) => {
             <label style={{fontWeight: '500'}} htmlFor={name}>{label || name}</label>
             <input {...props} />
             {error && <p className={s.error}>{error}</p>}
+        </div>
+    )
+}
+
+const Account = () => {
+    return(
+        <div className={s.account}>
+            <p className={s.accountText}>Already have an account?</p>
+            <NavLink to='/login'>Login Here</NavLink>
         </div>
     )
 }
