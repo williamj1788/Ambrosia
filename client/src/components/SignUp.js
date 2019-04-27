@@ -9,7 +9,7 @@ import HistoryIcon from '../images/history-icon.png';
 import CartIcon from '../images/Cart-icon-black.png';
 
 
-class SignUp extends React.Component{
+export class SignUp extends React.Component{
     render(){
         return(
             <div>
@@ -25,7 +25,7 @@ class SignUp extends React.Component{
     }
 }
 
-const AccountPerks = () => {
+export const AccountPerks = () => {
     return(
         <div className={s.accountPerks}>
             <Perk 
@@ -45,7 +45,7 @@ const AccountPerks = () => {
 }
 
 
-const Perk = ({ img, text }) => {
+export const Perk = ({ img, text }) => {
     return(
         <div className={s.perk}>
             <img className={s.perkImg} src={img} alt="Perk"/>

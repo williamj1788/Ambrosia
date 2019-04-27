@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AccountPerks /> Snapshot test 1`] = `
+<div
+  className="accountPerks"
+>
+  <Perk
+    img="save-icon.png"
+    text="Save Items in cart"
+  />
+  <Perk
+    img="Cart-icon-black.png"
+    text="Checkout Items"
+  />
+  <Perk
+    img="history-icon.png"
+    text="View past Orders"
+  />
+</div>
+`;
+
+exports[`<Perk /> Snapshot test 1`] = `
+<div
+  className="perk"
+>
+  <img
+    alt="Perk"
+    className="perkImg"
+    src="mock img"
+  />
+  <p
+    className="perkText"
+  >
+    mock text
+  </p>
+</div>
+`;
+
+exports[`<SignUp /> Snapshot test 1`] = `
+<div>
+  <Navbar />
+  <div
+    className="content"
+  >
+    <div
+      className="flexContainer"
+    >
+      <AccountPerks />
+      <SignUpForm />
+    </div>
+  </div>
+</div>
+`;
