@@ -6,7 +6,9 @@ class SignUpForm extends React.Component{
     state = {
         activeFormBlock: 0,
         formBlockProgress: 0,
-        emailError: false
+        emailError: false,
+        passwordError: false,
+        confirmPasswordError: false,
     }
 
     setActiveFromBlock = target => {
@@ -25,19 +27,55 @@ class SignUpForm extends React.Component{
 
     validateEmail = () => {
         const { emailError } = this.state;
-        const emailValue = document.querySelector('input[name = Email]').value;
+        const email = document.querySelector('input[name = Email]').value;
         const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        const isValid = emailRegex.test(emailValue);
+        const isValid = emailRegex.test(email);
         
         if(isValid && emailError){
             this.setState({
-                emailError: false,
+                emailError: false
             });
         }else if(!isValid && !emailError){
             this.setState({
                 emailError: 'Invalid Email'
             });
         }
+        return isValid
+    }
+
+    validatePassword = () => {
+        const { passwordError } = this.state;
+        const password = document.querySelector('input[name = Password]').value;
+        const isValid = password.length >= 5;
+        
+        if(isValid && passwordError){
+            this.setState({
+                passwordError: false
+            })
+        }else if(!isValid && !passwordError){
+            this.setState({
+                passwordError: 'Password must be 5 or more characters'
+            })
+        }
+        return isValid
+    }
+
+    validateConfirmPassword = () => {
+        const { confirmPasswordError } = this.state;
+        const password = document.querySelector('input[name = Password]').value;
+        const confirmPassword = document.querySelector('input[name = ConfirmPassword]').value;
+        const isValid = password === confirmPassword;
+
+        if(isValid && confirmPasswordError){
+            this.setState({
+                confirmPasswordError: false
+            });
+        }else if(!isValid && !confirmPasswordError){
+            this.setState({
+                confirmPasswordError: 'Must be the same as password'
+            });
+        }
+        return isValid
     }
     
     render(){
@@ -45,6 +83,8 @@ class SignUpForm extends React.Component{
             activeFormBlock,
             formBlockProgress ,
             emailError,
+            passwordError,
+            confirmPasswordError,
         } = this.state;
         return(
             <div className={s.SignUp}>
@@ -52,9 +92,9 @@ class SignUpForm extends React.Component{
                 <View>
                     <Form id='signUP-form' active={activeFormBlock} >
                         <FormBlock>
-                            <Input type='text' placeholder='Email *' name='Email'onBlur={this.validateEmail} error={emailError} />
-                            <Input id='password' type='password' placeholder='Password *' name='Password' />
-                            <Input type='password' placeholder='Confirm Password *' name='ConfirmPassword' />
+                            <Input type='text' placeholder='Email *' name='Email' onBlur={this.validateEmail} error={emailError} />
+                            <Input type='password' placeholder='Password *' name='Password' onBlur={this.validatePassword} error={passwordError} />
+                            <Input type='password' placeholder='Confirm Password *' name='ConfirmPassword' label="Confirm Password" onBlur={this.validateConfirmPassword} error={confirmPasswordError} />
                         </FormBlock>
                         <FormBlock>
                             <Input  type='text' placeholder='First Name *' name='Firstname' />
@@ -140,7 +180,7 @@ const FormBlock = ({ children }) => {
     )
 }
 
-const Input = ({ type, placeholder, onBlur, id, name, error }) => {
+const Input = ({ type, placeholder, label , onBlur, name, error }) => {
     let props = { 
         className: s.input,
         type,
@@ -148,9 +188,6 @@ const Input = ({ type, placeholder, onBlur, id, name, error }) => {
         name,
         onBlur,
     };
-    if(id){
-        props.id = id;
-    }
     if(error){
         props.style = {
             border: '2px solid red'
@@ -158,6 +195,7 @@ const Input = ({ type, placeholder, onBlur, id, name, error }) => {
     }
     return(
         <div className={s.inputContainer}>
+            <label htmlFor={name}>{label || name}</label>
             <input {...props} />
             {error && <p className={s.error}>{error}</p>}
         </div>
