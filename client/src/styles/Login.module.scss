@@ -1,4 +1,4 @@
- 
+@import '../styles/global.scss';
  $Width: 540px;
  .login{
     width: $Width;
@@ -8,3 +8,32 @@
     margin: 75px auto 0 auto;
  }
 
+.form{
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.button{
+    @include button(110px, 40px);
+    margin: 0 auto;
+}
+
+.account{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 20px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    a{
+        text-decoration: none;
+        font-size: 1.2rem;
+        color: blue;
+    }
+}
+
+.accountText{
+    font-size: 1.2rem;
+    margin: 0;
+}

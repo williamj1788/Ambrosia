@@ -174,9 +174,9 @@ export class SignUpForm extends React.Component{
                 <View>
                     <Form id='signUP-form' active={activeFormBlock} >
                         <FormBlock>
-                            <Input type='text' placeholder='Email *' name='Email' onBlur={this.handleEmailBlur} error={emailError} />
-                            <Input type='password' placeholder='Password *' name='Password' onBlur={this.handlePasswordBlur} error={passwordError} />
-                            <Input type='password' placeholder='Confirm Password *' name='ConfirmPassword' label="Confirm Password" onBlur={this.handleConfirmPasswordBlur} error={confirmPasswordError} />
+                            <Input type='text' placeholder='Email *' name='Email' onBlur={this.handleEmailBlur} error={emailError} autocomplete='email' />
+                            <Input type='password' placeholder='Password *' name='Password' onBlur={this.handlePasswordBlur} error={passwordError} autocomplete="new-password" />
+                            <Input type='password' placeholder='Confirm Password *' name='ConfirmPassword' label="Confirm Password" onBlur={this.handleConfirmPasswordBlur} error={confirmPasswordError} autocomplete="new-password" />
                         </FormBlock>
                         <FormBlock>
                             <Input  type='text' placeholder='First Name *' name='Firstname' onBlur={this.handleFirstnameBlur} error={firstnameError} />
@@ -263,13 +263,14 @@ export const FormBlock = ({ children }) => {
     )
 }
 
-export const Input = ({ type, placeholder, label , onBlur, name, error }) => {
+export const Input = ({ type, placeholder, label , onBlur, name, error, autocomplete }) => {
     let props = { 
         className: s.input,
         type,
         placeholder,
         name,
         onBlur,
+        autocomplete: autocomplete || 'on',
     };
     if(error){
         props.style = {

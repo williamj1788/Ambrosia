@@ -4,6 +4,19 @@ $light-orange: #FFB300;
 $dark-orange: #FF7300;
 $blue: #0033ff;
 
+@mixin button($width, $height, $font-weight: 500) {
+    display: block;
+    width: $width;
+    height: $height;
+    background-color: $dark-orange;
+    font-weight: $font-weight;
+    font-size: 1.3rem;
+    color: white;
+    border: 0;
+    cursor: pointer;
+
+}
+
 %content{
     position: absolute;
     width: 100%;

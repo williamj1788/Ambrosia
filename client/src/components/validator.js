@@ -40,3 +40,11 @@ export const validateLastname = lastname => {
     return null;
 }
 
+export const handleValidationErrors = (validationError, stateErrorProperty) => {
+    if(this.state[stateErrorProperty] !== validationError){
+        this.setState({
+            [stateErrorProperty]: validationError
+        });
+    }
+}
+
