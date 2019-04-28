@@ -1,10 +1,20 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { SignUpForm, View, Controllers, ControllerButtons, Form, FormBlock,Input } from '../components/SignUpForm';
+import { 
+    SignUpForm, 
+    View, 
+    Controllers, 
+    ControllerButtons, 
+    Form, 
+    FormBlock, 
+    Input 
+} from '../components/SignUpForm';
+
 import toBeType from "jest-tobetype";
 import toJson from 'enzyme-to-json';
 
 expect.extend(toBeType);
+jest.mock('../components/validator'); // where ever validator.js is located
 
 describe('<SignUpForm />', () => {
     beforeEach(() => {
@@ -70,9 +80,8 @@ describe('<SignUpForm />', () => {
 
     test('handleEmailBlur should call handleValidationErrors with correct args', () => {
         jest.spyOn(instance,'handleValidationErrors');
-        jest.spyOn(instance,'validateEmail').mockImplementation(() => 'anything');
         instance.handleEmailBlur(event);
-        expect(instance.handleValidationErrors).toHaveBeenCalledWith('anything','emailError');
+        expect(instance.handleValidationErrors).toHaveBeenCalledWith(undefined,'emailError');
     });
     test('handleEmailBlur should return a boolean', () => {
         expect(instance.handleEmailBlur(event)).toBeType('boolean');
@@ -80,9 +89,8 @@ describe('<SignUpForm />', () => {
 
     test('handlePasswordBlur should call handleValidationErrors with correct args', () => {
         jest.spyOn(instance,'handleValidationErrors');
-        jest.spyOn(instance,'validatePassword').mockImplementation(() => 'anything');
         instance.handlePasswordBlur(event);
-        expect(instance.handleValidationErrors).toHaveBeenCalledWith('anything','passwordError');
+        expect(instance.handleValidationErrors).toHaveBeenCalledWith(undefined,'passwordError');
     });
     test('handlePasswordBlur should return a boolean', () => {
         expect(instance.handlePasswordBlur(event)).toBeType('boolean');
@@ -91,9 +99,8 @@ describe('<SignUpForm />', () => {
     test('handleConfirmPasswordBlur should call handleValidationErrors with correct args', () => {
         jest.spyOn(instance,'handleValidationErrors');
         jest.spyOn(instance,'getInputValuebyName').mockImplementation(() => 'anything');
-        jest.spyOn(instance,'validateConfirmPassword').mockImplementation(() => 'anything');
         instance.handleConfirmPasswordBlur(event);
-        expect(instance.handleValidationErrors).toHaveBeenCalledWith('anything','confirmPasswordError');
+        expect(instance.handleValidationErrors).toHaveBeenCalledWith(undefined,'confirmPasswordError');
     });
     test('handleConfirmPasswordBlur should return a boolean', () => {
         jest.spyOn(instance,'getInputValuebyName').mockImplementation(() => 'anything');
@@ -102,9 +109,8 @@ describe('<SignUpForm />', () => {
 
     test('handleFirstnameBlur should call handleValidationErrors with correct args', () => {
         jest.spyOn(instance,'handleValidationErrors');
-        jest.spyOn(instance,'validateFirstname').mockImplementation(() => 'anything');
         instance.handleFirstnameBlur(event);
-        expect(instance.handleValidationErrors).toHaveBeenCalledWith('anything','firstnameError');
+        expect(instance.handleValidationErrors).toHaveBeenCalledWith(undefined,'firstnameError');
     });
     test('handleFirstnameBlur should return a boolean', () => {
         expect(instance.handleFirstnameBlur(event)).toBeType('boolean');
@@ -112,9 +118,8 @@ describe('<SignUpForm />', () => {
 
     test('handleLastnameBlur should call handleValidationErrors with correct args', () => {
         jest.spyOn(instance,'handleValidationErrors');
-        jest.spyOn(instance,'validateLastname').mockImplementation(() => 'anything');
         instance.handleLastnameBlur(event);
-        expect(instance.handleValidationErrors).toHaveBeenCalledWith('anything','lastwordError');
+        expect(instance.handleValidationErrors).toHaveBeenCalledWith(undefined,'lastwordError');
     });
     test('handleLastnameBlur should return a boolean', () => {
         expect(instance.handleLastnameBlur(event)).toBeType('boolean');
@@ -127,46 +132,6 @@ describe('<SignUpForm />', () => {
         expect(instance.setState).toBeCalledWith({'mockState': 'mock error'});
     });
 
-    test("validateEmail should return a string if email has no characters", () => {
-        expect(instance.validateEmail('')).toBeType('string');
-    });
-    test("validateEmail should return a string if email is doesn't regex", () => {
-        expect(instance.validateEmail('mock email')).toBeType('string');
-    });
-    test("validateEmail should return null if email is valid", () => {
-        expect(instance.validateEmail('mockEmail123@gmail.com')).toBeNull();
-    });
-
-    test("validatePassword should return a string if password has no characters", () => {
-        expect(instance.validatePassword('')).toBeType('string');
-    });
-    test("validatePassword should return a string if password has less than 5 characters", () => {
-        expect(instance.validatePassword('mock')).toBeType('string');
-    });
-    test("validatePassword should return null if password is valid", () => {
-        expect(instance.validatePassword('mocky')).toBeNull();
-    });
-
-    test("validateConfirmPassword should return a string if password and confirmPassword don't match", () => {
-        expect(instance.validateConfirmPassword('mock', 'not mock')).toBeType('string');
-    });
-    test("validateConfirmPassword should return null if password and confirmPassword match", () => {
-        expect(instance.validateConfirmPassword('mock', 'mock')).toBeNull();
-    });
-
-    test('validateFirstname should return a string if firstname has no characters', () => {
-        expect(instance.validateFirstname('')).toBeType('string');
-    });
-    test('validateFirstname should return null if is vaild', () => {
-        expect(instance.validateFirstname('mock')).toBeNull();
-    });
-
-    test('validateLastname should return a string if lastname has no characters', () => {
-        expect(instance.validateLastname('')).toBeType('string');
-    });
-    test('validateLastname should return null if is valid', () => {
-        expect(instance.validateLastname('mock')).toBeNull();
-    });
 });
 
 describe('<View />', () => {

@@ -3,6 +3,14 @@ import s from '../styles/SignUpForm.module.scss';
 
 import { NavLink } from 'react-router-dom';
 
+import { 
+    validateEmail,
+    validatePassword,
+    validateConfirmPassword,
+    validateFirstname,
+    validateLastname,
+ } from './validator';
+
 export class SignUpForm extends React.Component{
     
     state = {
@@ -77,7 +85,7 @@ export class SignUpForm extends React.Component{
         }else{
             email = this.getInputValuebyName('Email');
         }
-        const validationError = this.validateEmail(email);
+        const validationError = validateEmail(email);
         
         this.handleValidationErrors(validationError, 'emailError');
 
@@ -91,7 +99,7 @@ export class SignUpForm extends React.Component{
         }else{
             password = this.getInputValuebyName('Password');
         }
-        const validationError = this.validatePassword(password);
+        const validationError = validatePassword(password);
 
         this.handleValidationErrors(validationError, 'passwordError');
         return !validationError;
@@ -105,7 +113,7 @@ export class SignUpForm extends React.Component{
             confirmPassword = this.getInputValuebyName('ConfirmPassword');
         }
         const password = this.getInputValuebyName('Password');
-        const validationError = this.validateConfirmPassword(password, confirmPassword);
+        const validationError = validateConfirmPassword(password, confirmPassword);
         
         this.handleValidationErrors(validationError, 'confirmPasswordError');
         return !validationError;
@@ -119,7 +127,7 @@ export class SignUpForm extends React.Component{
         }else{
             firstname = this.getInputValuebyName('Firstname');
         }
-        const validationError = this.validateFirstname(firstname);
+        const validationError = validateFirstname(firstname);
 
         this.handleValidationErrors(validationError, 'firstnameError');
         return !validationError;
@@ -132,7 +140,7 @@ export class SignUpForm extends React.Component{
         }else{
             lastname = this.getInputValuebyName('Lastname');
         }
-        const validationError = this.validateLastname(lastname);
+        const validationError = validateLastname(lastname);
 
         this.handleValidationErrors(validationError, 'lastwordError');
         return !validationError;
@@ -144,48 +152,6 @@ export class SignUpForm extends React.Component{
                 [stateErrorProperty]: validationError
             });
         }
-    }
-
-    validateEmail = email => {
-        const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        if(email.length <= 0){
-            return 'Email Required';
-        }
-        if(!emailRegex.test(email)){
-            return 'Invalid Email';
-        }
-        return null;
-    }
-
-    validatePassword = password => {
-        if(password.length <= 0){
-            return 'Password Required';
-        }
-        if(password.length < 5){
-            return 'Password must be 5 or more characters';
-        }
-        return null;
-    }
-
-    validateConfirmPassword = (password, confirmPassword) => {
-        if(password !== confirmPassword){
-            return "Does not match password";
-        }
-        return null;
-    }
-
-    validateFirstname = firstname => {
-        if(firstname.length <= 0){
-            return 'Firstname Required';
-        }
-        return null;
-    }
-
-    validateLastname = lastname => {
-        if(lastname.length <= 0){
-            return 'Lastname Required';
-        }
-        return null;
     }
 
     getInputValuebyName = name => {
