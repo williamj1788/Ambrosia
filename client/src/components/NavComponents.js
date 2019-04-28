@@ -37,7 +37,7 @@ export const NavLinkContainer = ({ className, style = {} }) => {
             <NavLinkWrapper active strict to='/menu'>Menu</NavLinkWrapper>
             <NavLinkWrapper active to='/meet' >Meet The Chiefs</NavLinkWrapper>
             <NavLinkWrapper icon={cartIcon}>Cart</NavLinkWrapper>
-            <NavLinkWrapper to='/signup' icon={userIcon}>Sign up</NavLinkWrapper>
+            <NavLinkWrapper to='/login' icon={userIcon}>Login</NavLinkWrapper>
         </div>
     )
 }

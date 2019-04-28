@@ -204,7 +204,7 @@ export class SignUpForm extends React.Component{
         } = this.state;
         return(
             <div className={s.SignUp}>
-                <Header />
+                <Header title='Sign Up' />
                 <View>
                     <Form id='signUP-form' active={activeFormBlock} >
                         <FormBlock>
@@ -227,10 +227,10 @@ export class SignUpForm extends React.Component{
     }
 }
 
-const Header = () => {
+export const Header = ({ title }) => {
     return(
         <div className={s.header}>
-            <span className={s.headerText}>Sign Up</span>
+            <span className={s.headerText}>{title}</span>
         </div>
     )
 }

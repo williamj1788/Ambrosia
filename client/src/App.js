@@ -11,6 +11,7 @@ import Home from './components/home';
 import Menu from './components/Menu';
 import Meet from './components/Meet';
 import SignUp from './components/SignUp';
+import Login from './components/Login';
 
 export class App extends Component {
   render() {
@@ -24,6 +25,7 @@ export class App extends Component {
                     <Route path="/menu/:product" component={Menu} />
                     <Route path='/meet' component={Meet} />
                     <Route path='/signup' component={SignUp} />
+                    <Route path='/login' component={Login} />
                 </Switch>
             </div>
         </Router>

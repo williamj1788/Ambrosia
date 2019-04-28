@@ -93,7 +93,9 @@ exports[`<SignUpForm /> Snapshot test 1`] = `
 <div
   className="SignUp"
 >
-  <Header />
+  <Header
+    title="Sign Up"
+  />
   <View>
     <Form
       active={0}
