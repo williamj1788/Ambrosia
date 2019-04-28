@@ -49,11 +49,11 @@
 
 .heroArrow{
     display: block;
-    width: 75px;
+    width: 25px;
     height: auto;
     position: absolute;
-    bottom: 0;
-    left: 48%;
+    bottom: 30px;
+    left: 50%;
     transform: translateX(-50%);
     animation: {
         name: Up-Down;

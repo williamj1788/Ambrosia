@@ -27,7 +27,7 @@ export class Home extends React.Component{
             redirectToMenu: true,
         });
     }
-    
+
     render(){
         if(this.state.redirectToMenu){ 
             return <Redirect push to='/menu' />

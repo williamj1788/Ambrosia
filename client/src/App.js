@@ -18,7 +18,6 @@ export class App extends Component {
       <Provider store={store}>
         <Router>
             <div>
-                <ScrollMemory />
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route exact path="/menu" component={RedirectToMenuProduct} />
