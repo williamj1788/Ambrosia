@@ -20,23 +20,15 @@ router.get('/', verifyToken, (req, res) => {
     });
 });
 
-router.post('/create', (req, res) => {
-    User.findOne({email: req.body.Email}, async (err, user) => {
-        if(err) throw err
-        if(!user){
-            const newUser = await createUser(req.body);
-            newUser.save().then(user => {
-                signTokenWithUser(user, res);
-            });
-        }else{
-            res.status(400).json({
-                message: 'There is already an account with this email'
-            });
-        }
+router.post('/create', ValidateEmail, async (req, res) => {
+    const newUser = await createUser(req.body);
+    newUser.save().then(user => {
+        signTokenWithUser(user, res);
     });
 });
 
 router.post('/login',(req, res) => {
+    req.query
     User.findOne({email: req.body.Email}, (err, user) => {
         if(err) throw err;
         if(user){
@@ -58,7 +50,31 @@ router.post('/login',(req, res) => {
     });
 });
 
+router.post('/email', ValidateEmail,(req, res) => {
+    res.send();
+});
+
 // Middleware Functions
+
+function ValidateEmail(req, res, next){
+    let query = {};
+    if(req.body){
+        query.email = req.body.Email;
+    }else{
+        query.email = req.query.email
+    }
+
+    User.findOne(query, (err, user) => {
+        if(err) throw err;
+        if(!user){
+            next();
+        }else{
+            res.status(400).json({
+                message: 'There is already an account with this email'
+            });
+        }
+    })
+}
 
 function verifyToken(req, res, next) {
     const bearerHeader = req.headers['authorization'];
