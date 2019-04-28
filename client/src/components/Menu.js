@@ -85,9 +85,16 @@ export class Menu extends React.Component{
             productTarget,
         });
     }
+    componentWillUpdate(){
+        if(window.scrollY !== 0){
+            sessionStorage.setItem('scroll',window.scrollY);
+        }
+        window.scrollTo(0, 800);
+    }
 
     componentDidUpdate(){
         // set state back to default or else you get a infinite redirect loop
+        window.scrollTo(0, parseInt(sessionStorage.getItem('scroll')))
         if(this.state.redirect){
             this.setState({
                 redirect: false,

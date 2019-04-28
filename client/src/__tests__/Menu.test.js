@@ -22,6 +22,7 @@ beforeEach(() => {
 });
 
 describe('Menu Tests',() => {
+    global.window.scrollTo = jest.fn();
     test('should render', () => {
         expect(component).toBeTruthy();
     });

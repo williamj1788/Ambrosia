@@ -33,18 +33,21 @@ exports[`<NavLinkContainer /> snapshop Test renders div with correct classes and
   }
 >
   <NavLinkWrapper
+    active={true}
     exact={true}
     to="/"
   >
     Home
   </NavLinkWrapper>
   <NavLinkWrapper
+    active={true}
     strict={true}
     to="/menu"
   >
     Menu
   </NavLinkWrapper>
   <NavLinkWrapper
+    active={true}
     to="/meet"
   >
     Meet The Chiefs

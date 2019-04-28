@@ -1,0 +1,171 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ControllerButtons /> Snapshot test 1`] = `
+<div
+  className="buttonContainer"
+>
+  <button
+    className="button"
+    onClick={[Function]}
+  >
+    Next
+  </button>
+</div>
+`;
+
+exports[`<Controllers /> Snapshot test 1`] = `
+<div
+  className="controllerContainer"
+>
+  <button
+    className="controller active"
+    key="0"
+  />
+  <button
+    className="controller visted"
+    key="1"
+    onClick={[Function]}
+  />
+</div>
+`;
+
+exports[`<Form /> Snapshot test 1`] = `
+<form
+  className="form"
+  id="mockId"
+  style={
+    Object {
+      "right": 540,
+    }
+  }
+>
+  <div>
+    mock children
+  </div>
+</form>
+`;
+
+exports[`<FormBlock /> Snapshot test 1`] = `
+<div
+  className="formBlock"
+>
+  <div>
+    mock
+  </div>
+</div>
+`;
+
+exports[`<Input /> Snapshot test 1`] = `
+<div
+  className="inputContainer"
+>
+  <label
+    htmlFor="mockName"
+    style={
+      Object {
+        "fontWeight": "500",
+      }
+    }
+  >
+    mock label
+  </label>
+  <input
+    className="input"
+    name="mockName"
+    onBlur={[MockFunction]}
+    placeholder="mock placeholder"
+    style={
+      Object {
+        "border": "2px solid red",
+      }
+    }
+    type="text"
+  />
+  <p
+    className="error"
+  >
+    mock error
+  </p>
+</div>
+`;
+
+exports[`<SignUpForm /> Snapshot test 1`] = `
+<div
+  className="SignUp"
+>
+  <Header />
+  <View>
+    <Form
+      active={0}
+      id="signUP-form"
+    >
+      <FormBlock>
+        <Input
+          error={null}
+          name="Email"
+          onBlur={[Function]}
+          placeholder="Email *"
+          type="text"
+        />
+        <Input
+          error={null}
+          name="Password"
+          onBlur={[Function]}
+          placeholder="Password *"
+          type="password"
+        />
+        <Input
+          error={null}
+          label="Confirm Password"
+          name="ConfirmPassword"
+          onBlur={[Function]}
+          placeholder="Confirm Password *"
+          type="password"
+        />
+      </FormBlock>
+      <FormBlock>
+        <Input
+          error={null}
+          name="Firstname"
+          onBlur={[Function]}
+          placeholder="First Name *"
+          type="text"
+        />
+        <Input
+          error={null}
+          name="Lastname"
+          onBlur={[Function]}
+          placeholder="Last Name *"
+          type="text"
+        />
+        <Input
+          name="Address"
+          placeholder="Address"
+          type="text"
+        />
+      </FormBlock>
+    </Form>
+  </View>
+  <Controllers
+    active={0}
+    onClick={[Function]}
+    progress={0}
+  />
+  <ControllerButtons
+    active={0}
+    onClick={[Function]}
+    submit={[Function]}
+  />
+  <Account />
+</div>
+`;
+
+exports[`<View /> Snapshot test 1`] = `
+<div
+  className="view"
+>
+  <div>
+    mock
+  </div>
+</div>
+`;
