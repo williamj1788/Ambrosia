@@ -1,7 +1,8 @@
 @import '../styles/global.scss';
  $Width: 540px;
  .login{
-    width: $Width;
+    width: 100%;
+    max-width: $Width;
     height: fit-content;
     background-color: white;
     border-radius: 16px;
