@@ -32,36 +32,35 @@ describe('<SignUpForm />', () => {
         expect(toJson(component)).toMatchSnapshot();
     });
 
-    test('handleSubmit should set activeFormBlock to zero if firstBlock isnt validated', () => {
+    test('handleSubmit should set activeFormBlock to zero if firstBlock isnt validated', async () => {
         jest.spyOn(instance,'validateFirstFormBlock').mockImplementation(() => false);
         jest.spyOn(instance,'setState')
-        instance.handleSubmit();
+        await instance.handleSubmit();
         expect(instance.setState).toBeCalledWith({activeFormBlock: 0});
     });
 
-    test('handleSubmit should set activeFormBlock to 1 if secondBlock isnt validated', () => {
+    test('handleSubmit should set activeFormBlock to 1 if secondBlock isnt validated', async () => {
         jest.spyOn(instance,'validateFirstFormBlock').mockImplementation(() => true);
         jest.spyOn(instance,'validateSecondFormBlock').mockImplementation(() => false);
         jest.spyOn(instance,'setState')
-        instance.handleSubmit();
+        await instance.handleSubmit();
         expect(instance.setState).toBeCalledWith({activeFormBlock: 1});
     });
 
-    test('validateFirstFormBlock should called correct validation functions', () => {
+    test('validateFirstFormBlock should called correct validation functions', async () => {
         jest.spyOn(instance,'handleEmailBlur').mockImplementation(() => 'anything');
         jest.spyOn(instance,'handlePasswordBlur').mockImplementation(() => 'anything');
         jest.spyOn(instance,'handleConfirmPasswordBlur').mockImplementation(() => 'anything');
-        instance.validateFirstFormBlock();
+        await instance.validateFirstFormBlock();
         expect(instance.handleEmailBlur).toBeCalled();
         expect(instance.handlePasswordBlur).toBeCalled();
         expect(instance.handleConfirmPasswordBlur).toBeCalled();
     });
-    test('validateFirstFormBlock should return a boolean', () => {
+    test('validateFirstFormBlock should return a boolean', async () => {
         jest.spyOn(instance,'handleEmailBlur').mockImplementation(() => true);
         jest.spyOn(instance,'handlePasswordBlur').mockImplementation(() => true);
         jest.spyOn(instance,'handleConfirmPasswordBlur').mockImplementation(() => true);
-        instance.validateFirstFormBlock();
-        expect(instance.validateFirstFormBlock()).toBeType('boolean');
+        expect(await instance.validateFirstFormBlock()).toBeType('boolean');
     });
 
     test('validateSecondFormBlock should called correct validation functions', () => {
@@ -71,20 +70,19 @@ describe('<SignUpForm />', () => {
         expect(instance.handleFirstnameBlur).toBeCalled();
         expect(instance.handleLastnameBlur).toBeCalled();
     });
-    test('validateSecondFormBlock should return a boolean', () => {
+    test('validateSecondFormBlock should return a boolean', async () => {
         jest.spyOn(instance,'handleFirstnameBlur').mockImplementation(() => true);
         jest.spyOn(instance,'handleLastnameBlur').mockImplementation(() => true);
-        instance.validateSecondFormBlock();
-        expect(instance.validateSecondFormBlock()).toBeType('boolean');
+        expect(await instance.validateSecondFormBlock()).toBeType('boolean');
     });
 
-    test('handleEmailBlur should call handleValidationErrors with correct args', () => {
+    test('handleEmailBlur should call handleValidationErrors with correct args', async () => {
         jest.spyOn(instance,'handleValidationErrors');
         instance.handleEmailBlur(event);
-        expect(instance.handleValidationErrors).toHaveBeenCalledWith(undefined,'emailError');
+        expect(await instance.handleValidationErrors).toHaveBeenCalledWith(undefined,'emailError');
     });
-    test('handleEmailBlur should return a boolean', () => {
-        expect(instance.handleEmailBlur(event)).toBeType('boolean');
+    test('handleEmailBlur should return a boolean', async () => {
+        expect(await instance.handleEmailBlur(event)).toBeType('boolean');
     });
 
     test('handlePasswordBlur should call handleValidationErrors with correct args', () => {

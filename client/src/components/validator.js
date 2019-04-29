@@ -1,10 +1,20 @@
-export const validateEmail = email => {
+export const validateEmail = async email => {
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if(email.length <= 0){
         return 'Email Required';
     }
     if(!emailRegex.test(email)){
         return 'Invalid Email';
+    }
+    let AlreadyTaken = await fetch(`/api/user/email?email=${email}`).then(res => {
+        console.log(res);
+        return res.status !== 200;
+        }
+    )
+    .catch(err => {throw err});
+    console.log(AlreadyTaken);
+    if(AlreadyTaken){
+        return 'There is already an account with this email';
     }
     return null;
 }

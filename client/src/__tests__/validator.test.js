@@ -7,14 +7,15 @@ import {
 } from '../components/validator';
 import toBeType from "jest-tobetype";
 expect.extend(toBeType);
-test("validateEmail should return a string if email has no characters", () => {
-    expect(validateEmail('')).toBeType('string');
+global.window.fetch = jest.fn(() => Promise.resolve({status: 200}));
+test("validateEmail should return a string if email has no characters", async () => {
+    expect(await validateEmail('')).toBeType('string');
 });
-test("validateEmail should return a string if email is doesn't regex", () => {
-    expect(validateEmail('mock email')).toBeType('string');
+test("validateEmail should return a string if email is doesn't regex", async () => {
+    expect(await validateEmail('mock email')).toBeType('string');
 });
-test("validateEmail should return null if email is valid", () => {
-    expect(validateEmail('mockEmail123@gmail.com')).toBeNull();
+test("validateEmail should return null if email is valid", async () => {
+    expect(await validateEmail('mockEmail123@gmail.com')).toBeNull();
 });
 
 test("validatePassword should return a string if password has no characters", () => {

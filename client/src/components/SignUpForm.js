@@ -45,8 +45,8 @@ export class SignUpForm extends React.Component{
         }
     }
 
-    handleSubmit = () => {
-        const isFirstBlockValid = this.validateFirstFormBlock();
+    handleSubmit = async () => {
+        const isFirstBlockValid = await this.validateFirstFormBlock();
         if(!isFirstBlockValid){
             this.setState({
                 activeFormBlock: 0 
@@ -63,8 +63,8 @@ export class SignUpForm extends React.Component{
         console.log('TODO');
     }
 
-    validateFirstFormBlock = () => {
-        const isEmailValid = this.handleEmailBlur();
+    validateFirstFormBlock = async () => {
+        const isEmailValid = await this.handleEmailBlur();
         const isPasswordValid = this.handlePasswordBlur();
         const isConfirmPassword = this.handleConfirmPasswordBlur();
         
@@ -78,14 +78,14 @@ export class SignUpForm extends React.Component{
         return isFirstnameValid && isLastnameValid;
     }
 
-    handleEmailBlur = event => {
+    handleEmailBlur = async event => {
         let email;
         if(event){
             email = event.target.value;
         }else{
             email = this.getInputValuebyName('Email');
         }
-        const validationError = validateEmail(email);
+        const validationError = await validateEmail(email);
         
         this.handleValidationErrors(validationError, 'emailError');
 

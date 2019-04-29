@@ -50,7 +50,7 @@ router.post('/login',(req, res) => {
     });
 });
 
-router.post('/email', ValidateEmail,(req, res) => {
+router.get('/email', ValidateEmail,(req, res) => {
     res.send();
 });
 
