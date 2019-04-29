@@ -70,6 +70,9 @@
         cursor: pointer;
     }
 }
+
+
+
 a.active{
     color: $light-orange;
     cursor: default;
@@ -77,6 +80,13 @@ a.active{
 .linkLogo{
     width: 25px;
     height: 25px;
+    margin-right: 5px;
+}
+
+.userArrow{
+    width: 10px;
+    height: 10px;
+    margin-left: 5px;
 }
 
 @keyframes slide-in{

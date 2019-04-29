@@ -10,6 +10,15 @@ import {
     Logo,
  } from './NavComponents';
 
+ import { connect } from 'react-redux';
+ import { setUser } from '../redux/action';
+
+ const mapStateToProps = state => {
+     return {
+         user: state.user
+     }
+ }
+
 export class Navbar extends React.Component{
     
     state = {
@@ -25,6 +34,12 @@ export class Navbar extends React.Component{
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll);
         window.removeEventListener('resize', this.handleResize);
+    }
+
+    componentDidMount(){
+        if(!this.props.user){
+            this.fetchUser();
+        }
     }
 
     handleScroll = () => {
@@ -65,6 +80,18 @@ export class Navbar extends React.Component{
             isHamburgerDropdownOpen: !this.state.isHamburgerDropdownOpen,
         });
     }
+
+    fetchUser = () =>{
+        fetch('/api/user', {
+            credentials: 'include'
+        })
+        .then(res => res.json())
+        .then(res => {
+            if(!res.message){
+                this.props.dispatch(setUser(res));
+            }
+        });
+    }
     
     render(){
         const { isFixed, isHamburger,isHamburgerDropdownOpen } = this.state;
@@ -85,4 +112,5 @@ export class Navbar extends React.Component{
         )
     }
 }
-export default Navbar;
+
+export default connect(mapStateToProps)(Navbar);

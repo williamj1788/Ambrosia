@@ -11,6 +11,13 @@ import {
     validateLastname,
  } from './validator';
 
+import { connect } from 'react-redux';
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+
 export class SignUpForm extends React.Component{
     
     state = {
@@ -96,7 +103,7 @@ export class SignUpForm extends React.Component{
         }else{
             email = this.getInputValuebyName('Email');
         }
-        const validationError = await validateEmail(email);
+        const validationError = await validateEmail(email, true);
         
         this.handleValidationErrors(validationError, 'emailError');
 
@@ -185,7 +192,7 @@ export class SignUpForm extends React.Component{
             firstnameError,
             lastwordError,
         } = this.state;
-        if(redirect){
+        if(redirect || !!this.props.user){
             return <Redirect to='/' />
         }
         return(
@@ -290,7 +297,7 @@ export const Input = ({ type, placeholder, label , onBlur, name, error, autocomp
         placeholder,
         name,
         onBlur,
-        autocomplete: autocomplete || 'on',
+        autoComplete: autocomplete || 'on',
     };
     if(error){
         props.style = {
@@ -315,4 +322,4 @@ const Account = () => {
     )
 }
 
-export default SignUpForm;
+export default connect(mapStateToProps)(SignUpForm);

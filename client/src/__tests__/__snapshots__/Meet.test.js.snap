@@ -19,7 +19,7 @@ exports[`<Chief /> Snapshot Test 1`] = `
 
 exports[`<Meet /> Snapshot Test 1`] = `
 <div>
-  <Navbar />
+  <ConnectFunction />
   <div
     className="content"
   >
