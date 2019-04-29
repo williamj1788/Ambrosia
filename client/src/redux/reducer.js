@@ -1,8 +1,9 @@
-import { SET_PAGE } from './actionTypes';
+import { SET_PAGE, SET_USER } from './actionTypes';
 
 
 const initialState = {
-    page: null
+    page: null,
+    user: null,
 };
 
 function reducer(state = initialState, action){
@@ -11,6 +12,12 @@ function reducer(state = initialState, action){
             return {
                 ...state,
                 page: action.payload,
+            }
+        case SET_USER:
+        console.log(action.payload);
+            return {
+                ...state,
+                user: action.payload,
             }
         default:
             return state;

@@ -1,7 +1,7 @@
 import React from 'react';
 import s from '../styles/SignUpForm.module.scss';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 
 import { 
     validateEmail,
@@ -16,6 +16,7 @@ export class SignUpForm extends React.Component{
     state = {
         activeFormBlock: 0,
         formBlockProgress: 0,
+        redirect: false,
         emailError: null,
         passwordError: null,
         confirmPasswordError: null,
@@ -60,7 +61,17 @@ export class SignUpForm extends React.Component{
             });
             return
         }
-        console.log('TODO');
+        await fetch('/api/user/create', {
+            credentials: 'include',
+            method: 'POST',
+            body: this.getFormData(),
+        })
+
+        this.setState({
+            redirect: true,
+        });
+
+        
     }
 
     validateFirstFormBlock = async () => {
@@ -157,17 +168,26 @@ export class SignUpForm extends React.Component{
     getInputValuebyName = name => {
         return document.querySelector(`input[name = ${name}]`).value;
     }
+
+    getFormData = () => {
+        const form = document.getElementById('signUP-form');
+        return new FormData(form);
+    }
     
     render(){
         const { 
             activeFormBlock,
-            formBlockProgress ,
+            formBlockProgress,
+            redirect,
             emailError,
             passwordError,
             confirmPasswordError,
             firstnameError,
             lastwordError,
         } = this.state;
+        if(redirect){
+            return <Redirect to='/' />
+        }
         return(
             <div className={s.SignUp}>
                 <Header title='Sign Up' />

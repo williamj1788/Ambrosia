@@ -6,6 +6,11 @@ const bcrypt = require('bcrypt');
 
 const User = require('./User');
 const secretKey = require('./config').secretKey;
+router.get('/test', (req,res) => {
+    res.cookie('test', 'value');
+    res.send(req.cookies);
+});
+
 
 router.get('/', verifyToken, (req, res) => {
     const UserID = res.locals.payload.UserID;
@@ -77,9 +82,8 @@ function ValidateEmail(req, res, next){
 }
 
 function verifyToken(req, res, next) {
-    const bearerHeader = req.headers['authorization'];
-    if(typeof bearerHeader !== 'undefined'){
-        const token = bearerHeader.split(' ')[1];
+    const token = req.cookies.token;
+    if(token){
         jwt.verify(token, secretKey, (err, payload) => {
             if(err){
                 res.sendStatus(403);
@@ -89,7 +93,9 @@ function verifyToken(req, res, next) {
             }
         });
     }else{
-        res.sendStatus(403);
+        res.status(403).json({
+            message: 'forbidden'
+        });
     }
 }
 
@@ -113,7 +119,8 @@ async function createUser(UserData){
 function signTokenWithUser(user, res) {
     jwt.sign({UserID: user._id}, secretKey, (err, token) => {
         if(err) throw err;
-        return res.json({token});
+        res.cookie('token', token, {maxAge: 90000000, httpOnly: true});
+        return res.send();
     })
 }
 
