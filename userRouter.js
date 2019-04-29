@@ -21,7 +21,9 @@ router.get('/', verifyToken, (req, res) => {
         if(user){
             return res.json(user);
         }
-        res.sendStatus(404);
+        res.status(404).json({
+            message: 'User Not Found'
+        });
     });
 });
 
@@ -53,6 +55,11 @@ router.post('/login',(req, res) => {
             });
         }
     });
+});
+
+router.get('/signout', (req,res) => {
+    res.clearCookie('token',{httpOnly: true});
+    res.send();
 });
 
 router.get('/email', ValidateEmail,(req, res) => {

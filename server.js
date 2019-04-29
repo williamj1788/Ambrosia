@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 const upload = multer();
 const cookieParser = require('cookie-parser');
+const morgan  = require('morgan');
 
 const userRouter = require('./userRouter');
 const app = express();
@@ -15,6 +16,7 @@ mongoose.connect(url, {useNewUrlParser: true})
 
 app.use(upload.none());
 app.use(cookieParser());
+app.use(morgan('dev'));
 app.use(allowCrossDomain);
 
 app.use('/api/user', userRouter);
