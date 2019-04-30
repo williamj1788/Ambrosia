@@ -36,7 +36,6 @@ export class App extends Component {
   }
 }
 
-
 export const RedirectToMenuProduct = () => {
   return(
     <Redirect to='/menu/pizza' />

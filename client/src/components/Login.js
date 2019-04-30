@@ -8,6 +8,7 @@ import {
  } from './validator';
  import { NavLink, Redirect } from 'react-router-dom';
  import { connect } from 'react-redux';
+ import { setUser } from '../redux/action';
 
  const mapStateToProps = state => {
     return {
@@ -23,7 +24,6 @@ class Login extends React.Component{
             emailError: null,
             passwordError: null,
             serverError: null,
-            redirectToHome: false,
         }
     }
 
@@ -34,10 +34,8 @@ class Login extends React.Component{
         const isPasswordValid = this.handlePasswordBlur();
         if(isEmailValid && isPasswordValid){
             await this.tryToLoginUser()
-            .then(() => {
-                this.setState({
-                    redirectToHome: true,
-                });
+            .then(user => {
+                this.props.dispatch(setUser(user));
             })
             .catch(message => {
                 this.setState({
@@ -85,16 +83,13 @@ class Login extends React.Component{
                 method: 'POST',
                 body: this.getFormData(),
             })
-            .then(res => {
-                if(res.status === 200){
-                    resolve();
-                    return res
-                }
-                return res.json();
-            })
+            .then(res => res.json())
             .then(res => {
                 if(res.error){
                     reject(res.error);
+                }else{
+                    console.log(res)
+                    resolve(res);
                 }
             });
         })
@@ -110,9 +105,8 @@ class Login extends React.Component{
     }
     
     render(){
-        const { emailError, passwordError, redirectToHome, serverError } = this.state;
-        const redirect = !!this.props.user || redirectToHome;
-        if(redirect){
+        const { emailError, passwordError, serverError } = this.state;
+        if(!!this.props.user){
             return <Redirect to='/' />
         }
         return(

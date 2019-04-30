@@ -269,7 +269,7 @@ export const ControllerButtons = ({ active, onClick, submit }) => {
 }
 
 export const Form = ({ id, active, children }) => {
-    const FormWidth = window.innerWidth < 540 ? window.innerWidth : 540; // from SignUpForm.module.scss
+    const FormWidth = window.innerWidth < 540 ? window.innerWidth : window.innerWidth > 1980 ? 900 : 540; // from SignUpForm.module.scss
     const style = {
         right: FormWidth * active
     };

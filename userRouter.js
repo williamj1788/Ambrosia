@@ -127,8 +127,17 @@ function signTokenWithUser(user, res) {
     jwt.sign({UserID: user._id}, secretKey, (err, token) => {
         if(err) throw err;
         res.cookie('token', token, {maxAge: 90000000, httpOnly: true});
-        return res.send();
+        return res.json(extractBasicProfileData(user));
     })
+}
+
+function extractBasicProfileData(user){
+    return {
+        email: user.email,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        ...(user.address && {address: user.address})
+    }
 }
 
 module.exports = router;
