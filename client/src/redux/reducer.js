@@ -14,7 +14,6 @@ function reducer(state = initialState, action){
                 page: action.payload,
             }
         case SET_USER:
-            console.log(action.payload);
             return {
                 ...state,
                 user: action.payload,

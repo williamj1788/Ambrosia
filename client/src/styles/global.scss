@@ -38,7 +38,6 @@ html{
     height: 100%;
 }
 body{
-    min-height: 100vh;
     height: 100%;
     background-image: url('../images/wallpaper.jpg');
     background-attachment: fixed;
@@ -50,5 +49,11 @@ body{
     }
     body{
         background-size: cover;
+    }
+}
+
+@media(max-width: 500px){
+    body{
+        min-height: 120vh;
     }
 }
