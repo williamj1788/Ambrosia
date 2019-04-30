@@ -2,6 +2,7 @@ import React from 'react';
 import s from '../styles/SignUpForm.module.scss';
 
 import { NavLink, Redirect } from 'react-router-dom';
+import GoogleLogin from 'react-google-login';
 
 import { 
     validateEmail,
@@ -31,7 +32,7 @@ export class SignUpForm extends React.Component{
         lastwordError: null,
     }
 
-    handleOnClick = target => {
+    handleOnClick = async target => {
         const { activeFormBlock, formBlockProgress } = this.state;
         if(target === activeFormBlock){ // don't unnecessarily set the state
             return
@@ -40,7 +41,7 @@ export class SignUpForm extends React.Component{
             return
         }
         if(target > formBlockProgress){
-            if(formBlockProgress === 0 && this.validateFirstFormBlock()){
+            if(formBlockProgress === 0 && await this.validateFirstFormBlock()){
                 this.setState({
                     activeFormBlock: target,
                     formBlockProgress: target
@@ -172,6 +173,10 @@ export class SignUpForm extends React.Component{
         }
     }
 
+    responseGoogle = (res) => {
+        console.log(res);
+    }
+
     getInputValuebyName = name => {
         return document.querySelector(`input[name = ${name}]`).value;
     }
@@ -180,6 +185,7 @@ export class SignUpForm extends React.Component{
         const form = document.getElementById('signUP-form');
         return new FormData(form);
     }
+    
     
     render(){
         const { 
@@ -214,6 +220,12 @@ export class SignUpForm extends React.Component{
                 </View>
                 <Controllers active={activeFormBlock} progress={formBlockProgress} onClick={this.handleOnClick} />
                 <ControllerButtons active={activeFormBlock} onClick={this.handleOnClick} submit={this.handleSubmit} />
+                <GoogleLogin
+                    clientId="1064409062816-te616f091t5s0vh9mgnkacur1oqrqpr8.apps.googleusercontent.com"
+                    onSuccess={this.responseGoogle}
+                    onFailure={this.responseGoogle}
+                    isSignedIn={true}
+                />
                 <Account />
             </div>
         )

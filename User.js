@@ -7,7 +7,9 @@ const UserScheme = new Scheme({
         type: String
     },
     password:{
-        required: true,
+        required: function() {
+            return !this.googleID
+        },
         type: String
     },
     firstname:{
@@ -15,10 +17,15 @@ const UserScheme = new Scheme({
         type: String
     },
     lastname:{
-        required: true,
         type: String
     },
     address:{
+        type: String
+    },
+    googleID: {
+        type: String
+    },
+    picture: {
         type: String
     }
 });

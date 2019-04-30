@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 
 const User = require('./User');
 const secretKey = require('./config').secretKey;
+const clientID = require('./config').clientID;
 router.get('/test', (req,res) => {
     res.cookie('test', 'value');
     res.send(req.cookies);
@@ -14,8 +15,7 @@ router.get('/test', (req,res) => {
 
 router.get('/', verifyToken, (req, res) => {
     const UserID = res.locals.payload.UserID;
-    const projection = {_id: 0, password: 0, __v: 0};
-
+    const projection = {_id: 0, password: 0, __v: 0, googleID: 0};
     User.findById(UserID, projection, (err, user) => {
         if(err) throw err;
         if(user){
@@ -35,7 +35,6 @@ router.post('/create', ValidateEmail, async (req, res) => {
 });
 
 router.post('/login',(req, res) => {
-    req.query
     User.findOne({email: req.body.Email}, (err, user) => {
         if(err) throw err;
         if(user){
@@ -52,6 +51,34 @@ router.post('/login',(req, res) => {
         }else{
             res.status(404).json({
                 error: 'Email or Password is incorrect'
+            });
+        }
+    });
+});
+
+router.post('/google', async (req, res) => {
+    const { OAuth2Client } = require('google-auth-library');
+    const client = new OAuth2Client(clientID);
+    const ticket = await client.verifyIdToken({
+        idToken: req.body.token,
+        audience: clientID
+    });
+    const payload = ticket.getPayload();
+    const projection = {_id: 0, password: 0, __v: 0, googleID: 0};
+    User.findOne({googleID: payload.sub}, projection, (err, user) => {
+        if(err) throw err;
+        if(user){
+            res.json(user);
+        }else{
+            const newUser = new User({
+                email: payload.email,
+                firstname: payload.given_name,
+                ...(payload.family_name && {lastname: payload.family_name}),
+                googleID: payload.sub,
+                picture: payload.picture
+            });
+            newUser.save().then(user => {
+                signTokenWithUser(user, res);
             });
         }
     });
@@ -135,8 +162,9 @@ function extractBasicProfileData(user){
     return {
         email: user.email,
         firstname: user.firstname,
-        lastname: user.lastname,
-        ...(user.address && {address: user.address})
+        ...(user.lastname && {lastname: user.lastname}),
+        ...(user.address && {address: user.address}),
+        ...(user.picture && {picture: user.picture})
     }
 }
 
