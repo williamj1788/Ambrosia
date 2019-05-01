@@ -2,9 +2,9 @@ import React from 'react';
 import s from '../styles/Navbar.module.scss';
 import logoIcon from '../images/Logo.png';
 import cartIcon from '../images/CartIcon.png';
-import userIcon from '../images/UserIcon.png';
 
 import HamburgerMenu from 'react-hamburger-menu';
+import AccountLink from './AccountLink';
 
 import { NavLink } from 'react-router-dom';
 
@@ -37,7 +37,7 @@ export const NavLinkContainer = ({ className, style = {} }) => {
             <NavLinkWrapper active strict to='/menu'>Menu</NavLinkWrapper>
             <NavLinkWrapper active to='/meet' >Meet The Chiefs</NavLinkWrapper>
             <NavLinkWrapper icon={cartIcon}>Cart</NavLinkWrapper>
-            <NavLinkWrapper to='/signup' icon={userIcon}>Sign up</NavLinkWrapper>
+            <AccountLink />
         </div>
     )
 }
@@ -55,7 +55,7 @@ export const HamburgerDropdown = ({ open }) => {
     )
 }
 
-export const NavLinkWrapper = ({ to, icon, exact, strict, active , children }) => {
+export const NavLinkWrapper = ({ to, icon, exact, strict, active, children }) => {
     let props = { to };
     if(active){
         props.activeClassName = s.active;
@@ -77,7 +77,6 @@ export const NavLinkWrapper = ({ to, icon, exact, strict, active , children }) =
         </div>
     )
 }
-
 
 export const Logo = () => {
     return <img className={s.logo} src={logoIcon} alt="Logo" />

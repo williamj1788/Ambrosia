@@ -1,0 +1,63 @@
+@import '../styles/global.scss';
+
+.dropDown{
+    position: absolute;
+    top: 45px;
+    width: 100%;
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+.content{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.tab{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border: 1px solid white;
+    height: 45px;
+    background-color: rgba(0, 0, 0, 0.57);
+    transition: 300ms;
+    box-sizing: border-box;
+    cursor: pointer;
+    z-index: 99;
+
+    &:last-child{
+        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+    }
+    &:hover{
+        background-color: rgba(128, 128, 128, 0.57);
+    }
+    span{
+        font-weight: bold;
+        color: white;
+        text-align: center;
+    }
+}
+
+@media (max-width: 1100px){
+    .dropDown{
+        top: -5px;
+        left: 120px;
+        width: 230px;
+    }
+    .content{
+        flex-direction: row;
+        width: fit-content;
+    }
+    .tab{
+        width: 115px;
+        &:last-child{
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+    }
+}

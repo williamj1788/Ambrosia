@@ -46,7 +46,7 @@ exports[`<SignUp /> Snapshot test 1`] = `
       className="flexContainer"
     >
       <AccountPerks />
-      <SignUpForm />
+      <ConnectFunction />
     </div>
   </div>
 </div>

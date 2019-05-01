@@ -70,6 +70,7 @@ exports[`<Input /> Snapshot test 1`] = `
     mock label
   </label>
   <input
+    autoComplete="on"
     className="input"
     name="mockName"
     onBlur={[MockFunction]}
@@ -93,7 +94,9 @@ exports[`<SignUpForm /> Snapshot test 1`] = `
 <div
   className="SignUp"
 >
-  <Header />
+  <Header
+    title="Sign Up"
+  />
   <View>
     <Form
       active={0}
@@ -101,6 +104,7 @@ exports[`<SignUpForm /> Snapshot test 1`] = `
     >
       <FormBlock>
         <Input
+          autocomplete="email"
           error={null}
           name="Email"
           onBlur={[Function]}
@@ -108,6 +112,7 @@ exports[`<SignUpForm /> Snapshot test 1`] = `
           type="text"
         />
         <Input
+          autocomplete="new-password"
           error={null}
           name="Password"
           onBlur={[Function]}
@@ -115,6 +120,7 @@ exports[`<SignUpForm /> Snapshot test 1`] = `
           type="password"
         />
         <Input
+          autocomplete="new-password"
           error={null}
           label="Confirm Password"
           name="ConfirmPassword"
@@ -156,6 +162,46 @@ exports[`<SignUpForm /> Snapshot test 1`] = `
     onClick={[Function]}
     submit={[Function]}
   />
+  <div
+    style={
+      Object {
+        "display": "block",
+        "margin": "10px auto",
+        "width": "fit-content",
+      }
+    }
+  >
+    <e
+      accessType="online"
+      buttonText="Sign in with Google"
+      clientId="1064409062816-te616f091t5s0vh9mgnkacur1oqrqpr8.apps.googleusercontent.com"
+      cookiePolicy="single_host_origin"
+      disabledStyle={
+        Object {
+          "opacity": 0.6,
+        }
+      }
+      fetchBasicProfile={true}
+      icon={true}
+      isSignedIn={true}
+      jsSrc="https://apis.google.com/js/api.js"
+      onFailure={[Function]}
+      onRequest={[Function]}
+      onSuccess={[Function]}
+      prompt=""
+      scope="profile email"
+      style={
+        Object {
+          "display": "block",
+          "margin": "0 auto",
+        }
+      }
+      tag="button"
+      theme="light"
+      type="button"
+      uxMode="popup"
+    />
+  </div>
   <Account />
 </div>
 `;

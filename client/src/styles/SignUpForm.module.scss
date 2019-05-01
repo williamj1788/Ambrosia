@@ -2,7 +2,6 @@
 
 $Width: 540px;
 $mobile-width: 100%;
-
 .SignUp{
     width: $Width;
     height: fit-content;
@@ -48,6 +47,7 @@ $mobile-width: 100%;
 
 .inputContainer{
     margin-top: 15px;
+    min-height: fit-content;
     height: 100px;
 }
 
@@ -101,12 +101,9 @@ $mobile-width: 100%;
 }
 
 .button{
-    width: 110px;
-    height: 40px;
-    background-color: $dark-orange;
-    color: white;
-    border: 0;
-    cursor: pointer;
+    @include button(110px, 40px);
+    min-width: fit-content;
+
 }
 
 .account{
@@ -124,6 +121,33 @@ $mobile-width: 100%;
 .accountText{
     font-size: 1.2rem;
     margin: 0;
+}
+@media (min-width: 1981px){
+    .SignUp{
+        width: 900px;
+    }
+    .header{
+        height: 110px;
+    }
+    .view{
+        width: 900px;
+    }
+    .formBlock{
+        width: 900px;
+    }
+    .input{
+        height: 60px;
+    }
+    .inputContainer{
+        height: 175px;
+    }
+    .buttonContainer{
+        width: 400px;
+    }
+    .button{
+        @include button(110px * 1.5, 40px * 1.5);
+    
+    }
 }
 
 @media (max-width: 1025px){

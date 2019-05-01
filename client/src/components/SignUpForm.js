@@ -1,13 +1,32 @@
 import React from 'react';
 import s from '../styles/SignUpForm.module.scss';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
+import GoogleLogin from 'react-google-login';
+
+import { 
+    validateEmail,
+    validatePassword,
+    validateConfirmPassword,
+    validateFirstname,
+    validateLastname,
+ } from './validator';
+
+import { connect } from 'react-redux';
+import { setUser } from '../redux/action';
+
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
 
 export class SignUpForm extends React.Component{
     
     state = {
         activeFormBlock: 0,
         formBlockProgress: 0,
+        redirect: false,
         emailError: null,
         passwordError: null,
         confirmPasswordError: null,
@@ -15,7 +34,7 @@ export class SignUpForm extends React.Component{
         lastwordError: null,
     }
 
-    handleOnClick = target => {
+    handleOnClick = async target => {
         const { activeFormBlock, formBlockProgress } = this.state;
         if(target === activeFormBlock){ // don't unnecessarily set the state
             return
@@ -24,7 +43,7 @@ export class SignUpForm extends React.Component{
             return
         }
         if(target > formBlockProgress){
-            if(formBlockProgress === 0 && this.validateFirstFormBlock()){
+            if(formBlockProgress === 0 && await this.validateFirstFormBlock()){
                 this.setState({
                     activeFormBlock: target,
                     formBlockProgress: target
@@ -37,8 +56,8 @@ export class SignUpForm extends React.Component{
         }
     }
 
-    handleSubmit = () => {
-        const isFirstBlockValid = this.validateFirstFormBlock();
+    handleSubmit = async () => {
+        const isFirstBlockValid = await this.validateFirstFormBlock();
         if(!isFirstBlockValid){
             this.setState({
                 activeFormBlock: 0 
@@ -52,11 +71,25 @@ export class SignUpForm extends React.Component{
             });
             return
         }
-        console.log('TODO');
+        await fetch('/api/user/create', {
+            credentials: 'include',
+            method: 'POST',
+            body: this.getFormData(),
+        })
+        .then(res => res.json())
+        .then(res => {
+            this.props.dispatch(setUser(res));
+        })
+
+        this.setState({
+            redirect: true,
+        });
+
+        
     }
 
-    validateFirstFormBlock = () => {
-        const isEmailValid = this.handleEmailBlur();
+    validateFirstFormBlock = async () => {
+        const isEmailValid = await this.handleEmailBlur();
         const isPasswordValid = this.handlePasswordBlur();
         const isConfirmPassword = this.handleConfirmPasswordBlur();
         
@@ -70,14 +103,14 @@ export class SignUpForm extends React.Component{
         return isFirstnameValid && isLastnameValid;
     }
 
-    handleEmailBlur = event => {
+    handleEmailBlur = async event => {
         let email;
         if(event){
             email = event.target.value;
         }else{
             email = this.getInputValuebyName('Email');
         }
-        const validationError = this.validateEmail(email);
+        const validationError = await validateEmail(email, true);
         
         this.handleValidationErrors(validationError, 'emailError');
 
@@ -91,7 +124,7 @@ export class SignUpForm extends React.Component{
         }else{
             password = this.getInputValuebyName('Password');
         }
-        const validationError = this.validatePassword(password);
+        const validationError = validatePassword(password);
 
         this.handleValidationErrors(validationError, 'passwordError');
         return !validationError;
@@ -105,7 +138,7 @@ export class SignUpForm extends React.Component{
             confirmPassword = this.getInputValuebyName('ConfirmPassword');
         }
         const password = this.getInputValuebyName('Password');
-        const validationError = this.validateConfirmPassword(password, confirmPassword);
+        const validationError = validateConfirmPassword(password, confirmPassword);
         
         this.handleValidationErrors(validationError, 'confirmPasswordError');
         return !validationError;
@@ -119,7 +152,7 @@ export class SignUpForm extends React.Component{
         }else{
             firstname = this.getInputValuebyName('Firstname');
         }
-        const validationError = this.validateFirstname(firstname);
+        const validationError = validateFirstname(firstname);
 
         this.handleValidationErrors(validationError, 'firstnameError');
         return !validationError;
@@ -132,7 +165,7 @@ export class SignUpForm extends React.Component{
         }else{
             lastname = this.getInputValuebyName('Lastname');
         }
-        const validationError = this.validateLastname(lastname);
+        const validationError = validateLastname(lastname);
 
         this.handleValidationErrors(validationError, 'lastwordError');
         return !validationError;
@@ -146,71 +179,61 @@ export class SignUpForm extends React.Component{
         }
     }
 
-    validateEmail = email => {
-        const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        if(email.length <= 0){
-            return 'Email Required';
-        }
-        if(!emailRegex.test(email)){
-            return 'Invalid Email';
-        }
-        return null;
+    onSuccess = res => {
+        const token = res.tokenObj.id_token;
+        fetch('/api/user/google', {
+            method: 'POST',
+            headers: {'Authorization': `Bearer ${token}`}
+        })
+        .then(res => {
+            return res;
+        })
+        .then(res => res.json())
+        .then(res => {
+            this.props.dispatch(setUser(res));
+        })
+        .then(() => {
+            this.setState({
+                redirect: true,
+            });
+        });
     }
-
-    validatePassword = password => {
-        if(password.length <= 0){
-            return 'Password Required';
-        }
-        if(password.length < 5){
-            return 'Password must be 5 or more characters';
-        }
-        return null;
+    onFailure = res => {
+        console.log(res);
     }
-
-    validateConfirmPassword = (password, confirmPassword) => {
-        if(password !== confirmPassword){
-            return "Does not match password";
-        }
-        return null;
-    }
-
-    validateFirstname = firstname => {
-        if(firstname.length <= 0){
-            return 'Firstname Required';
-        }
-        return null;
-    }
-
-    validateLastname = lastname => {
-        if(lastname.length <= 0){
-            return 'Lastname Required';
-        }
-        return null;
-    }
-
     getInputValuebyName = name => {
         return document.querySelector(`input[name = ${name}]`).value;
     }
+
+    getFormData = () => {
+        const form = document.getElementById('signUP-form');
+        return new FormData(form);
+    }
+    
     
     render(){
         const { 
             activeFormBlock,
-            formBlockProgress ,
+            formBlockProgress,
+            redirect,
             emailError,
             passwordError,
             confirmPasswordError,
             firstnameError,
             lastwordError,
         } = this.state;
+        if(redirect || !!this.props.user){
+            return <Redirect to='/' />
+        }
         return(
             <div className={s.SignUp}>
-                <Header />
+                <Header title='Sign Up' />
                 <View>
                     <Form id='signUP-form' active={activeFormBlock} >
                         <FormBlock>
-                            <Input type='text' placeholder='Email *' name='Email' onBlur={this.handleEmailBlur} error={emailError} />
-                            <Input type='password' placeholder='Password *' name='Password' onBlur={this.handlePasswordBlur} error={passwordError} />
-                            <Input type='password' placeholder='Confirm Password *' name='ConfirmPassword' label="Confirm Password" onBlur={this.handleConfirmPasswordBlur} error={confirmPasswordError} />
+                            <Input type='text' placeholder='Email *' name='Email' onBlur={this.handleEmailBlur} error={emailError} autocomplete='email' />
+                            <Input type='password' placeholder='Password *' name='Password' onBlur={this.handlePasswordBlur} error={passwordError} autocomplete="new-password" />
+                            <Input type='password' placeholder='Confirm Password *' name='ConfirmPassword' label="Confirm Password" onBlur={this.handleConfirmPasswordBlur} error={confirmPasswordError} autocomplete="new-password" />
                         </FormBlock>
                         <FormBlock>
                             <Input  type='text' placeholder='First Name *' name='Firstname' onBlur={this.handleFirstnameBlur} error={firstnameError} />
@@ -221,16 +244,28 @@ export class SignUpForm extends React.Component{
                 </View>
                 <Controllers active={activeFormBlock} progress={formBlockProgress} onClick={this.handleOnClick} />
                 <ControllerButtons active={activeFormBlock} onClick={this.handleOnClick} submit={this.handleSubmit} />
+                <div style={{display: 'block', margin: '10px auto', width: 'fit-content'}}>
+                    <GoogleLogin
+                        clientId="1064409062816-te616f091t5s0vh9mgnkacur1oqrqpr8.apps.googleusercontent.com"
+                        onSuccess={this.onSuccess}
+                        onFailure={this.onFailure}
+                        isSignedIn={true}
+                        style={{
+                            display: 'block',
+                            margin: '0 auto'
+                        }}
+                    />
+                </div>
                 <Account />
             </div>
         )
     }
 }
 
-const Header = () => {
+export const Header = ({ title }) => {
     return(
         <div className={s.header}>
-            <span className={s.headerText}>Sign Up</span>
+            <span className={s.headerText}>{title}</span>
         </div>
     )
 }
@@ -276,7 +311,7 @@ export const ControllerButtons = ({ active, onClick, submit }) => {
 }
 
 export const Form = ({ id, active, children }) => {
-    const FormWidth = window.innerWidth < 540 ? window.innerWidth : 540; // from SignUpForm.module.scss
+    const FormWidth = window.innerWidth < 540 ? window.innerWidth : window.innerWidth > 1980 ? 900 : 540; // from SignUpForm.module.scss
     const style = {
         right: FormWidth * active
     };
@@ -297,13 +332,14 @@ export const FormBlock = ({ children }) => {
     )
 }
 
-export const Input = ({ type, placeholder, label , onBlur, name, error }) => {
+export const Input = ({ type, placeholder, label , onBlur, name, error, autocomplete }) => {
     let props = { 
         className: s.input,
         type,
         placeholder,
         name,
         onBlur,
+        autoComplete: autocomplete || 'on',
     };
     if(error){
         props.style = {
@@ -328,4 +364,4 @@ const Account = () => {
     )
 }
 
-export default SignUpForm;
+export default connect(mapStateToProps)(SignUpForm);

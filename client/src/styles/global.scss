@@ -4,6 +4,19 @@ $light-orange: #FFB300;
 $dark-orange: #FF7300;
 $blue: #0033ff;
 
+@mixin button($width, $height, $font-weight: 500) {
+    display: block;
+    width: $width;
+    height: $height;
+    background-color: $dark-orange;
+    font-weight: $font-weight;
+    font-size: 1.3rem;
+    color: white;
+    border: 0;
+    cursor: pointer;
+
+}
+
 %content{
     position: absolute;
     width: 100%;
@@ -25,7 +38,6 @@ html{
     height: 100%;
 }
 body{
-    min-height: 100vh;
     height: 100%;
     background-image: url('../images/wallpaper.jpg');
     background-attachment: fixed;
@@ -34,6 +46,14 @@ body{
 @media (min-width: 1981px){
     html{
         font-size: 27px;
+    }
+    body{
         background-size: cover;
+    }
+}
+
+@media(max-width: 500px){
+    body{
+        min-height: 120vh;
     }
 }

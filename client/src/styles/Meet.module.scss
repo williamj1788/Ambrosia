@@ -31,10 +31,40 @@
 .chiefImg{
     width: 225px;
     height: 225px;
+    flex-shrink: 0;
 }
 
 .chiefDesc{
     color: white;
     font-size: 2rem;
     margin: 0 0 0 20px;
+}
+
+@media(min-width: 1981px){
+    .chiefContainer{
+        max-width: 1700px;
+    }
+    .chiefDesc{
+        font-size: 1.5rem;
+    }
+}
+
+@media(max-width: 1020px){
+    .chief{
+        margin-top: 100px;
+        flex-direction: column;
+        &:nth-child(even){
+            .chiefImg{
+                order: 1;
+            }
+            .chiefDesc{
+                order: 2;
+                margin: 20px 0 0 0;
+            }
+        }
+    }
+    .chiefDesc{
+        margin: 20px 0 0 0;
+        text-align: center;
+    }
 }
