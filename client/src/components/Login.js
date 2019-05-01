@@ -88,7 +88,6 @@ class Login extends React.Component{
                 if(res.error){
                     reject(res.error);
                 }else{
-                    console.log(res)
                     resolve(res);
                 }
             });

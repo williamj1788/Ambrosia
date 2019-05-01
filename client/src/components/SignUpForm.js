@@ -13,6 +13,8 @@ import {
  } from './validator';
 
 import { connect } from 'react-redux';
+import { setUser } from '../redux/action';
+
 const mapStateToProps = state => {
     return {
         user: state.user
@@ -73,6 +75,10 @@ export class SignUpForm extends React.Component{
             credentials: 'include',
             method: 'POST',
             body: this.getFormData(),
+        })
+        .then(res => res.json())
+        .then(res => {
+            this.props.dispatch(setUser(res));
         })
 
         this.setState({
@@ -173,10 +179,28 @@ export class SignUpForm extends React.Component{
         }
     }
 
-    responseGoogle = (res) => {
+    onSuccess = res => {
+        const token = res.tokenObj.id_token;
+        fetch('/api/user/google', {
+            method: 'POST',
+            headers: {'Authorization': `Bearer ${token}`}
+        })
+        .then(res => {
+            return res;
+        })
+        .then(res => res.json())
+        .then(res => {
+            this.props.dispatch(setUser(res));
+        })
+        .then(() => {
+            this.setState({
+                redirect: true,
+            });
+        });
+    }
+    onFailure = res => {
         console.log(res);
     }
-
     getInputValuebyName = name => {
         return document.querySelector(`input[name = ${name}]`).value;
     }
@@ -220,12 +244,18 @@ export class SignUpForm extends React.Component{
                 </View>
                 <Controllers active={activeFormBlock} progress={formBlockProgress} onClick={this.handleOnClick} />
                 <ControllerButtons active={activeFormBlock} onClick={this.handleOnClick} submit={this.handleSubmit} />
-                <GoogleLogin
-                    clientId="1064409062816-te616f091t5s0vh9mgnkacur1oqrqpr8.apps.googleusercontent.com"
-                    onSuccess={this.responseGoogle}
-                    onFailure={this.responseGoogle}
-                    isSignedIn={true}
-                />
+                <div style={{display: 'block', margin: '10px auto', width: 'fit-content'}}>
+                    <GoogleLogin
+                        clientId="1064409062816-te616f091t5s0vh9mgnkacur1oqrqpr8.apps.googleusercontent.com"
+                        onSuccess={this.onSuccess}
+                        onFailure={this.onFailure}
+                        isSignedIn={true}
+                        style={{
+                            display: 'block',
+                            margin: '0 auto'
+                        }}
+                    />
+                </div>
                 <Account />
             </div>
         )

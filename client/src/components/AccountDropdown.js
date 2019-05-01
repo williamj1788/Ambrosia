@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { clearUser } from '../redux/action'
+import { clearUser } from '../redux/action';
+import { GoogleLogout } from 'react-google-login';
 import s from '../styles/AccountDropdown.module.scss';
 
 class AccountDropdown extends React.Component{
@@ -11,6 +12,7 @@ class AccountDropdown extends React.Component{
     }
     
     signOutUser = () => {
+        console.log('SING OUT');
         fetch('/api/user/signout', {
             credentials: 'include',
         }).then(() => {
@@ -37,7 +39,6 @@ class AccountDropdown extends React.Component{
             return <Redirect to='/user/orders' />
         }
         
-        
         let style = {
             height: window.innerWidth > 1000 ? '100px' : '50px'
         };
@@ -55,9 +56,26 @@ class AccountDropdown extends React.Component{
                     <div className={s.tab} onClick={this.redirectToOrder} >
                         <span>Order History</span>
                     </div>
-                    <div className={s.tab} onClick={this.signOutUser} >
-                        <span>Sign Out</span>
-                    </div>
+                    <GoogleLogout
+                        onLogoutSuccess={() => {}}
+                        render={
+                            renderProps => (
+                                <div id='signout' className={s.tab} onClick={renderProps.onClick}>
+                                    <div 
+                                    onClick={this.signOutUser}
+                                    style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center'
+                                    }} >
+                                        <span>Sign Out</span>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    />
                 </div>
             </div>
         )

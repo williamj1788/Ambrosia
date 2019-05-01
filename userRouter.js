@@ -57,18 +57,19 @@ router.post('/login',(req, res) => {
 });
 
 router.post('/google', async (req, res) => {
+    const BearerHeader = req.headers['authorization'];
+    const token = BearerHeader.split(' ')[1];
     const { OAuth2Client } = require('google-auth-library');
     const client = new OAuth2Client(clientID);
     const ticket = await client.verifyIdToken({
-        idToken: req.body.token,
+        idToken: token,
         audience: clientID
     });
     const payload = ticket.getPayload();
-    const projection = {_id: 0, password: 0, __v: 0, googleID: 0};
-    User.findOne({googleID: payload.sub}, projection, (err, user) => {
+    User.findOne({googleID: payload.sub}, (err, user) => {
         if(err) throw err;
         if(user){
-            res.json(user);
+            signTokenWithUser(user, res);
         }else{
             const newUser = new User({
                 email: payload.email,

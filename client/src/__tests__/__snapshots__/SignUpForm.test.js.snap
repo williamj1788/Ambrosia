@@ -162,6 +162,46 @@ exports[`<SignUpForm /> Snapshot test 1`] = `
     onClick={[Function]}
     submit={[Function]}
   />
+  <div
+    style={
+      Object {
+        "display": "block",
+        "margin": "10px auto",
+        "width": "fit-content",
+      }
+    }
+  >
+    <e
+      accessType="online"
+      buttonText="Sign in with Google"
+      clientId="1064409062816-te616f091t5s0vh9mgnkacur1oqrqpr8.apps.googleusercontent.com"
+      cookiePolicy="single_host_origin"
+      disabledStyle={
+        Object {
+          "opacity": 0.6,
+        }
+      }
+      fetchBasicProfile={true}
+      icon={true}
+      isSignedIn={true}
+      jsSrc="https://apis.google.com/js/api.js"
+      onFailure={[Function]}
+      onRequest={[Function]}
+      onSuccess={[Function]}
+      prompt=""
+      scope="profile email"
+      style={
+        Object {
+          "display": "block",
+          "margin": "0 auto",
+        }
+      }
+      tag="button"
+      theme="light"
+      type="button"
+      uxMode="popup"
+    />
+  </div>
   <Account />
 </div>
 `;
