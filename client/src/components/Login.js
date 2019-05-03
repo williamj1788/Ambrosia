@@ -6,6 +6,7 @@ import {
     validateEmail,
     validatePassword,
  } from './validator';
+ import GoogleLogin from 'react-google-login';
  import { NavLink, Redirect } from 'react-router-dom';
  import { connect } from 'react-redux';
  import { setUser } from '../redux/action';
@@ -94,6 +95,29 @@ class Login extends React.Component{
         })
     }
 
+    onSuccess = res => {
+        const token = res.tokenObj.id_token;
+        fetch('/api/user/google', {
+            method: 'POST',
+            headers: {'Authorization': `Bearer ${token}`}
+        })
+        .then(res => {
+            return res;
+        })
+        .then(res => res.json())
+        .then(res => {
+            this.props.dispatch(setUser(res));
+        })
+        .then(() => {
+            this.setState({
+                redirect: true,
+            });
+        });
+    }
+    onFailure = res => {
+        console.log(res);
+    }
+
     getInputValuebyName = name => {
         return document.querySelector(`input[name = ${name}]`).value;
     }
@@ -119,6 +143,15 @@ class Login extends React.Component{
                         {serverError && <p style={{margin: 0, color: 'red', textAlign: 'center'}}>{serverError}</p> }
                         <button className={s.button} type='submit' >Login</button>
                     </form>
+                    <div style={{display: 'block', margin: '10px auto', width: 'fit-content'}}>
+                    <GoogleLogin
+                    clientId="1064409062816-te616f091t5s0vh9mgnkacur1oqrqpr8.apps.googleusercontent.com"
+                    buttonText="Login with Google"
+                    onSuccess={this.onSuccess}
+                    onFailure={this.onFailure}
+                    isSignedIn={true}
+                    />
+                    </div>
                     <Account accountText="Don't have an account?" linkText='Sign Up here' to='/signup' />
                 </div>
             </div>

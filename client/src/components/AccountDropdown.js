@@ -12,7 +12,6 @@ class AccountDropdown extends React.Component{
     }
     
     signOutUser = () => {
-        console.log('SING OUT');
         fetch('/api/user/signout', {
             credentials: 'include',
         }).then(() => {
