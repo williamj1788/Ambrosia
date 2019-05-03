@@ -34,14 +34,15 @@ class AccountDropdown extends React.Component{
     }
     
     render(){
+        const { user, show } = this.props;
+        console.log(user.admin);
         if(this.state.redirect){
             return <Redirect to='/user/orders' />
         }
-        
         let style = {
-            height: window.innerWidth > 1000 ? '100px' : '50px'
+            height: window.innerWidth > 1000 ? user.admin ? '200px' : '100px' : '50px'
         };
-        if(!this.props.show){
+        if(!show){
             if(window.innerWidth > 1000){
                 style.height = '0';
             }else{
@@ -52,9 +53,9 @@ class AccountDropdown extends React.Component{
         return(
             <div className={s.dropDown} style={style}>
                 <div className={s.content}>
-                    <div className={s.tab} onClick={this.redirectToOrder} >
-                        <span>Order History</span>
-                    </div>
+                    {user.admin && <Tab onClick={this.redirectToOrder} text="Metrics" />} 
+                    {user.admin && <Tab onClick={this.redirectToOrder} text="Product" />} 
+                    <Tab onClick={this.redirectToOrder} text="Order History" />
                     <GoogleLogout
                         onLogoutSuccess={() => {}}
                         render={
@@ -79,6 +80,14 @@ class AccountDropdown extends React.Component{
             </div>
         )
     }
+}
+
+const Tab = ({onClick, text}) => {
+    return(
+        <div className={s.tab} onClick={onClick} >
+            <span>{text}</span>
+        </div>
+    )
 }
 
 export default connect(state => {

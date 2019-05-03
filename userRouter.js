@@ -163,9 +163,10 @@ function extractBasicProfileData(user){
     return {
         email: user.email,
         firstname: user.firstname,
+        admin: user.admin,
         ...(user.lastname && {lastname: user.lastname}),
         ...(user.address && {address: user.address}),
-        ...(user.picture && {picture: user.picture})
+        ...(user.picture && {picture: user.picture}),
     }
 }
 

@@ -21,7 +21,6 @@ export const NavContainer = ({ transparent, children }) => {
     if(transparent){
         styles.backgroundColor = 'transparent';
     }
-    console.log(styles);
     return (
         <div className={s.navbar} style={styles}>
             <div className={s.container} >

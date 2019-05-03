@@ -27,6 +27,10 @@ const UserScheme = new Scheme({
     },
     picture: {
         type: String
+    },
+    admin:{
+        default: false,
+        type: Boolean
     }
 });
 

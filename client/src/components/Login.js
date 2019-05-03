@@ -139,7 +139,7 @@ class Login extends React.Component{
                     <Header title='Welcome Back' />
                     <form id='login-form' onSubmit={this.handleSubmit} className={s.form}>
                         <Input type='text' name="Email" onBlur={this.handleEmailBlur} error={emailError} autocomplete="email" />
-                        <Input type='text' name="Password" onBlur={this.handlePasswordBlur} error={passwordError} autocomplete='current-password' />
+                        <Input type='password' name="Password" onBlur={this.handlePasswordBlur} error={passwordError} autocomplete='current-password' />
                         {serverError && <p style={{margin: 0, color: 'red', textAlign: 'center'}}>{serverError}</p> }
                         <button className={s.button} type='submit' >Login</button>
                     </form>

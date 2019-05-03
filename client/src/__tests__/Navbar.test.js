@@ -2,7 +2,13 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Navbar } from '../components/Navbar';
 
-const component = shallow(<Navbar />);
+const props = {
+    location:{
+        pathname: '/'
+    }
+}
+
+const component = shallow(<Navbar {...props} />);
 const instance = component.instance();
 
 test('componet renders without crashing', () => {

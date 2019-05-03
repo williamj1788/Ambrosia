@@ -38,7 +38,7 @@ exports[`<Perk /> Snapshot test 1`] = `
 
 exports[`<SignUp /> Snapshot test 1`] = `
 <div>
-  <Navbar />
+  <withRouter(Navbar) />
   <div
     className="content"
   >
