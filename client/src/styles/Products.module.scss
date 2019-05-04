@@ -11,12 +11,64 @@
     border-radius: 10px;
     background-color: #00FF00;
     border: 0;
-    font-size: 31px;
+    font-size: 2rem;
     font-weight: 500;
     margin: 0 auto;
     cursor: pointer;
 }
 
 .searchBar{
-    margin: 0 auto;
+    display: block;
+    // width: 325px;
+    width: 100%;
+    max-width: 500px;
+    height: 40px;
+    margin: 10px auto;
+    border-radius: 12px;
+    padding-left: 10px;
+    font-size: 1.3rem;
+}
+
+.productContainer{
+    width: fit-content;
+    margin: 20px auto 0 auto;
+}
+
+.product{
+    display: block;
+    position: relative;
+    margin: 20px 0;
+    width: 500px;
+    height: 50px;
+    background-color: $dark-orange;
+    border: 0;
+    border-radius: 5px;
+    font-size: 1.3rem;
+    font-weight: 500;
+    transition: 400ms;
+    cursor: pointer;
+    span{
+        position: relative;
+        left: 20px;
+    }
+    &:hover{
+        background-color: #a04800;
+    }
+}
+.icon{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+    z-index: 3;
+    cursor: pointer;
+}
+
+@media(max-width: 550px){
+    .searchBar{
+        width: 325px;
+    }
+    .product{
+        width: 300px;
+    }
 }
