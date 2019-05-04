@@ -45,6 +45,14 @@ class Products extends React.Component{
                     <Product name="FakePizza" type="pizza" />
                     <Product name="FakePizza" type="pizza" />
                 </div>
+                <div className={s.dark}>
+                    <div className={s.productModel} >  
+                        <div className={s.header}>
+                            <span>FakePizza</span>
+                        </div>
+                        
+                    </div>
+                </div>
             </div>
         )
     }
