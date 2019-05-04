@@ -13,8 +13,9 @@ class LoadUser extends React.Component{
         loading: true,
     }
 
-    componentDidMount(){
+    componentDidMount(){  
         if(!this.props.user){
+
             this.fetchUser()
             .then(() => {
                 this.setState({
