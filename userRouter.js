@@ -7,6 +7,7 @@ const bcrypt = require('bcrypt');
 const User = require('./User');
 const secretKey = require('./config').secretKey;
 const clientID = require('./config').clientID;
+
 router.get('/test', (req,res) => {
     res.cookie('test', 'value');
     res.send(req.cookies);
@@ -154,7 +155,7 @@ async function createUser(UserData){
 function signTokenWithUser(user, res) {
     jwt.sign({UserID: user._id}, secretKey, (err, token) => {
         if(err) throw err;
-        res.cookie('token', token, {maxAge: 90000000, httpOnly: true});
+        res.cookie('token', token, {maxAge: 9000000000, httpOnly: true});
         return res.json(extractBasicProfileData(user));
     })
 }

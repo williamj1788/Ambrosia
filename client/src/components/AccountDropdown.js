@@ -8,7 +8,7 @@ import s from '../styles/AccountDropdown.module.scss';
 class AccountDropdown extends React.Component{
     
     state = {
-        redirect: false,
+        redirect: null,
     }
     
     signOutUser = () => {
@@ -19,28 +19,29 @@ class AccountDropdown extends React.Component{
         });
     }
 
-    redirectToOrder = () => {
+    setRedirect = location => {
         this.setState({
-            redirect: true,
+            redirect: location,
         });
     }
 
-    componentDidUpdate(){
+    componentDidUpdate(){ // Set redirect back to null or less you get a infinate loop
         if(this.state.redirect){
             this.setState({
-                redirect: false
+                redirect: null
             });
         }
     }
     
     render(){
         const { user, show } = this.props;
+        const { redirect } = this.state;
         console.log(user.admin);
-        if(this.state.redirect){
-            return <Redirect to='/user/orders' />
+        if(redirect){
+            return <Redirect to={redirect} />
         }
         let style = {
-            height: window.innerWidth > 1000 ? user.admin ? '200px' : '100px' : '50px'
+            height: window.innerWidth > 1000 ? user.admin ? '200px' : '100px' : user.admin ? '100px': '50px'
         };
         if(!show){
             if(window.innerWidth > 1000){
@@ -49,13 +50,16 @@ class AccountDropdown extends React.Component{
                 style.width = '0';
             }
         }
+        if(window.innerWidth < 1000 && user.admin){
+            style.top = "-40px";
+        }
 
         return(
             <div className={s.dropDown} style={style}>
                 <div className={s.content}>
-                    {user.admin && <Tab onClick={this.redirectToOrder} text="Metrics" />} 
-                    {user.admin && <Tab onClick={this.redirectToOrder} text="Product" />} 
-                    <Tab onClick={this.redirectToOrder} text="Order History" />
+                    {user.admin && <Tab onClick={() => this.setRedirect('/admin/metrics')} text="Metrics" />} 
+                    {user.admin && <Tab onClick={() => this.setRedirect('/admin/products')} text="Product" />} 
+                    <Tab onClick={() => this.setRedirect('/user/orders')} text="Order History" />
                     <GoogleLogout
                         onLogoutSuccess={() => {}}
                         render={
