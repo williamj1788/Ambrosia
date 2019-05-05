@@ -1,7 +1,7 @@
 import React from 'react';
 import s from '../styles/Products.module.scss';
 import { connect } from 'react-redux';
-import { addProduct } from '../redux/action';
+import { addProduct, editProduct } from '../redux/action';
 import { FaTimes } from "react-icons/fa";
 
 class ProductModal extends React.Component{
@@ -35,7 +35,17 @@ class ProductModal extends React.Component{
     editProduct =  id => {
         const form = document.getElementById('product-form');
         const formData = new FormData(form);
-        console.log(id);
+        fetch(`/api/admin/products/edit/${id}`, {
+            method: 'POST',
+            body: formData,
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res);
+            return res
+        })
+        .then(res => this.props.dispatch(editProduct(res)))
+        .then(this.props.show);
     }
     
     render(){

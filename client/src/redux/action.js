@@ -1,4 +1,4 @@
-import { SET_PAGE, SET_USER, CLEAR_USER, SET_PRODUCTS, ADD_PRODUCT } from './actionTypes';
+import { SET_PAGE, SET_USER, CLEAR_USER, SET_PRODUCTS, ADD_PRODUCT,EDIT_PRODUCT } from './actionTypes';
 
 export function setPage(payload){
     return {type: SET_PAGE, payload}
@@ -17,3 +17,7 @@ export function setProducts(payload){
 export function addProduct(payload){
     return {type: ADD_PRODUCT, payload}
 };
+
+export function editProduct(payload){
+    return {type: EDIT_PRODUCT, payload}
+}
