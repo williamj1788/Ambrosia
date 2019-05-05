@@ -2,79 +2,13 @@ import React from 'react';
 import Navbar from './Navbar';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { setProducts } from '../redux/action';
 import s from '../styles/Menu.module.scss';
-
-import Pizza from '../images/Pizza_Background.jpg';
-import Pasta from '../images/Money_icon.png';
-import Drink from '../images/chef.jpg';
 
 export class Menu extends React.Component{
     
     state = {
-        productData: { // will load from a server when its set up
-            pizza:[
-                {
-                    img: Pizza,
-                    name: 'Tombstone Pizza',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,',
-                    price: '9.99',
-                },
-                {
-                    img: Pizza,
-                    name: 'Tombstone Pizza',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,',
-                    price: '7.99',
-                },
-                {
-                    img: Pizza,
-                    name: 'Tombstone Pizza',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,',
-                    price: '2.99',
-                },
-            ],
-            pasta:[
-                {
-                    img: Pasta,
-                    name: 'Tombstone passta',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,',
-                    price: '1.99',
-                },
-                {
-                    img: Pasta,
-                    name: 'Tombstone passta',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,',
-                    price: '12.99',
-                },
-                {
-                    img: Pasta,
-                    name: 'Tombstone passta',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,',
-                    price: '13.99',
-                }
-            ],
-            drink:[
-                {
-                    img: Drink,
-                    name: 'Tombstone drink',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,',
-                    price: '11.99',
-                },
-                {
-                    img: Drink,
-                    name: 'Tombstone drink',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,',
-                    price: '131.99',
-                },
-                {
-                    img: Drink,
-                    name: 'Tombstone drink',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,',
-                    price: '111.99',
-                },
-            ],
-            bread:[],
-            dessert:[]
-        },
+        loading: !this.props.products,
         redirect: false,
         productTarget: null,
     }
@@ -85,6 +19,13 @@ export class Menu extends React.Component{
             productTarget,
         });
     }
+
+    componentDidMount(){
+        if(!this.props.products){
+            this.fetchProducts();
+        }
+    }
+
     componentWillUpdate(){
         if(window.scrollY !== 0){
             sessionStorage.setItem('scroll',window.scrollY);
@@ -102,11 +43,32 @@ export class Menu extends React.Component{
             });
         }
     }
-    
+
+    fetchProducts = () => {
+        fetch('/api/admin/products')
+        .then(res => res.json())
+        .then(res => this.props.dispatch(setProducts(res)))
+        .then(() => {
+            this.setState({
+                loading: false,
+            });
+        })
+        .catch(error => console.log(error));;
+    }
+
+    getProductType = type => {
+        return this.props.products.filter(product => product.type === type);
+    }
+
+
     render(){
-        const { redirect, productTarget, productData } = this.state;
+        const { redirect, productTarget, loading } = this.state;
         if(redirect){ 
             return <Redirect to={`/menu/${productTarget}`} /> 
+        }
+
+        if(loading){
+            return <div>Loading...</div>
         }
         return(
             <div>
@@ -120,7 +82,7 @@ export class Menu extends React.Component{
                         <Tab product='dessert'>Desserts</Tab>
                         <Tab product='drink'>Drinks</Tab>
                     </TabContainer>
-                    <ProductContainer products={productData[this.props.match.params.product]}  />
+                    <ProductContainer products={this.getProductType(this.props.match.params.product)}  />
                 </div>
             </div>
         )
@@ -160,10 +122,10 @@ export const ProductContainer = ({ products }) => {
     )
 }
 
-export const Product = ({ img, name, description, price }) => {
+export const Product = ({ picture, name, description, price }) => {
     return(
         <div className={s.product}>
-            <img className={s.productImg} src={img} alt="Product"/>
+            <img className={s.productImg} src={picture} alt="Product"/>
             <div className={s.productInfo}>
                 <p className={s.productName}>{name}</p>
                 <p className={s.productDesc}>{description}</p>
@@ -188,4 +150,8 @@ export const Product = ({ img, name, description, price }) => {
     )
 }
 
-export default connect()(Menu);
+export default connect(state => {
+    return{
+        products: state.products
+    }
+})(Menu);
