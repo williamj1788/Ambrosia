@@ -13,6 +13,7 @@ class Products extends React.Component{
         loading: true,
         redirect: false,
         showProductModal: false,
+        searchText: '',
     }
     
     componentDidMount(){
@@ -50,9 +51,15 @@ class Products extends React.Component{
             showProductModal: !this.state.showProductModal
         })
     }
+
+    handleChange = event => {
+        this.setState({
+            searchText: event.target.value,
+        });
+    }
     
     render(){
-        const { loading, redirect, showProductModal } = this.state
+        const { loading, redirect, showProductModal, searchText } = this.state
         if(redirect){
             return <Redirect to='/' />
         }
@@ -66,8 +73,8 @@ class Products extends React.Component{
                 <div className={s.content}>
                     <h1 className={s.title}>Products</h1>
                     <button onClick={this.toggleProductModal} className={s.createButton} type="button">Create A Product</button>
-                    <input className={s.searchBar} type="text" placeholder="Search for prouduct" />
-                    <ProductContainer products={this.props.products} />
+                    <input onChange={this.handleChange} className={s.searchBar} type="search" placeholder="Search for prouduct" />
+                    <ProductContainer products={this.props.products} search={searchText} />
                     {showProductModal && <ProductModal show={this.toggleProductModal} />}
                 </div>
             </div>
@@ -75,7 +82,15 @@ class Products extends React.Component{
     }
 }
 
-const ProductContainer = ({ products }) => {
+const ProductContainer = ({ products, search }) => {
+    if(search){
+        products = products.filter(product => {
+            let regex = new RegExp(`^${search}`, 'gi');
+            return regex.test(product.name) || regex.test(product.type);
+        });
+    }
+
+    
     products = products.map(product => {
         return <Product name={product.name} type={product.type} />
     });
