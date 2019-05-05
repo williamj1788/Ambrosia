@@ -1,9 +1,10 @@
-import { SET_PAGE, SET_USER, CLEAR_USER } from './actionTypes';
+import { SET_PAGE, SET_USER, CLEAR_USER, SET_PRODUCTS } from './actionTypes';
 
 
 const initialState = {
     page: null,
     user: null,
+    products: null,
 };
 
 function reducer(state = initialState, action){
@@ -17,6 +18,11 @@ function reducer(state = initialState, action){
             return {
                 ...state,
                 user: action.payload,
+            }
+        case SET_PRODUCTS:
+            return {
+                ...state,
+                products: action.payload,
             }
         case CLEAR_USER:
             return {

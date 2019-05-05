@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './Navbar';
 import { connect } from 'react-redux';
+import { setProducts } from '../redux/action';
 import { Redirect } from 'react-router-dom';
 import s from '../styles/Products.module.scss';
 import { FaTrashAlt } from "react-icons/fa";
@@ -9,22 +10,39 @@ import ProductModal from './ProductModal';
 class Products extends React.Component{
     
     state = {
+        loading: true,
         redirect: false,
         showProductModal: false,
     }
     
     componentDidMount(){
-        // if(this.props.user){
-        //     if(!this.props.user.admin){
-        //         this.setState({
-        //             redirect: true,
-        //         });
-        //     }
-        // }else{
-        //     this.setState({
-        //         redirect: true,
-        //     });
-        // }
+        this.fetchProducts();
+    }
+
+    fetchProducts = () => {
+        fetch('/api/admin/products')
+        .then(res => res.json())
+        .then(res => this.props.dispatch(setProducts(res)))
+        .then(() => {
+            this.setState({
+                loading: false,
+            });
+        })
+        .catch(error => console.log(error));;
+    }
+
+    checkAdmin = () => {
+        if(this.props.user){
+            if(!this.props.user.admin){
+                this.setState({
+                    redirect: true,
+                });
+            }
+        }else{
+            this.setState({
+                redirect: true,
+            });
+        }
     }
 
     toggleProductModal = () => {
@@ -34,29 +52,38 @@ class Products extends React.Component{
     }
     
     render(){
-        const { redirect, showProductModal } = this.state
+        const { loading, redirect, showProductModal } = this.state
         if(redirect){
             return <Redirect to='/' />
+        }
+        if(loading){
+            return <div>Loading...</div>
         }
 
         return(
             <div>
                 <Navbar />
-                <h1 className={s.title}>Products</h1>
-                <button onClick={this.toggleProductModal} className={s.createButton} type="button">Create A Product</button>
-                <input className={s.searchBar} type="text" placeholder="Search for prouduct" />
-                <div className={s.productContainer} >
-                    <Product name="FakePizza" type="pizza" />
-                    <Product name="FakePizza" type="pizza" />
-                    <Product name="FakePizza" type="pizza" />
-                    <Product name="FakePizza" type="pizza" />
-                    <Product name="FakePizza" type="pizza" />
-                    <Product name="FakePizza" type="pizza" />
+                <div className={s.content}>
+                    <h1 className={s.title}>Products</h1>
+                    <button onClick={this.toggleProductModal} className={s.createButton} type="button">Create A Product</button>
+                    <input className={s.searchBar} type="text" placeholder="Search for prouduct" />
+                    <ProductContainer products={this.props.products} />
+                    {showProductModal && <ProductModal show={this.toggleProductModal} />}
                 </div>
-               {showProductModal && <ProductModal show={this.toggleProductModal} />}
             </div>
         )
     }
+}
+
+const ProductContainer = ({ products }) => {
+    products = products.map(product => {
+        return <Product name={product.name} type={product.type} />
+    });
+    return(
+        <div className={s.productContainer}>
+            {products}
+        </div>
+    )
 }
 
 const Product = ({name, type}) => {
@@ -78,5 +105,8 @@ const Product = ({name, type}) => {
 }
 
 export default connect(state => {
-    return {user: state.user}
+    return {
+        user: state.user,
+        products: state.products,
+    }
 })(Products);

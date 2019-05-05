@@ -3,6 +3,9 @@
     @extend %title;
     margin: 0;
 }
+.content{
+    @extend %content;
+}
 
 .createButton{
     display: block;
@@ -239,6 +242,11 @@
     }
     .fileButton{
         width: 300px;
+    }
+    .product{
+        span{
+            left: 0;
+        }
     }
 }
 

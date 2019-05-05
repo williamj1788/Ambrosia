@@ -16,6 +16,19 @@ class ProductModal extends React.Component{
             filename: event.target.value.split('\\').pop()
         })
     }
+
+    handleSubmit = event => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        
+        fetch('/api/admin/products/create', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(res => res.json())
+        .then(res => console.log(res))
+        .then(this.props.show);
+    }
     
     render(){
         const { filename } = this.state
@@ -28,7 +41,7 @@ class ProductModal extends React.Component{
                             <FaTimes size="1.75em" />
                         </div>
                     </div>
-                    <form className={s.form}>
+                    <form onSubmit={this.handleSubmit} className={s.form}>
                         <div className={s.formRecord}>
                             <label className={s.label} htmlFor="type">Type:</label>
                             <select className={s.input} name="type">
