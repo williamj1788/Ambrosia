@@ -66,4 +66,11 @@ router.post('/products/edit/:id', upload.single('picture'),(req, res) => {
     });
 });
 
+router.delete('/products/delete/:id', (req, res) => {
+    Product.findByIdAndDelete(req.params.id, (err) => {
+        if(err) throw err;
+        res.send();
+    });
+});
+
 module.exports = router;

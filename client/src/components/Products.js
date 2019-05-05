@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from './Navbar';
 import { connect } from 'react-redux';
-import { setProducts } from '../redux/action';
+import { setProducts, removeProduct } from '../redux/action';
 import { Redirect } from 'react-router-dom';
 import s from '../styles/Products.module.scss';
 import { FaTrashAlt } from "react-icons/fa";
@@ -68,6 +68,15 @@ class Products extends React.Component{
             editProduct,
         });
     }
+    deleteProduct = (event, id) => {
+        event.stopPropagation();
+        fetch(`/api/admin/products/delete/${id}`, {
+            method: 'DELETE'
+        })
+        .then(() => {
+            this.props.dispatch(removeProduct(id));
+        });
+    };
     
     render(){
         const { loading, redirect, showProductModal, ProductModalEdit, editProduct, searchText } = this.state
@@ -77,18 +86,18 @@ class Products extends React.Component{
         if(loading){
             return <div>Loading...</div>
         }
-        console.log(ProductModalEdit);
         return(
             <div>
                 <Navbar />
                 <div className={s.content}>
                     <h1 className={s.title}>Products</h1>
                     <button onClick={this.toggleProductModal} className={s.createButton} type="button">Create A Product</button>
-                    <input onChange={this.handleChange} className={s.searchBar} type="search" placeholder="Search for prouduct" />
+                    <input onChange={this.handleChange} className={s.searchBar} type="search" placeholder="Search for a product" />
                     <ProductContainer 
                     products={this.props.products} 
                     search={searchText} 
                     showEdit={this.showEdit}
+                    deleteProduct={this.deleteProduct}
                     />
                     {(showProductModal && !ProductModalEdit) && <ProductModal show={this.toggleProductModal} />}
                     {(showProductModal && ProductModalEdit) && <ProductModal show={this.toggleProductModal} product={editProduct} edit />}
@@ -115,7 +124,7 @@ function priority(type) {
     }
 }
 
-const ProductContainer = ({ products, search, showEdit }) => {
+const ProductContainer = ({ products, search, showEdit, deleteProduct }) => {
     if(search){
         products = products.filter(product => {
             let regex = new RegExp(`^${search}`, 'gi');
@@ -134,7 +143,7 @@ const ProductContainer = ({ products, search, showEdit }) => {
     });
     
     products = products.map(product => {
-        return <Product name={product.name} type={product.type} id={product._id} showEdit={showEdit} />
+        return <Product name={product.name} type={product.type} id={product._id} showEdit={showEdit} deleteProduct={deleteProduct} />
     });
     return(
         <div className={s.productContainer}>
@@ -143,11 +152,12 @@ const ProductContainer = ({ products, search, showEdit }) => {
     )
 }
 
-const Product = ({name, type, id, showEdit}) => {
+const Product = ({name, type, id, showEdit, deleteProduct}) => {
+
     return(
         <div>
             <button onClick={() => showEdit(id)} className={s.product} type="button">
-                <div className={s.icon}>
+                <div onClick={event => deleteProduct(event, id)} className={s.icon}>
                     <FaTrashAlt 
                     size="1.5em"
                     />

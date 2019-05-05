@@ -1,4 +1,4 @@
-import { SET_PAGE, SET_USER, CLEAR_USER, SET_PRODUCTS, ADD_PRODUCT, EDIT_PRODUCT } from './actionTypes';
+import { SET_PAGE, SET_USER, CLEAR_USER, SET_PRODUCTS, ADD_PRODUCT, EDIT_PRODUCT, REMOVE_PRODUCT } from './actionTypes';
 
 
 const initialState = {
@@ -32,17 +32,24 @@ function reducer(state = initialState, action){
                 products,
             }
         }
-        case EDIT_PRODUCT:
-            console.log(action.payload);
+        case EDIT_PRODUCT:{
             const products = state.products.slice();
             const index = products.findIndex(x => x._id === action.payload._id);
-            console.log(index);
             products[index] = action.payload;
-            console.log(products[index]);
             return{
                 ...state,
                 products,
             }
+        }
+        case REMOVE_PRODUCT:{
+            const products = state.products.slice();
+            const index = products.findIndex(x => x._id === action.payload);
+            products.splice(index, 1);
+            return{
+                ...state,
+                products,
+            }
+        }
         case CLEAR_USER:
             return {
                 ...state,
