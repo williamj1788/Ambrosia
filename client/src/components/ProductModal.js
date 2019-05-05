@@ -25,7 +25,7 @@ class ProductModal extends React.Component{
                     <div className={s.header}>
                         <span>Create A Product</span>
                         <div className={s.close} onClick={this.props.show}>
-                            <FaTimes size="2em" />
+                            <FaTimes size="1.75em" />
                         </div>
                     </div>
                     <form className={s.form}>

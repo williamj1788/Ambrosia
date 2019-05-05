@@ -45,7 +45,6 @@ export const NavLinkContainer = ({ className, style = {} }) => {
 export const HamburgerDropdown = ({ open }) => {
     let style = {};
     if(open){
-        style.minHeight = 'fit-content';
         style.height = '200px';
     }else{
         style.height = '0';
