@@ -1,5 +1,6 @@
 import React from 'react';
 import s from '../styles/Navbar.module.scss';
+import { withRouter } from'react-router-dom'
 
 import { 
     Navigation,
@@ -68,10 +69,10 @@ export class Navbar extends React.Component{
     
     render(){
         const { isFixed, isHamburger,isHamburgerDropdownOpen } = this.state;
-        const { page } = this.props;
+        const { pathname } = this.props.location;
         return(
             <Navigation fixed={isFixed}>
-                <NavContainer transparent={page === 'Home' && !isFixed && !isHamburger}>
+                <NavContainer transparent={pathname === '/' && !isFixed && !isHamburger}>
                     <Logo />
                     {isHamburger 
                     ?<Hamburger 
@@ -86,4 +87,4 @@ export class Navbar extends React.Component{
     }
 }
 
-export default Navbar;
+export default withRouter(Navbar);

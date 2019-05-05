@@ -15,6 +15,8 @@ import Meet from './components/Meet';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import UserOrder from './components/UserOrder';
+import Products from './components/Products';
+import Metrics from './components/Metrics';
 
 export class App extends Component {
   render() {
@@ -30,6 +32,8 @@ export class App extends Component {
                 <Route path='/signup' component={SignUp} />
                 <Route path='/login' component={Login} />
                 <Route path='/user/orders' component={UserOrder} />
+                <Route path='/admin/products' component={Products} />
+                <Route path='/admin/metrics' component={Metrics} />
             </Switch>
           </LoadUser>
         </Router>

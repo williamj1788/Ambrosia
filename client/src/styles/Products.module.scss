@@ -1,0 +1,262 @@
+@import '../styles/global.scss';
+.title{
+    @extend %title;
+    margin: 0;
+}
+.content{
+    @extend %content;
+}
+
+.createButton{
+    display: block;
+    width: 300px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #00FF00;
+    border: 0;
+    font-size: 2rem;
+    font-weight: 500;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.searchBar{
+    display: block;
+    // width: 325px;
+    width: 100%;
+    max-width: 500px;
+    height: 40px;
+    margin: 10px auto;
+    border-radius: 12px;
+    padding-left: 10px;
+    font-size: 1.3rem;
+}
+
+.productContainer{
+    width: fit-content;
+    margin: 20px auto 0 auto;
+}
+
+.product{
+    display: block;
+    position: relative;
+    margin-top: 40px;
+    width: 500px;
+    height: 50px;
+    background-color: $dark-orange;
+    border: 0;
+    border-radius: 5px 5px 0 0;
+    font-size: 1.3rem;
+    font-weight: 500;
+    transition: 400ms;
+    cursor: pointer;
+    span{
+        font-size: 1.5rem;
+        font-weight: 500;
+        position: relative;
+        left: 20px;
+    }
+    &:hover{
+        background-color: #a04800;
+    }
+}
+.deal{
+    width: 100%;
+    height: 30px;
+    background-color: blue;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    border: 0;
+    border-radius: 0 0 5px 5px;
+    color: white;
+    cursor: pointer;
+    transition: 400ms;
+    &:hover{
+        background-color: rgb(0, 0, 175);
+    }
+}
+.icon{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+    z-index: 3;
+    cursor: pointer;
+}
+
+.dark{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99;
+    background-color: #1f1f1f73;
+}
+
+.productModel{
+    width: 300px;
+    height: 550px;
+    background-color: white;
+    border-radius: 15px;
+}
+
+.header{
+    width: 100%;
+    height: 50px;
+    background-color: $light-orange;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    span{
+        font-size: 1.75rem;
+        font-weight: 500;
+    }
+}
+.close{
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.form{
+    margin: 20px auto;
+    width: 100%;
+}
+
+.formRecord{
+    box-sizing: border-box;
+    width: 100%;
+    min-height: fit-content;
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+}
+
+.label{
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.input{
+    display: block;
+    width: 200px;
+    margin-left: 10px;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.file{
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.fileButton{
+    width: 200px;
+    height: 25px;
+    background-color: $dark-orange;
+    color: white;
+    border: 0;
+    border-radius: 5px;
+    transition: 400ms;
+    cursor: pointer;
+    &:hover{
+        background-color: #a04800;
+    }
+}
+
+.submitButton{
+    width: 100px;
+    height: 35px;
+    border: 0;
+    border-radius: 5px;
+    background-color: $dark-orange;
+    font-size: 1.3rem;
+    font-weight: 500;
+    transition: 400ms;
+    cursor: pointer;
+    &:hover{
+        background-color: #a04800;
+    }
+}
+
+@media(min-width: 1981px){
+    .createButton{
+        width: 300px * 1.75;
+        height: 50px * 1.75;
+    }
+    .searchBar{
+        max-width: 500px * 1.75;
+        height: 40px * 1.75;
+    }
+    .product{
+        width: 500px * 1.75;
+        height: 50px * 1.75;
+        font-size: 1.3rem * 1.2;
+    }
+    .deal{
+        height: 30px * 1.75;
+        font-size: 1.2rem;
+    }
+    body .productModel{
+        width: 500px * 1.75;
+        height: 550px * 1.25;
+    }
+    .formRecord{
+        margin-top: 20px;
+    }
+    body .input{
+        width: 300px * 1.75;
+        margin: 0;
+    }
+    body .fileButton{
+        width: 300px * 1.75;
+        height: 25px * 1.75;
+    }
+    .header{
+        height: 50px * 1.75;
+    }
+    .submitButton{
+        width: 100px * 1.75;
+        height: 35px * 1.75;
+    }
+}
+
+@media(min-width: 550px){
+    .productModel{
+        width: 500px;
+    }
+    .input{
+        width: 300px;
+    }
+    .fileButton{
+        width: 300px;
+    }
+    .product{
+        span{
+            left: 0;
+        }
+    }
+}
+
+@media(max-width: 550px){
+    .searchBar{
+        width: 325px;
+    }
+    .product{
+        width: 300px;
+    }
+}

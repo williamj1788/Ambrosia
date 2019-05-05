@@ -55,5 +55,6 @@ body{
 @media(max-width: 500px){
     body{
         min-height: 120vh;
+        background-attachment: initial;
     }
 }

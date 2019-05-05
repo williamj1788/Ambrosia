@@ -13,8 +13,9 @@ class LoadUser extends React.Component{
         loading: true,
     }
 
-    componentDidMount(){
+    componentDidMount(){  
         if(!this.props.user){
+
             this.fetchUser()
             .then(() => {
                 this.setState({
@@ -33,7 +34,8 @@ class LoadUser extends React.Component{
             if(!res.message){
                 this.props.dispatch(setUser(res));
             }
-        });
+        })
+        .catch(err => console.log(err));
     }
 
     render(){
@@ -49,4 +51,4 @@ class LoadUser extends React.Component{
         )
     }
 }
-  export default connect(mapStateToProps)(LoadUser)
+export default connect(mapStateToProps)(LoadUser)

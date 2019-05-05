@@ -8,11 +8,10 @@ import s from '../styles/AccountDropdown.module.scss';
 class AccountDropdown extends React.Component{
     
     state = {
-        redirect: false,
+        redirect: null,
     }
     
     signOutUser = () => {
-        console.log('SING OUT');
         fetch('/api/user/signout', {
             credentials: 'include',
         }).then(() => {
@@ -20,42 +19,47 @@ class AccountDropdown extends React.Component{
         });
     }
 
-    redirectToOrder = () => {
+    setRedirect = location => {
         this.setState({
-            redirect: true,
+            redirect: location,
         });
     }
 
-    componentDidUpdate(){
+    componentDidUpdate(){ // Set redirect back to null or less you get a infinate loop
         if(this.state.redirect){
             this.setState({
-                redirect: false
+                redirect: null
             });
         }
     }
     
     render(){
-        if(this.state.redirect){
-            return <Redirect to='/user/orders' />
+        const { user, show } = this.props;
+        const { redirect } = this.state;
+        console.log(user.admin);
+        if(redirect){
+            return <Redirect to={redirect} />
         }
-        
         let style = {
-            height: window.innerWidth > 1000 ? '100px' : '50px'
+            height: window.innerWidth > 1000 ? user.admin ? '200px' : '100px' : user.admin ? '100px': '50px'
         };
-        if(!this.props.show){
+        if(!show){
             if(window.innerWidth > 1000){
                 style.height = '0';
             }else{
                 style.width = '0';
             }
         }
+        if(window.innerWidth < 1000 && user.admin){
+            style.top = "-40px";
+        }
 
         return(
             <div className={s.dropDown} style={style}>
                 <div className={s.content}>
-                    <div className={s.tab} onClick={this.redirectToOrder} >
-                        <span>Order History</span>
-                    </div>
+                    {user.admin && <Tab onClick={() => this.setRedirect('/admin/metrics')} text="Metrics" />} 
+                    {user.admin && <Tab onClick={() => this.setRedirect('/admin/products')} text="Product" />} 
+                    <Tab onClick={() => this.setRedirect('/user/orders')} text="Order History" />
                     <GoogleLogout
                         onLogoutSuccess={() => {}}
                         render={
@@ -80,6 +84,14 @@ class AccountDropdown extends React.Component{
             </div>
         )
     }
+}
+
+const Tab = ({onClick, text}) => {
+    return(
+        <div className={s.tab} onClick={onClick} >
+            <span>{text}</span>
+        </div>
+    )
 }
 
 export default connect(state => {

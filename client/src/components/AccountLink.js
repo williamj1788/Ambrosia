@@ -11,6 +11,18 @@ class AccountLink extends React.Component{
     state = {
         showDropdown: false,
     }
+
+    componentDidMount(){
+        window.addEventListener('scroll', this.handleScroll);
+    }
+
+    handleScroll = () => {
+        if(this.state.showDropdown){
+            this.setState({
+                showDropdown: false,
+            })
+        }
+    }
     
     toggleDropdown = () =>{
         this.setState({
@@ -25,7 +37,7 @@ class AccountLink extends React.Component{
             return(
                 <div style={{position: 'relative'}} >
                     <div className={s.navLink} style={{cursor: 'pointer'}} onClick={this.toggleDropdown} >
-                        <img className={s.linkLogo} src={userIcon} alt="User Icon" />
+                        <img className={s.linkLogo} src={user.picture ? user.picture : userIcon} alt="User Icon" />
                         <span>{user.firstname}</span>
                         <img className={s.userArrow} src={UserArrow} alt="User Arrow"/>
                     </div>
