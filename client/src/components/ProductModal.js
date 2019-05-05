@@ -19,9 +19,9 @@ class ProductModal extends React.Component{
         })
     }
 
-    handleSubmit = event => {
-        event.preventDefault();
-        const formData = new FormData(event.target);
+    createProduct = () => {
+        const form = document.getElementById('product-form');
+        const formData = new FormData(form);
         
         fetch('/api/admin/products/create', {
             method: 'POST',
@@ -31,27 +31,34 @@ class ProductModal extends React.Component{
         .then(res => this.props.dispatch(addProduct(res)))
         .then(this.props.show);
     }
+
+    editProduct =  id => {
+        const form = document.getElementById('product-form');
+        const formData = new FormData(form);
+        console.log(id);
+    }
     
     render(){
-        const { filename } = this.state
+        const { filename } = this.state;
+        const { product, edit } = this.props;
         return(
             <div className={s.dark}>
                 <div className={s.productModel} >  
                     <div className={s.header}>
-                        <span>Create A Product</span>
+                        <span>{edit ? product.name : 'Create A Product'}</span>
                         <div className={s.close} onClick={this.props.show}>
                             <FaTimes size="1.75em" />
                         </div>
                     </div>
-                    <form onSubmit={this.handleSubmit} className={s.form}>
+                    <form id="product-form" onSubmit={this.handleSubmit} className={s.form}>
                         <div className={s.formRecord}>
                             <label className={s.label} htmlFor="type">Type:</label>
-                            <select className={s.input} name="type">
+                            <select defaultValue={product && product.type} className={s.input} name="type">
                                 <option value="pizza">Pizza</option>
-                                <option value="pasta">pasta</option>
+                                <option value="pasta">Pasta</option>
                                 <option value="bread">Bread</option>
                                 <option value="desserts">Desserts</option>
-                                <option value="drinks">Drinks</option>
+                                <option value="drink">Drink</option>
                             </select>
                         </div>
                         <div className={s.formRecord}>
@@ -61,18 +68,20 @@ class ProductModal extends React.Component{
                         </div>
                         <div className={s.formRecord}>
                             <label className={s.label} htmlFor="name">Name:</label>
-                            <input className={s.input} type="text" name="name" required />
+                            <input defaultValue={product && product.name} className={s.input} type="text" name="name" required />
                         </div>
                         <div className={s.formRecord}>
                             <label className={s.label} htmlFor="description">Desc:</label>
-                            <textarea className={s.input} style={{height: '200px', resize: 'none'}} name="description" cols="30" rows="10" placeholder="30 word limit" maxLength="200" required></textarea>
+                            <textarea defaultValue={product && product.description} className={s.input} style={{height: '200px', resize: 'none'}} name="description" cols="30" rows="10" placeholder="30 word limit" maxLength="200" required></textarea>
                         </div>
                         <div className={s.formRecord}>
                             <label className={s.label} htmlFor="price">Price:</label>
-                            <input className={s.input} minLength="0" step='0.01' type="number" name="price" required />
+                            <input defaultValue={product && product.price} className={s.input} minLength="0" step='0.01' type="number" name="price" required />
                         </div>
                         <div className={s.formRecord}>
-                            <button className={s.submitButton} type="submit">Create</button>
+                            {edit 
+                            ? <button onClick={() => this.editProduct(product._id)} className={s.submitButton} type="button">Edit</button>
+                            : <button onClick={this.createProduct} className={s.submitButton} type="button">Create</button>}
                         </div>
                     </form>
                 </div>

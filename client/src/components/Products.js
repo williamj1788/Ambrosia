@@ -13,6 +13,8 @@ class Products extends React.Component{
         loading: true,
         redirect: false,
         showProductModal: false,
+        ProductModalEdit: false,
+        editProduct: null,
         searchText: '',
     }
     
@@ -48,7 +50,8 @@ class Products extends React.Component{
 
     toggleProductModal = () => {
         this.setState({
-            showProductModal: !this.state.showProductModal
+            showProductModal: !this.state.showProductModal,
+            ProductModalEdit: false,
         })
     }
 
@@ -57,16 +60,24 @@ class Products extends React.Component{
             searchText: event.target.value,
         });
     }
+    showEdit = id => {
+        const editProduct = this.props.products.find(x => x._id === id);
+        this.setState({
+            showProductModal: true,
+            ProductModalEdit: true,
+            editProduct,
+        });
+    }
     
     render(){
-        const { loading, redirect, showProductModal, searchText } = this.state
+        const { loading, redirect, showProductModal, ProductModalEdit, editProduct, searchText } = this.state
         if(redirect){
             return <Redirect to='/' />
         }
         if(loading){
             return <div>Loading...</div>
         }
-
+        console.log(ProductModalEdit);
         return(
             <div>
                 <Navbar />
@@ -74,8 +85,13 @@ class Products extends React.Component{
                     <h1 className={s.title}>Products</h1>
                     <button onClick={this.toggleProductModal} className={s.createButton} type="button">Create A Product</button>
                     <input onChange={this.handleChange} className={s.searchBar} type="search" placeholder="Search for prouduct" />
-                    <ProductContainer products={this.props.products} search={searchText} />
-                    {showProductModal && <ProductModal show={this.toggleProductModal} />}
+                    <ProductContainer 
+                    products={this.props.products} 
+                    search={searchText} 
+                    showEdit={this.showEdit}
+                    />
+                    {(showProductModal && !ProductModalEdit) && <ProductModal show={this.toggleProductModal} />}
+                    {(showProductModal && ProductModalEdit) && <ProductModal show={this.toggleProductModal} product={editProduct} edit />}
                 </div>
             </div>
         )
@@ -99,7 +115,7 @@ function priority(type) {
     }
 }
 
-const ProductContainer = ({ products, search }) => {
+const ProductContainer = ({ products, search, showEdit }) => {
     if(search){
         products = products.filter(product => {
             let regex = new RegExp(`^${search}`, 'gi');
@@ -118,7 +134,7 @@ const ProductContainer = ({ products, search }) => {
     });
     
     products = products.map(product => {
-        return <Product name={product.name} type={product.type} />
+        return <Product name={product.name} type={product.type} id={product._id} showEdit={showEdit} />
     });
     return(
         <div className={s.productContainer}>
@@ -127,10 +143,10 @@ const ProductContainer = ({ products, search }) => {
     )
 }
 
-const Product = ({name, type}) => {
+const Product = ({name, type, id, showEdit}) => {
     return(
         <div>
-            <button className={s.product} type="button">
+            <button onClick={() => showEdit(id)} className={s.product} type="button">
                 <div className={s.icon}>
                     <FaTrashAlt 
                     size="1.5em"
