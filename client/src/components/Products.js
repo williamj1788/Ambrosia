@@ -82,6 +82,23 @@ class Products extends React.Component{
     }
 }
 
+function priority(type) {
+    switch (type) {
+        case 'pizza':
+            return 5
+        case 'pasta':
+            return 4
+        case 'bread':
+            return 3
+        case 'dessert':
+            return 2
+        case 'drink':
+            return 1
+        default:
+            return 0
+    }
+}
+
 const ProductContainer = ({ products, search }) => {
     if(search){
         products = products.filter(product => {
@@ -90,6 +107,15 @@ const ProductContainer = ({ products, search }) => {
         });
     }
 
+    products = products.sort((a, b) => {
+        if(a.type === b.type){
+            return 0;
+        }else if(priority(a.type) > priority(b.type)){
+            return -1
+        }else{
+            return 1
+        }
+    });
     
     products = products.map(product => {
         return <Product name={product.name} type={product.type} />

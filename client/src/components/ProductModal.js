@@ -1,5 +1,7 @@
 import React from 'react';
 import s from '../styles/Products.module.scss';
+import { connect } from 'react-redux';
+import { addProduct } from '../redux/action';
 import { FaTimes } from "react-icons/fa";
 
 class ProductModal extends React.Component{
@@ -26,7 +28,7 @@ class ProductModal extends React.Component{
             body: formData,
         })
         .then(res => res.json())
-        .then(res => console.log(res))
+        .then(res => this.props.dispatch(addProduct(res)))
         .then(this.props.show);
     }
     
@@ -79,4 +81,4 @@ class ProductModal extends React.Component{
     }
 }
 
-export default ProductModal;
+export default connect()(ProductModal);
