@@ -1,5 +1,6 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const multer = require('multer');
+const upload = multer();
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -7,6 +8,8 @@ const bcrypt = require('bcrypt');
 const User = require('./User');
 const secretKey = require('./config').secretKey;
 const clientID = require('./config').clientID;
+
+router.use(upload.none());
 
 router.get('/test', (req,res) => {
     res.cookie('test', 'value');

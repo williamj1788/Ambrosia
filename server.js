@@ -1,12 +1,11 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const multer = require('multer');
-const upload = multer();
 const cookieParser = require('cookie-parser');
 const morgan  = require('morgan');
 
 const userRouter = require('./userRouter');
+const adminRouter = require('./adminRouter');
 const app = express();
 
 const url = require('./config').url;
@@ -14,12 +13,12 @@ mongoose.connect(url, {useNewUrlParser: true})
     .then(() => console.log('connected to database'))
     .catch(err => console.log(err));
 
-app.use(upload.none());
 app.use(cookieParser());
 app.use(morgan('dev'));
 app.use(allowCrossDomain);
 
 app.use('/api/user', userRouter);
+app.use('/api/admin', adminRouter);
 
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static(path.join(__dirname, 'client/build')));
