@@ -13,7 +13,16 @@ beforeEach(() => {
             params: {
                 product: 'pizza'
             }
-        }
+        },
+        products: [
+            {
+                name: 'mock name',
+                picture: 'mock picture',
+                description: 'mock description',
+                price: '12.99',
+                type: 'pizza',
+            }
+        ]
     }
     component = shallow(<Menu {...props} />,{
         disableLifecycleMethods: true,
@@ -54,23 +63,9 @@ describe('Menu Tests',() => {
     });
 
     test('<ProductContainer /> is given correct props based on url', () => {
-        const productData = { 
-            pizza:[
-                {
-                    img: 'mock img',
-                    name: 'Tombstone Pizza',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,',
-                    price: '9.99',
-                }
-            ],
-            pasta:[],
-            drink:[],
-            bread:[],
-            dessert:[]
-        }
         component = shallow(<Menu {...props} />);
-        component.setState({ productData });
-        expect(component.find('ProductContainer').prop('products')).toEqual(productData.pizza);
+        component.setState({ loading: false });
+        expect(component.find('ProductContainer').prop('products')).toEqual(props.products);
     });
 });
 

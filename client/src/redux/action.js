@@ -7,8 +7,8 @@ export function setPage(payload){
 export function setUser(payload){
     return {type: SET_USER, payload}
 }
-export function clearUser(payload){
-    return {type: CLEAR_USER, payload}
+export function clearUser(){
+    return {type: CLEAR_USER, payload: null}
 }
 export function setProducts(payload){
     return {type: SET_PRODUCTS, payload}

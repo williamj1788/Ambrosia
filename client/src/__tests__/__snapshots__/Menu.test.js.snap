@@ -7,7 +7,6 @@ exports[`Product Tests Snapshot Test 1`] = `
   <img
     alt="Product"
     className="productImg"
-    src="mock img"
   />
   <div
     className="productInfo"

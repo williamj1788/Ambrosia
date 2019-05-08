@@ -5,14 +5,14 @@ import { clearUser } from '../redux/action';
 import { GoogleLogout } from 'react-google-login';
 import s from '../styles/AccountDropdown.module.scss';
 
-class AccountDropdown extends React.Component{
+export class AccountDropdown extends React.Component{
     
     state = {
         redirect: null,
     }
     
     signOutUser = () => {
-        fetch('/api/user/signout', {
+        return fetch('/api/user/signout', {
             credentials: 'include',
         }).then(() => {
             this.props.dispatch(clearUser());
@@ -36,7 +36,6 @@ class AccountDropdown extends React.Component{
     render(){
         const { user, show } = this.props;
         const { redirect } = this.state;
-        console.log(user.admin);
         if(redirect){
             return <Redirect to={redirect} />
         }
@@ -86,7 +85,7 @@ class AccountDropdown extends React.Component{
     }
 }
 
-const Tab = ({onClick, text}) => {
+export const Tab = ({onClick, text}) => {
     return(
         <div className={s.tab} onClick={onClick} >
             <span>{text}</span>
