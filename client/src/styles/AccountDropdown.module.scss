@@ -68,9 +68,15 @@
     .tab{
         width: 115px;
         &:last-child{
+            border-bottom-right-radius: 0;
             border-bottom-left-radius: 0;
-            border-bottom-right-radius: 8px;
-            border-top-right-radius: 8px;
         }
+    }
+}
+
+@media (max-width: 320px){
+    .tab{
+        width: 115px * 0.8;
+        height: 45px * 0.8;
     }
 }

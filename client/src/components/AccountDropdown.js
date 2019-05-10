@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { clearUser } from '../redux/action';
 import { GoogleLogout } from 'react-google-login';
 import s from '../styles/AccountDropdown.module.scss';
@@ -20,16 +20,10 @@ export class AccountDropdown extends React.Component{
     }
 
     setRedirect = location => {
-        this.setState({
-            redirect: location,
-        });
-    }
-
-    componentDidUpdate(){ // Set redirect back to null or less you get a infinate loop
-        if(this.state.redirect){
-            this.setState({
-                redirect: null
-            });
+        if(location != this.props.location.pathname){
+           this.setState({
+                redirect: location,
+            }); 
         }
     }
     
@@ -37,20 +31,19 @@ export class AccountDropdown extends React.Component{
         const { user, show } = this.props;
         const { redirect } = this.state;
         if(redirect){
-            return <Redirect to={redirect} />
+            return <Redirect push to={redirect} />
         }
         let style = {
-            height: window.innerWidth > 1000 ? user.admin ? '200px' : '100px' : user.admin ? '100px': '50px'
+            height: window.innerWidth > 1000 ? user.admin ? '200px' : '100px' : user.admin ? '100px': '50px',
+            top: window.innerWidth < 1000 && user.admin ? "-40px" : null
         };
         if(!show){
-            if(window.innerWidth > 1000){
-                style.height = '0';
-            }else{
-                style.width = '0';
-            }
-        }
-        if(window.innerWidth < 1000 && user.admin){
-            style.top = "-40px";
+            style.height = '0';
+            // if(window.innerWidth > 1000){
+            //     style.height = '0';
+            // }else{
+            //     style.width = '0';
+            // }
         }
 
         return(
@@ -93,6 +86,6 @@ export const Tab = ({onClick, text}) => {
     )
 }
 
-export default connect(state => {
+export default withRouter(connect(state => {
     return {user: state.user}
-})(AccountDropdown);
+})(AccountDropdown));

@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { AccountDropdown, Tab } from '../components/AccountDropdown';
 import * as TYPE from '../redux/actionTypes';
+import { Redirect } from 'react-router-dom';
 
 global.window.fetch = jest.fn(() => Promise.resolve({status: 200}));
 
@@ -12,7 +13,10 @@ afterEach(() => {
 describe('AccountDropdown Tests', () => {
     const props = {
         user:{},
-        dispatch: jest.fn()
+        dispatch: jest.fn(),
+        location:{
+            pathname: '/admin/products'
+        }
     }
 
     const component = shallow(<AccountDropdown {...props} />);
@@ -30,5 +34,22 @@ describe('AccountDropdown Tests', () => {
             payload: null,
         }
         expect(props.dispatch).toBeCalledWith(expectedAction);
+    });
+
+    test('setRedirect should call setState with correct args if targetLocation and currentLocation are different', () => {
+        jest.spyOn(instance, 'setState');
+        instance.setRedirect('mock location');
+        expect(instance.setState).toBeCalledWith({redirect: 'mock location'});
+    });
+
+    test('setRedirect should not call setState if targetLocation and currentLocation are same', () => {
+        jest.spyOn(instance, 'setState');
+        instance.setRedirect('/admin/products');
+        expect(instance.setState).toBeCalledTimes(0);
+    });
+
+    test('Should redirect to location if redirect is not null', () => {
+        component.setState({redirect: 'mock'});
+        expect(instance.render()).toEqual(<Redirect push to='mock' />);
     });
 });
