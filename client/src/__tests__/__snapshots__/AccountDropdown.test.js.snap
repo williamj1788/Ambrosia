@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AccountDropdown Tests Snapshot Test 1`] = `
+<div
+  className="dropDown"
+  style={
+    Object {
+      "height": "0",
+      "top": null,
+    }
+  }
+>
+  <div
+    className="content"
+  >
+    <Tab
+      onClick={[Function]}
+      text="Metrics"
+    />
+    <Tab
+      onClick={[Function]}
+      text="Product"
+    />
+    <Tab
+      onClick={[Function]}
+      text="Order History"
+    />
+    <e
+      buttonText="Logout of Google"
+      disabledStyle={
+        Object {
+          "opacity": 0.6,
+        }
+      }
+      icon={true}
+      jsSrc="https://apis.google.com/js/api.js"
+      onLogoutSuccess={[Function]}
+      render={[Function]}
+      tag="button"
+      theme="light"
+      type="button"
+    />
+  </div>
+</div>
+`;
+
+exports[`Tab tests Snapshot Test 1`] = `
+<div
+  className="tab"
+  onClick={[MockFunction]}
+>
+  <span>
+    mock
+  </span>
+</div>
+`;

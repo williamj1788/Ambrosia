@@ -39,18 +39,13 @@ export class AccountDropdown extends React.Component{
         };
         if(!show){
             style.height = '0';
-            // if(window.innerWidth > 1000){
-            //     style.height = '0';
-            // }else{
-            //     style.width = '0';
-            // }
         }
 
         return(
             <div className={s.dropDown} style={style}>
                 <div className={s.content}>
                     {user.admin && <Tab onClick={() => this.setRedirect('/admin/metrics')} text="Metrics" />} 
-                    {user.admin && <Tab onClick={() => this.setRedirect('/admin/products')} text="Product" />} 
+                    {user.admin && <Tab onClick={() => this.setRedirect('/admin/products')} text="Product" />}
                     <Tab onClick={() => this.setRedirect('/user/orders')} text="Order History" />
                     <GoogleLogout
                         onLogoutSuccess={() => {}}

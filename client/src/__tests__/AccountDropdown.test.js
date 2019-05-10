@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import { AccountDropdown, Tab } from '../components/AccountDropdown';
 import * as TYPE from '../redux/actionTypes';
 import { Redirect } from 'react-router-dom';
+import toJson from 'enzyme-to-json';
 
 global.window.fetch = jest.fn(() => Promise.resolve({status: 200}));
 
@@ -12,7 +13,9 @@ afterEach(() => {
 
 describe('AccountDropdown Tests', () => {
     const props = {
-        user:{},
+        user:{
+            admin: true
+        },
         dispatch: jest.fn(),
         location:{
             pathname: '/admin/products'
@@ -21,6 +24,11 @@ describe('AccountDropdown Tests', () => {
 
     const component = shallow(<AccountDropdown {...props} />);
     const instance = component.instance();
+   
+    test('Snapshot Test' ,() => {
+        expect(toJson(component)).toMatchSnapshot();
+    });
+    
     test('signOutUser should called fetch request to signout endpoint', async () => {
         await instance.signOutUser();
         expect(global.window.fetch).toBeCalledTimes(1);
@@ -51,5 +59,18 @@ describe('AccountDropdown Tests', () => {
     test('Should redirect to location if redirect is not null', () => {
         component.setState({redirect: 'mock'});
         expect(instance.render()).toEqual(<Redirect push to='mock' />);
+    });
+
+    test('Should find 3 tabs component if user is admin', () => {
+        component.setState({redirect: null});
+        expect(component.find('Tab').length).toBe(3);
+    });
+
+});
+
+describe('Tab tests' ,() => {
+    const component = shallow(<Tab onClick={jest.fn()} text='mock' />);
+    test('Snapshot Test', () => {
+        expect(toJson(component)).toMatchSnapshot();
     });
 });

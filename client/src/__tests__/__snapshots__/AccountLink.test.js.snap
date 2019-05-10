@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test 1`] = `
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <div
+    className="navLink"
+    onClick={[Function]}
+    style={
+      Object {
+        "cursor": "pointer",
+      }
+    }
+  >
+    <img
+      alt="User Icon"
+      className="linkLogo"
+      src="mock picture"
+    />
+    <span>
+      mock Firstname
+    </span>
+    <img
+      alt="User Arrow"
+      className="userArrow"
+      src="Account-arrow.png"
+    />
+  </div>
+  <withRouter(Connect(AccountDropdown))
+    show={false}
+  />
+</div>
+`;
