@@ -7,7 +7,7 @@ const mapStateToProps = state => {
         user: state.user
     }
 }
-class LoadUser extends React.Component{
+export class LoadUser extends React.Component{
 
     state = {
         loading: true,
@@ -15,27 +15,28 @@ class LoadUser extends React.Component{
 
     componentDidMount(){  
         if(!this.props.user){
-
-            this.fetchUser()
-            .then(() => {
-                this.setState({
-                    loading: false,
-                })
-            });
+            this.loadUser();
         }
     }
 
-    fetchUser = () =>{
-        return fetch('/api/user', {
-            credentials: 'include'
-        })
-        .then(res => res.json())
+    loadUser = () => {
+        return this.fetchUser()
         .then(res => {
             if(!res.message){
                 this.props.dispatch(setUser(res));
             }
         })
-        .catch(err => console.log(err));
+        .then(this.setLoading(false))
+        .catch(this.loadUser);
+    }
+
+    fetchUser = () =>{
+        return fetch('/api/user', { credentials: 'include' })
+        .then(res => res.json())
+    }
+
+    setLoading = value => {
+        this.setState({loading: value});
     }
 
     render(){
