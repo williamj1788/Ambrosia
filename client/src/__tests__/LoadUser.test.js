@@ -15,8 +15,17 @@ const props = {
     },
     dispatch: jest.fn()
 }
-let component = shallow(<LoadUser {...props} />);
+let component = shallow(<LoadUser {...props} ><div>children</div></LoadUser>);
 let instance = component.instance();
+
+test('should render loading screen if user hasnt loaded yet', () => {
+    expect(instance.render()).toEqual(<div>Loading...</div>);
+});
+
+test('should render childern if user is loaded', () => {
+    component.setState({loading: false});
+    expect(instance.render()).toEqual(<div><div>children</div></div>);
+});
 
 test('loadUser should call dispatch with correct args', async () => {
     await instance.loadUser();

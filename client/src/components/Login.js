@@ -10,6 +10,7 @@ import {
  import { NavLink, Redirect } from 'react-router-dom';
  import { connect } from 'react-redux';
  import { setUser } from '../redux/action';
+ import keys from '../key'
 
  const mapStateToProps = state => {
     return {
@@ -34,7 +35,7 @@ class Login extends React.Component{
         const isEmailValid = await this.handleEmailBlur();
         const isPasswordValid = this.handlePasswordBlur();
         if(isEmailValid && isPasswordValid){
-            await this.tryToLoginUser()
+            await this.loginUser()
             .then(user => {
                 this.props.dispatch(setUser(user));
             })
@@ -78,7 +79,7 @@ class Login extends React.Component{
         }
     }
 
-    tryToLoginUser = () => {
+    loginUser = () => {
         return new Promise((resolve, reject) => {
             fetch('/api/user/login', {
                 method: 'POST',
@@ -97,25 +98,26 @@ class Login extends React.Component{
 
     onSuccess = res => {
         const token = res.tokenObj.id_token;
-        fetch('/api/user/google', {
-            method: 'POST',
-            headers: {'Authorization': `Bearer ${token}`}
-        })
-        .then(res => {
-            return res;
-        })
-        .then(res => res.json())
+        this.loginWithGoogle(token)
         .then(res => {
             this.props.dispatch(setUser(res));
         })
-        .then(() => {
-            this.setState({
-                redirect: true,
-            });
-        });
+        .then(this.setRedirect(true));
     }
     onFailure = res => {
         console.log(res);
+    }
+
+    loginWithGoogle = token => {
+        return fetch('/api/user/google', {
+            method: 'POST',
+            headers: {'Authorization': `Bearer ${token}`}
+        })
+        .then(res => res.json())
+    }
+
+    setRedirect = value => {
+        this.setState({redirect: value});
     }
 
     getInputValuebyName = name => {
@@ -145,7 +147,7 @@ class Login extends React.Component{
                     </form>
                     <div style={{display: 'block', margin: '10px auto', width: 'fit-content'}}>
                     <GoogleLogin
-                    clientId="1064409062816-te616f091t5s0vh9mgnkacur1oqrqpr8.apps.googleusercontent.com"
+                    clientId={keys.clientID}
                     buttonText="Login with Google"
                     onSuccess={this.onSuccess}
                     onFailure={this.onFailure}

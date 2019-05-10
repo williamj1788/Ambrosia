@@ -20,12 +20,9 @@ class ProductModal extends React.Component{
     }
 
     createProduct = () => {
-        const form = document.getElementById('product-form');
-        const formData = new FormData(form);
-        
         fetch('/api/admin/products/create', {
             method: 'POST',
-            body: formData,
+            body: this.getFormData(),
         })
         .then(res => res.json())
         .then(res => this.props.dispatch(addProduct(res)))
@@ -33,19 +30,18 @@ class ProductModal extends React.Component{
     }
 
     editProduct =  id => {
-        const form = document.getElementById('product-form');
-        const formData = new FormData(form);
         fetch(`/api/admin/products/edit/${id}`, {
             method: 'POST',
-            body: formData,
+            body: this.getFormData(),
         })
         .then(res => res.json())
-        .then(res => {
-            console.log(res);
-            return res
-        })
         .then(res => this.props.dispatch(editProduct(res)))
         .then(this.props.show);
+    }
+
+    getFormData = () => {
+        const form = document.getElementById('product-form');
+        return new FormData(form);
     }
     
     render(){
