@@ -40,8 +40,7 @@ class ProductModal extends React.Component{
     }
 
     getFormData = () => {
-        const form = document.getElementById('product-form');
-        return new FormData(form);
+        return new FormData(document.getElementById('product-form'));
     }
     
     render(){
@@ -63,7 +62,7 @@ class ProductModal extends React.Component{
                                 <option value="pizza">Pizza</option>
                                 <option value="pasta">Pasta</option>
                                 <option value="bread">Bread</option>
-                                <option value="desserts">Desserts</option>
+                                <option value="dessert">Dessert</option>
                                 <option value="drink">Drink</option>
                             </select>
                         </div>

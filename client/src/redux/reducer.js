@@ -20,6 +20,7 @@ function reducer(state = initialState, action){
                 user: action.payload,
             }
         case SET_PRODUCTS:
+            console.log(action.payload);
             return {
                 ...state,
                 products: action.payload,

@@ -47,7 +47,7 @@ export class Menu extends React.Component{
                 loading: false,
             });
         })
-        .catch(error => console.log(error));;
+        .catch(error => console.log(error));
     }
 
     getProductsByType = type => {
@@ -64,6 +64,7 @@ export class Menu extends React.Component{
         if(loading){
             return <div>Loading...</div>
         }
+        console.log(this.props.products);
         return(
             <div>
                 <Navbar />

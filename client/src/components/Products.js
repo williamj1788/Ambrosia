@@ -10,7 +10,7 @@ import ProductModal from './ProductModal';
 class Products extends React.Component{
     
     state = {
-        loading: true,
+        loading: !this.props.products,
         redirect: false,
         showProductModal: false,
         ProductModalEdit: false,
@@ -19,33 +19,35 @@ class Products extends React.Component{
     }
     
     componentDidMount(){
-        this.fetchProducts();
+        if(!this.isAdmin()){
+            this.setRedirect(true);
+        }else if(!this.props.products){
+            this.loadProducts();
+        }
+    }
+
+    loadProducts = () => {
+        this.fetchProducts()
+        .then(products => this.props.dispatch(setProducts(products)))
+        .then(() => this.setLoading(false))
     }
 
     fetchProducts = () => {
-        fetch('/api/admin/products')
+       return fetch('/api/admin/products')
         .then(res => res.json())
-        .then(res => this.props.dispatch(setProducts(res)))
-        .then(() => {
-            this.setState({
-                loading: false,
-            });
-        })
         .catch(error => console.log(error));;
     }
 
-    checkAdmin = () => {
-        if(this.props.user){
-            if(!this.props.user.admin){
-                this.setState({
-                    redirect: true,
-                });
-            }
-        }else{
-            this.setState({
-                redirect: true,
-            });
-        }
+    setLoading = value => {
+        this.setState({loading: value});
+    }
+
+    setRedirect = value => {
+        this.setState({redirect: value});
+    }
+
+    isAdmin = () => {
+        return this.props.user && this.props.user.admin;
     }
 
     toggleProductModal = () => {
@@ -61,11 +63,10 @@ class Products extends React.Component{
         });
     }
     showEdit = id => {
-        const editProduct = this.props.products.find(x => x._id === id);
         this.setState({
             showProductModal: true,
             ProductModalEdit: true,
-            editProduct,
+            editProduct: this.props.products.find(x => x._id === id)
         });
     }
     deleteProduct = (event, id) => {
