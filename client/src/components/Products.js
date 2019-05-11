@@ -35,7 +35,7 @@ class Products extends React.Component{
     fetchProducts = () => {
        return fetch('/api/admin/products')
         .then(res => res.json())
-        .catch(error => console.log(error));;
+        .catch(error => console.log(error));
     }
 
     setLoading = value => {
@@ -58,9 +58,7 @@ class Products extends React.Component{
     }
 
     handleChange = event => {
-        this.setState({
-            searchText: event.target.value,
-        });
+        this.setState({searchText: event.target.value});
     }
     showEdit = id => {
         this.setState({
@@ -71,12 +69,8 @@ class Products extends React.Component{
     }
     deleteProduct = (event, id) => {
         event.stopPropagation();
-        fetch(`/api/admin/products/delete/${id}`, {
-            method: 'DELETE'
-        })
-        .then(() => {
-            this.props.dispatch(removeProduct(id));
-        });
+        fetch(`/api/admin/products/delete/${id}`, { method: 'DELETE' })
+        .then(() => this.props.dispatch(removeProduct(id)));
     };
     
     render(){

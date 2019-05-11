@@ -193,6 +193,11 @@
     }
 }
 
+.serverError{
+    text-align: center;
+    color: red;
+}
+
 @media(min-width: 1981px){
     .createButton{
         width: 300px * 1.75;
