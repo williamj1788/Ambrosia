@@ -17,11 +17,20 @@ const ProductScheme = new Scheme({
     },
     description: {
         type: String,
+        maxlength: 200,
         required: true,
     },
     price: {
         type: Number,
+        min: 0,
         required: true,
     }
 });
-module.exports = require('mongoose').model('product', ProductScheme);
+
+ProductScheme.statics.getAll = function(cb){
+    return this.find({}, {__v: 0}, cb);
+};
+
+const model = mongoose.model('product', ProductScheme);
+
+module.exports = model;

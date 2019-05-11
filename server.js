@@ -9,6 +9,7 @@ const adminRouter = require('./adminRouter');
 const app = express();
 
 const url = require('./config').url;
+
 mongoose.connect(url, {useNewUrlParser: true})
     .then(() => console.log('connected to database'))
     .catch(err => console.log(err));

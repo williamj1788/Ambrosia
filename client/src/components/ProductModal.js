@@ -101,7 +101,7 @@ class ProductModal extends React.Component{
                         </div>
                         <div className={s.formRecord}>
                             <label className={s.label} htmlFor="description">Desc:</label>
-                            <textarea defaultValue={product && product.description} className={s.input} style={{height: '200px', resize: 'none'}} name="description" cols="30" rows="10" placeholder="30 word limit" />
+                            <textarea defaultValue={product && product.description} className={s.input} name="description" cols="30" rows="10" placeholder="200 character limit" />
                         </div>
                         <div className={s.formRecord}>
                             <label className={s.label} htmlFor="price">Price:</label>

@@ -29,6 +29,7 @@ export class Menu extends React.Component{
 
     componentDidUpdate(){
         window.scrollTo(0, parseInt(sessionStorage.getItem('scroll')));
+        
         // set state back to default or else you get a infinite redirect loop
         if(this.state.redirect){
             this.setState({
@@ -64,7 +65,6 @@ export class Menu extends React.Component{
         if(loading){
             return <div>Loading...</div>
         }
-        console.log(this.props.products);
         return(
             <div>
                 <Navbar />

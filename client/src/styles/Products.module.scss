@@ -140,6 +140,10 @@
     display: flex;
     justify-content: space-around;
     margin-top: 15px;
+    textarea{
+        height: 200px;
+        resize: none;
+    }
 }
 
 .label{
@@ -263,5 +267,16 @@
     }
     .product{
         width: 300px;
+    }
+}
+
+@media(max-width: 500px){
+    .productModel{
+        height: 450px;
+    }
+    .formRecord{
+        textarea{
+            height: 100px;
+        }
     }
 }

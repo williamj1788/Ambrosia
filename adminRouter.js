@@ -4,66 +4,51 @@ const fs = require('fs');
 const upload = multer({ dest: 'uploads/' });
 const router = express.Router();
 
+const helper = require('./helper');
 const Product = require('./Product');
 
+router.use(upload.single('picture'));
+
 router.get('/products', (req, res) => {
-    Product.find({}, {__v: 0}, (err, products) => {
+    Product.getAll((err, products) => {
         if(err) throw err;
         res.json(products);
-    })
+    });
 });
 
-router.post('/products/create', upload.single('picture'), (req, res) => {
-    
-    let imageBit = fs.readFileSync(req.file.path,{ encoding: 'base64' });
-    imageBit = `data:${req.file.mimetype};base64,` + imageBit;
-    fs.unlink(req.file.path, err => {
-        console.log(err);
-    });
+router.post('/products/create', (req, res, next) => {
     const newProduct = new Product({
         type: req.body.type,
-        picture: imageBit,
+        picture: helper.toBase64(req.file),
         name: req.body.name,
         description: req.body.description,
-        price: req.body.price,
+        price: helper.trimNumber(req.body.price),
     });
-    newProduct.save().then(product => {
-        res.json(product);
-    });
+    newProduct.save()
+    .then(product => res.json(product))
+    .catch(error => {throw error});
+    next();
 });
 
-router.post('/products/edit/:id', upload.single('picture'),(req, res) => {
-    let imageBit = null;
-    if(req.file){
-        imageBit = fs.readFileSync(req.file.path,{ encoding: 'base64' });
-        imageBit = `data:${req.file.mimetype};base64,` + imageBit;
-        fs.unlink(req.file.path, err => {
-            console.log(err);
-        });
-    }
+router.post('/products/edit/:id', (req, res, next) => {
+    const picture = req.file ? helper.toBase64(req.file): null;
     const update = {
         $set: {
             type: req.body.type,
-            ...(imageBit && {picture: imageBit}),
+            ...(picture && { picture }),
             name: req.body.name,
             description: req.body.description,
-            price: req.body.price
-
+            price:  helper.trimNumber(req.body.price),
         }
     }
-
-    const option ={
-        'new': true,
-    }
-    
-    Product.findByIdAndUpdate(req.params.id, update, option, (err, product) => {
+    Product.findByIdAndUpdate(req.params.id, update, {'new': true}, (err, product) => {
         if(err) throw err;
         if(!product){
             return res.status(404).json({message: 'product not found' });
         }
-        console.log(product);
         return res.json(product);
     });
+    next();
 });
 
 router.delete('/products/delete/:id', (req, res) => {
@@ -71,6 +56,14 @@ router.delete('/products/delete/:id', (req, res) => {
         if(err) throw err;
         res.send();
     });
+});
+
+router.use((req,res) => {
+    if(req.file){
+        fs.unlink(req.file.path, err => {
+            if(err) throw err;
+        });
+    }
 });
 
 module.exports = router;
