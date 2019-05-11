@@ -26,7 +26,7 @@ export class LoadUser extends React.Component{
                 this.props.dispatch(setUser(res));
             }
         })
-        .then(this.setLoading(false))
+        .then(() => this.setLoading(false))
         .catch(this.loadUser);
     }
 
