@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom';
 import s from '../styles/Products.module.scss';
 import { FaTrashAlt } from "react-icons/fa";
 import ProductModal from './ProductModal';
+import DiscountModal from './DiscountModal';
 
 class Products extends React.Component{
     
@@ -13,6 +14,7 @@ class Products extends React.Component{
         loading: !this.props.products,
         redirect: false,
         showProductModal: false,
+        showDiscountModal: true,
         ProductModalEdit: false,
         editProduct: null,
         searchText: '',
@@ -67,6 +69,13 @@ class Products extends React.Component{
             editProduct: this.props.products.find(x => x._id === id)
         });
     }
+
+    toggleDiscountModal = () => {
+        this.setState({
+            showDiscountModal: !this.state.showDiscountModal,
+        });
+    }
+
     deleteProduct = (event, id) => {
         event.stopPropagation();
         fetch(`/api/admin/products/delete/${id}`, { method: 'DELETE' })
@@ -74,7 +83,16 @@ class Products extends React.Component{
     };
     
     render(){
-        const { loading, redirect, showProductModal, ProductModalEdit, editProduct, searchText } = this.state
+        const { 
+            loading, 
+            redirect, 
+            showProductModal, 
+            ProductModalEdit, 
+            editProduct, 
+            searchText,
+            showDiscountModal
+        } = this.state
+
         if(redirect){
             return <Redirect to='/' />
         }
@@ -93,9 +111,10 @@ class Products extends React.Component{
                     search={searchText} 
                     showEdit={this.showEdit}
                     deleteProduct={this.deleteProduct}
+                    toggleDiscount={this.toggleDiscountModal}
                     />
-                    {(showProductModal && !ProductModalEdit) && <ProductModal show={this.toggleProductModal} />}
-                    {(showProductModal && ProductModalEdit) && <ProductModal show={this.toggleProductModal} product={editProduct} edit />}
+                    {showProductModal && <ProductModal show={this.toggleProductModal} product={ProductModalEdit ? editProduct: undefined} edit={ProductModalEdit} />}
+                    {showDiscountModal && <DiscountModal show={this.toggleDiscountModal} />}
                 </div>
             </div>
         )
@@ -119,7 +138,7 @@ function priority(type) {
     }
 }
 
-const ProductContainer = ({ products, search, showEdit, deleteProduct }) => {
+const ProductContainer = ({ products, search, showEdit, deleteProduct, toggleDiscount }) => {
     if(search){
         products = products.filter(product => {
             let regex = new RegExp(`^${search}`, 'gi');
@@ -138,7 +157,15 @@ const ProductContainer = ({ products, search, showEdit, deleteProduct }) => {
     });
     
     products = products.map(product => {
-        return <Product name={product.name} type={product.type} id={product._id} showEdit={showEdit} deleteProduct={deleteProduct} />
+        return (
+            <Product 
+            name={product.name} 
+            type={product.type} 
+            id={product._id} 
+            showEdit={showEdit} 
+            deleteProduct={deleteProduct}
+            toggleDiscount={toggleDiscount} />
+        )
     });
     return(
         <div className={s.productContainer}>
@@ -147,7 +174,7 @@ const ProductContainer = ({ products, search, showEdit, deleteProduct }) => {
     )
 }
 
-const Product = ({name, type, id, showEdit, deleteProduct}) => {
+const Product = ({name, type, id, showEdit, deleteProduct, toggleDiscount}) => {
 
     return(
         <div>
@@ -159,10 +186,16 @@ const Product = ({name, type, id, showEdit, deleteProduct}) => {
                 </div>
                 <span>{`${name} - ${type}`}</span>
             </button>
-            <button className={s.deal}>
-                <span> Click to add Deal</span>
-            </button>
+            <DealButton onClick={toggleDiscount} />
         </div>
+    )
+}
+
+const DealButton = ({ onClick }) => {
+    return(
+        <button className={s.deal} onClick={onClick}>
+            <span> Click to add Deal</span>
+        </button>
     )
 }
 

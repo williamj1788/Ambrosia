@@ -126,7 +126,7 @@ function verifyToken(req, res, next) {
     }
 }
 
- async function verifyGoogleToken(req, res, next){
+function verifyGoogleToken(req, res, next){
     const token = req.headers['authorization'].split(' ')[1];
     const client = new OAuth2Client(clientID);
     client.verifyIdToken({ idToken: token, audience: clientID }, (err, ticket) => {
