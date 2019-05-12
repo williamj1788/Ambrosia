@@ -32,7 +32,7 @@ if(process.env.NODE_ENV === 'production'){
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}...`));
 
-function allowCrossDomain(req,res,next){
+function allowCrossDomain(req, res, next){
     res.setHeader('Access-Control-Allow-Origin','http://localhost:3000');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');

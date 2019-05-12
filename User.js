@@ -8,9 +8,10 @@ const UserScheme = new Scheme({
     },
     password:{
         required: function() {
-            return !this.googleID
+            return !this.googleID;
         },
-        type: String
+        type: String,
+        select: false,
     },
     firstname:{
         required: true,
@@ -23,7 +24,11 @@ const UserScheme = new Scheme({
         type: String
     },
     googleID: {
-        type: String
+        type: String,
+        required: function() {
+            return !this.password;
+        },
+        select: false
     },
     picture: {
         type: String

@@ -58,7 +58,7 @@ router.delete('/products/delete/:id', (req, res) => {
     });
 });
 
-router.use((req,res) => {
+router.use((req, res) => {
     if(req.file){
         fs.unlink(req.file.path, err => {
             if(err) throw err;

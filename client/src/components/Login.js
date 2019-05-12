@@ -97,11 +97,10 @@ class Login extends React.Component{
     }
 
     onSuccess = res => {
+        console.log('Google Login');
         const token = res.tokenObj.id_token;
         this.loginWithGoogle(token)
-        .then(res => {
-            this.props.dispatch(setUser(res));
-        })
+        .then(res => this.props.dispatch(setUser(res)))
         .then(this.setRedirect(true));
     }
     onFailure = res => {
