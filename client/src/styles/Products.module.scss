@@ -204,9 +204,40 @@
 
 .discountModal{
     width: 300px;
-    height: 200px;
+    height: 230px;
     background-color: white;
     border-radius: 15px;
+}
+
+.discountTitle{
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 10px 0;
+}
+.discountFormRecord{
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 5px 0;
+}
+.discountLabel{
+    display: inline-block;
+    text-align: right;
+    width: 40%;
+    margin: 0;
+}
+.discountRignt{
+    display: inline-block;
+    width: 45%;
+    text-align: left;
+    margin: 0 0 0 15px;
+}
+
+.discountButton{
+    @include button(117px, 30px);
+    background-color: $blue;
+    border-radius: 5px;
+    margin: 10px auto;
 }
 
 @media(min-width: 1981px){

@@ -194,7 +194,7 @@ const Product = ({name, type, id, showEdit, deleteProduct, toggleDiscount}) => {
 const DealButton = ({ onClick }) => {
     return(
         <button className={s.deal} onClick={onClick}>
-            <span> Click to add Deal</span>
+            <span>Click to add Discount</span>
         </button>
     )
 }
