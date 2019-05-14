@@ -24,7 +24,8 @@ const ProductScheme = new Scheme({
         type: Number,
         min: 0,
         required: true,
-    }
+    },
+    discount: mongoose.Types.ObjectId,
 });
 
 ProductScheme.statics.getAll = function(cb){

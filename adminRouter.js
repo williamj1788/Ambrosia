@@ -1,11 +1,14 @@
 const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
+const moment = require('moment');
 const upload = multer({ dest: 'uploads/' });
 const router = express.Router();
 
 const helper = require('./helper');
 const Product = require('./Product');
+const Discount = require('./Discount');
+
 
 router.use(upload.single('picture'));
 
@@ -58,6 +61,30 @@ router.delete('/products/delete/:id', (req, res) => {
     });
 });
 
+router.post('/products/discount/create/:id', GetProduct, (req, res) => {
+    
+    const newDiscount = new Discount({
+        price: req.body.newPrice,
+        expriresAt: req.body.expireAt,
+        productID: req.product._id,
+    });
+    newDiscount.save()
+    .then(discount => {
+        Product.findByIdAndUpdate(req.product._id, {$set: {'discount': discount._id}}, {"new": true}, (err, product) => {
+            if(err) throw err;
+            product = product.toObject()
+            product.discount = discount;
+            res.json(product);
+        });
+    })
+    .catch(err => {
+        res.json({message: 'There was a validation error'})
+        throw err;
+    });
+
+    req.p
+});
+
 router.use((req, res) => {
     if(req.file){
         fs.unlink(req.file.path, err => {
@@ -65,5 +92,24 @@ router.use((req, res) => {
         });
     }
 });
+
+function GetProduct(req, res, next){
+    Product.findById(req.params.id, (err, product) => {
+        if(err){
+            if(err.name === 'CastError'){
+                return res.status(400).json({message: 'ID is invalid'});
+            }else{
+                throw err;
+            }
+        }
+        if(!product){
+            return res.status(404).json({message: 'Product Not Found'});
+        }else if(product.discount){
+            return res.status(400).json({message: 'Product already has a discount'});
+        }
+        req.product = product;
+        next();
+    });
+}
 
 module.exports = router;

@@ -79,7 +79,7 @@ class Products extends React.Component{
         this.setState({
             showDiscountModal: true,
             discountProduct: this.props.products.find(x => x._id === id)
-        }, () => console.log(this.state.discountProduct));
+        });
     }
 
     closeDiscountModal = () => {
