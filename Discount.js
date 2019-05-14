@@ -17,6 +17,8 @@ const DiscountScheme = new Scheme({
     }
 });
 
+DiscountScheme.index({expriresAt: 1}, {expireAfterSeconds: 0});
+
 const Discount = mongoose.model('discount', DiscountScheme);
 
 module.exports = Discount;

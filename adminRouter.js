@@ -9,7 +9,7 @@ const helper = require('./helper');
 const Product = require('./Product');
 const Discount = require('./Discount');
 
-
+console.log(moment().add(2,'minutes'));
 router.use(upload.single('picture'));
 
 router.get('/products', (req, res) => {
@@ -62,7 +62,6 @@ router.delete('/products/delete/:id', (req, res) => {
 });
 
 router.post('/products/discount/create/:id', GetProduct, (req, res) => {
-    
     const newDiscount = new Discount({
         price: req.body.newPrice,
         expriresAt: req.body.expireAt,
@@ -72,7 +71,7 @@ router.post('/products/discount/create/:id', GetProduct, (req, res) => {
     .then(discount => {
         Product.findByIdAndUpdate(req.product._id, {$set: {'discount': discount._id}}, {"new": true}, (err, product) => {
             if(err) throw err;
-            product = product.toObject()
+            product = product.toObject();
             product.discount = discount;
             res.json(product);
         });
@@ -81,8 +80,6 @@ router.post('/products/discount/create/:id', GetProduct, (req, res) => {
         res.json({message: 'There was a validation error'})
         throw err;
     });
-
-    req.p
 });
 
 router.use((req, res) => {

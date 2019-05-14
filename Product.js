@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Scheme = mongoose.Schema;
 
+const Discount = require('./Discount');
+
 const ProductScheme = new Scheme({
     type:{
         type: String,
@@ -29,6 +31,20 @@ const ProductScheme = new Scheme({
 });
 
 ProductScheme.statics.getAll = function(cb){
+    this.find({discount: {$exists: true}}, (err, productsWithDiscounts) => {
+        if(err) throw err;
+        for(let product of productsWithDiscounts){
+            Discount.findById(product.discount, (err, discount) => {
+                if(err) throw err;
+                if(!discount){
+                    this.findByIdAndUpdate(product._id, {$unset: {discount: ""}}, (err) => {
+                        if(err) throw err;
+                    });
+                }
+            });
+        }
+    })
+
     return this.find({}, {__v: 0}, cb);
 };
 
