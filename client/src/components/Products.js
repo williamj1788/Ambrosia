@@ -14,9 +14,10 @@ class Products extends React.Component{
         loading: !this.props.products,
         redirect: false,
         showProductModal: false,
-        showDiscountModal: true,
+        showDiscountModal: false,
         ProductModalEdit: false,
         editProduct: null,
+        discountProduct: null,
         searchText: '',
     }
     
@@ -70,9 +71,21 @@ class Products extends React.Component{
         });
     }
 
-    toggleDiscountModal = () => {
+    toggleDiscountModal = id => {
+        this.state.showDiscountModal ? this.closeDiscountModal() : this.openDiscountModal(id);
+    }
+
+    openDiscountModal = id => {
         this.setState({
-            showDiscountModal: !this.state.showDiscountModal,
+            showDiscountModal: true,
+            discountProduct: this.props.products.find(x => x._id === id)
+        }, () => console.log(this.state.discountProduct));
+    }
+
+    closeDiscountModal = () => {
+        this.setState({
+            showDiscountModal: false,
+            discountProduct: null,
         });
     }
 
@@ -88,7 +101,8 @@ class Products extends React.Component{
             redirect, 
             showProductModal, 
             ProductModalEdit, 
-            editProduct, 
+            editProduct,
+            discountProduct, 
             searchText,
             showDiscountModal
         } = this.state
@@ -114,7 +128,7 @@ class Products extends React.Component{
                     toggleDiscount={this.toggleDiscountModal}
                     />
                     {showProductModal && <ProductModal show={this.toggleProductModal} product={ProductModalEdit ? editProduct: undefined} edit={ProductModalEdit} />}
-                    {showDiscountModal && <DiscountModal show={this.toggleDiscountModal} />}
+                    {showDiscountModal && <DiscountModal show={this.toggleDiscountModal} product={discountProduct} />}
                 </div>
             </div>
         )
@@ -156,9 +170,10 @@ const ProductContainer = ({ products, search, showEdit, deleteProduct, toggleDis
         }
     });
     
-    products = products.map(product => {
+    products = products.map((product, index) => {
         return (
             <Product 
+            key={index}
             name={product.name} 
             type={product.type} 
             id={product._id} 
@@ -186,7 +201,7 @@ const Product = ({name, type, id, showEdit, deleteProduct, toggleDiscount}) => {
                 </div>
                 <span>{`${name} - ${type}`}</span>
             </button>
-            <DealButton onClick={toggleDiscount} />
+            <DealButton onClick={() => toggleDiscount(id)} />
         </div>
     )
 }

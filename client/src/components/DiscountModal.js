@@ -4,6 +4,7 @@ import { FaTimes } from "react-icons/fa";
 
 class DiscountModal extends React.Component{
     render(){
+        const { product } = this.props;
         return(
             <div className={s.dark}>
                 <div className={s.discountModal}>
@@ -13,10 +14,10 @@ class DiscountModal extends React.Component{
                             <FaTimes size="1.75em" />
                         </div>
                     </div>
-                    <p className={s.discountTitle}>Product - Pizza</p>
+                    <p className={s.discountTitle}>{`${product.name} - ${product.type}`}</p>
                     <div className={s.discountFormRecord}>
                         <p className={s.discountLabel}>Old Price:</p>
-                        <p className={s.discountRignt}>12.99</p>
+                        <p className={s.discountRignt}>{product.price}</p>
                     </div>
                     <form >
                         <div className={s.discountFormRecord}>
@@ -24,7 +25,7 @@ class DiscountModal extends React.Component{
                             <input className={s.discountRignt} type="number" name="newPrice" />
                         </div>
                         <div className={s.discountFormRecord}>
-                            <label className={s.discountLabel} htmlFor="newPrice">Expire in:</label>
+                            <label className={s.discountLabel} htmlFor="expireIn">Expires in:</label>
                             <select className={s.discountRignt} name="expireIn">
                                 <option value="1">1 day</option>
                                 <option value="2">2 days</option>
