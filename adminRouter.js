@@ -10,6 +10,7 @@ const Product = require('./Product');
 const Discount = require('./Discount');
 
 console.log(moment().add(2,'minutes'));
+
 router.use(upload.single('picture'));
 
 router.get('/products', (req, res) => {
@@ -62,6 +63,10 @@ router.delete('/products/delete/:id', (req, res) => {
 });
 
 router.post('/products/discount/create/:id', GetProduct, (req, res) => {
+    
+    if(req.product.discount){
+        return res.status(400).json({message: 'Product already has a discount'});
+    }
     const newDiscount = new Discount({
         price: req.body.newPrice,
         expriresAt: req.body.expireAt,
@@ -79,6 +84,25 @@ router.post('/products/discount/create/:id', GetProduct, (req, res) => {
     .catch(err => {
         res.json({message: 'There was a validation error'})
         throw err;
+    });
+});
+
+router.post('/products/discount/edit/:id', GetProduct, (req, res) => {
+    const update = {
+        $set: {
+            price: req.body.newPrice,
+            expriresAt: req.body.expireAt,
+        }
+    };
+
+    Discount.findByIdAndUpdate(req.product.discount, update, {'new': true}, (err, discount) => {
+        if(err) throw err;
+        if(!discount){
+            res.status(400).json({message: 'Product does not have a discount already'});
+        }
+        const product = req.product.toObject();
+        product.discount = discount;
+        res.json(product);
     });
 });
 
@@ -101,8 +125,6 @@ function GetProduct(req, res, next){
         }
         if(!product){
             return res.status(404).json({message: 'Product Not Found'});
-        }else if(product.discount){
-            return res.status(400).json({message: 'Product already has a discount'});
         }
         req.product = product;
         next();
