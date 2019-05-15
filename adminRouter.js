@@ -106,6 +106,16 @@ router.post('/products/discount/edit/:id', GetProduct, (req, res) => {
     });
 });
 
+router.delete('/products/discounts/delete/:id', (req, res) => {
+    Product.findByIdAndUpdate(req.params.id, {$unset: {discount: ""}}, (err, product) => {
+        if(err) throw err;
+        Discount.findByIdAndDelete(product.discount, (err) => {
+            if(err) throw err;
+            res.send();
+        })
+    });
+});
+
 router.use((req, res) => {
     if(req.file){
         fs.unlink(req.file.path, err => {
