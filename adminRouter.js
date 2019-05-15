@@ -8,6 +8,7 @@ const router = express.Router();
 const helper = require('./helper');
 const Product = require('./Product');
 const Discount = require('./Discount');
+const User = require('./User');
 
 console.log(moment().add(2,'minutes'));
 
@@ -114,6 +115,17 @@ router.delete('/products/discounts/delete/:id', (req, res) => {
             res.send();
         })
     });
+});
+
+router.get('/analytics', async (req, res) => {
+    let message = {
+        product:{}
+    };
+    await User.findOne({email: 'jacquezwilliams15@gmail.com'}).explain().then(stat =>{
+        const { nReturned : returned, totalKeysExamined : keys, totalDocsExamined: exam } = stat.executionStats;
+        message.product.find = { returned, keys, exam, };
+    });
+    res.send(message);
 });
 
 router.use((req, res) => {

@@ -39,4 +39,6 @@ const UserScheme = new Scheme({
     }
 });
 
+UserScheme.index({email: 1});
+
 module.exports = require('mongoose').model('user', UserScheme);

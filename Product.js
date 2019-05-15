@@ -43,7 +43,7 @@ ProductScheme.statics.getAll = function(cb){
                 }
             });
         }
-    })
+    });
 
     return this.find({}, {__v: 0}, cb);
 };
