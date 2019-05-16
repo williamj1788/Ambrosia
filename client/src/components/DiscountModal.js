@@ -11,7 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 class DiscountModal extends React.Component{
 
     state = {
-        date: (this.props.product.discountObj[0].expriresAt && new Date(this.props.product.discountObj[0].expriresAt)) || new Date().setTime(new Date().getTime() + (1000 * 60 * 60 * 24)),
+        date: (this.props.product.discountObj[0] && new Date(this.props.product.discountObj[0].expriresAt)) || new Date().setTime(new Date().getTime() + (1000 * 60 * 60 * 24)),
         error: null,
     }
 
@@ -58,6 +58,14 @@ class DiscountModal extends React.Component{
         })
     }
 
+    deleteDiscount = () => {
+        fetch(`/api/admin/products/discounts/delete/${this.props.product._id}`, {method: 'DELETE'})
+        .then(res => res.json())
+        .then(product => this.props.dispatch(editProduct(product)))
+        .then(this.props.show)
+        .catch(console.log);
+    }
+
     getFormData = () => {
         return new FormData(document.getElementById('discount-form'));
     }
@@ -66,14 +74,13 @@ class DiscountModal extends React.Component{
         const { product, show } = this.props;
         const { date, error } = this.state;
         const discount = product.discountObj[0];
-        console.log(discount.expriresAt)
         return(
             <div className={s.dark}>
                 <div className={s.discountModal}>
                     <div className={s.header} style={{backgroundColor: '#0033ff'}} >
-                        <div className={s.trash} onClick={show}>
+                        {discount && <div className={s.trash} onClick={this.deleteDiscount}>
                             <FaTrashAlt size="1.75em" />
-                        </div>
+                        </div>}
                         <span style={{color: 'white'}} >Add A Discount</span>
                         <div className={s.close} onClick={show}>
                             <FaTimes size="1.75em" />
@@ -87,7 +94,7 @@ class DiscountModal extends React.Component{
                     <form onSubmit={this.handleSubmit} id='discount-form' >
                         <div className={s.discountFormRecord}>
                             <label className={s.discountLabel} htmlFor="newPrice">New Price:</label>
-                            <input defaultValue={discount.price ? discount.price : undefined} className={s.discountRignt} type="number" name="newPrice" step='0.01' />
+                            <input defaultValue={discount ? discount.price : undefined} className={s.discountRignt} type="number" name="newPrice" step='0.01' />
                         </div>
                         <div className={s.discountFormRecord}>
                             <label className={s.discountLabel} htmlFor="expireAt">Expires in:</label>

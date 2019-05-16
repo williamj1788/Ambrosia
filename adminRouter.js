@@ -108,11 +108,14 @@ router.post('/products/discount/edit/:id', GetProduct, (req, res) => {
 });
 
 router.delete('/products/discounts/delete/:id', (req, res) => {
+    console.log(req.params.id);
     Product.findByIdAndUpdate(req.params.id, {$unset: {discount: ""}}, (err, product) => {
         if(err) throw err;
         Discount.findByIdAndDelete(product.discount, (err) => {
             if(err) throw err;
-            res.send();
+            product = product.toObject();
+            product.discountObj = []
+            res.send(product);
         })
     });
 });

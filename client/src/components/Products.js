@@ -204,16 +204,24 @@ const Product = ({name, type, _id, discountObj , price, showEdit, deleteProduct,
     )
 }
 
+function roundNumber(num, target = 2){
+    return Math.round(num * Math.pow(10, target)) / 100
+};
+
+function getDiscountPercent(discount, price) {
+   return Math.round((1 - roundNumber(discount / price)) * 100)
+}
+
 const DealButton = ({ onClick, discountObj, price }) => {
     let daysTilExpire;
     let dicountPercent;
-    if(discountObj.length){
+    if(discountObj && discountObj.length){
         daysTilExpire = Math.round(((new Date(discountObj[0].expriresAt).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) * 100) / 100
-        dicountPercent = (1 - (Math.round(((discountObj[0].price / price) * 100)) / 100)) * 100;
+        dicountPercent = getDiscountPercent(discountObj[0].price, price);
     }
     return(
         <button className={s.deal} onClick={onClick}>
-            <span>{discountObj.length ? `${dicountPercent}% off for ${daysTilExpire} more days` :'Click to add Discount'}</span>
+            <span>{discountObj && discountObj.length ? `${dicountPercent}% off for ${daysTilExpire} more days` :'Click to add Discount'}</span>
         </button>
     )
 }
