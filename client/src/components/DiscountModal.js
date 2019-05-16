@@ -1,16 +1,54 @@
 import React from 'react';
 import s from '../styles/Products.module.scss';
 import { FaTimes, FaTrashAlt } from "react-icons/fa";
+import moment from 'moment';
+
+import DatePicker from 'react-datepicker';
+ 
+import "react-datepicker/dist/react-datepicker.css";
 
 class DiscountModal extends React.Component{
+
+    state = {
+        date: new Date().setTime(new Date().getTime() + (1000 * 60 * 60 * 24)),
+        error: null,
+    }
+
+    handleChange = (date) => {
+        this.setState({
+          date,
+        });
+      }
     
     handleSubmit = event => {
         event.preventDefault();
+        if(this.isValidForm()){
+            
+        }
         
     }
 
-    addDiscount = () => {
+    isValidForm = () => {
+        const price = document.querySelector('input[name = newPrice]').value;
+        return price > this.props.product.price;
+    }
 
+    addDiscount = () => {
+        return new Promise((resolve, reject) => {
+            fetch(`/api/admin/products/discount/create/${this.props.product._id}`, {
+                method: 'POST',
+                body: this.getFormData()
+            })
+            .then(res => res.json())
+            .then(res => {
+                if(res.message){
+                    reject(res)
+                }else{
+                    resolve(res)
+                }
+            })
+            .catch(err => reject(err));
+        })
     }
 
     getFormData = () => {
@@ -43,15 +81,14 @@ class DiscountModal extends React.Component{
                         </div>
                         <div className={s.discountFormRecord}>
                             <label className={s.discountLabel} htmlFor="expireAt">Expires in:</label>
-                            <select className={s.discountRignt} name="expireAt">
-                                <option value="1">1 day</option>
-                                <option value="2">2 days</option>
-                                <option value="3">3 days</option>
-                                <option value="4">4 days</option>
-                                <option value="5">5 days</option>
-                                <option value="6">6 days</option>
-                                <option value="7">7 days</option>
-                            </select>
+                            <div className={s.discountRignt}>
+                                <DatePicker
+                                className={s.datePicker}
+                                selected={this.state.date}
+                                onChange={this.handleChange}
+                                minDate={new Date().setTime(new Date().getTime() + (1000 * 60 * 60 * 24))}
+                                />
+                            </div>
                         </div>
                         <button className={s.discountButton} type='submit'>Add</button>
                     </form>
