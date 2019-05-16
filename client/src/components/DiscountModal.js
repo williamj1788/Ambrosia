@@ -1,7 +1,8 @@
 import React from 'react';
 import s from '../styles/Products.module.scss';
 import { FaTimes, FaTrashAlt } from "react-icons/fa";
-import moment from 'moment';
+import { connect } from 'react-redux'
+import { editProduct } from '../redux/action';
 
 import DatePicker from 'react-datepicker';
  
@@ -15,22 +16,27 @@ class DiscountModal extends React.Component{
     }
 
     handleChange = (date) => {
-        this.setState({
-          date,
-        });
+        this.setState({date});
       }
     
     handleSubmit = event => {
         event.preventDefault();
         if(this.isValidForm()){
-            
+            this.addDiscount()
+            .then(product => this.props.dispatch(editProduct(product)))
+            .then(this.props.show)
+            .catch(console.log);
+        }else{
+            this.setState({
+                error: 'new price must be lower than old price'
+            });
         }
         
     }
 
     isValidForm = () => {
         const price = document.querySelector('input[name = newPrice]').value;
-        return price > this.props.product.price;
+        return price < this.props.product.price;
     }
 
     addDiscount = () => {
@@ -56,16 +62,17 @@ class DiscountModal extends React.Component{
     }
     
     render(){
-        const { product } = this.props;
+        const { product, show } = this.props;
+        const { date, error } = this.state;
         return(
             <div className={s.dark}>
                 <div className={s.discountModal}>
                     <div className={s.header} style={{backgroundColor: '#0033ff'}} >
-                        <div className={s.trash} onClick={this.props.show}>
+                        <div className={s.trash} onClick={show}>
                             <FaTrashAlt size="1.75em" />
                         </div>
                         <span style={{color: 'white'}} >Add A Discount</span>
-                        <div className={s.close} onClick={this.props.show}>
+                        <div className={s.close} onClick={show}>
                             <FaTimes size="1.75em" />
                         </div>
                     </div>
@@ -77,19 +84,21 @@ class DiscountModal extends React.Component{
                     <form onSubmit={this.handleSubmit} id='discount-form' >
                         <div className={s.discountFormRecord}>
                             <label className={s.discountLabel} htmlFor="newPrice">New Price:</label>
-                            <input className={s.discountRignt} type="number" name="newPrice" />
+                            <input className={s.discountRignt} type="number" name="newPrice" step='0.01' />
                         </div>
                         <div className={s.discountFormRecord}>
                             <label className={s.discountLabel} htmlFor="expireAt">Expires in:</label>
                             <div className={s.discountRignt}>
                                 <DatePicker
                                 className={s.datePicker}
-                                selected={this.state.date}
+                                name='expireAt'
+                                selected={date}
                                 onChange={this.handleChange}
                                 minDate={new Date().setTime(new Date().getTime() + (1000 * 60 * 60 * 24))}
                                 />
                             </div>
                         </div>
+                        {error &&  <p style={{color: 'red'}} >{error}</p> }
                         <button className={s.discountButton} type='submit'>Add</button>
                     </form>
                     
@@ -99,4 +108,4 @@ class DiscountModal extends React.Component{
     }
 }
 
-export default DiscountModal;
+export default connect()(DiscountModal);
