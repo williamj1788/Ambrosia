@@ -174,9 +174,7 @@ const ProductContainer = ({ products, search, showEdit, deleteProduct, toggleDis
         return (
             <Product 
             key={index}
-            name={product.name} 
-            type={product.type} 
-            id={product._id} 
+            {...product} 
             showEdit={showEdit} 
             deleteProduct={deleteProduct}
             toggleDiscount={toggleDiscount} />
@@ -189,27 +187,33 @@ const ProductContainer = ({ products, search, showEdit, deleteProduct, toggleDis
     )
 }
 
-const Product = ({name, type, id, showEdit, deleteProduct, toggleDiscount}) => {
+const Product = ({name, type, _id, discountObj , price, showEdit, deleteProduct, toggleDiscount}) => {
 
     return(
         <div>
-            <button onClick={() => showEdit(id)} className={s.product} type="button">
-                <div onClick={event => deleteProduct(event, id)} className={s.icon}>
+            <button onClick={() => showEdit(_id)} className={s.product} type="button">
+                <div onClick={event => deleteProduct(event, _id)} className={s.icon}>
                     <FaTrashAlt 
                     size="1.5em"
                     />
                 </div>
                 <span>{`${name} - ${type}`}</span>
             </button>
-            <DealButton onClick={() => toggleDiscount(id)} />
+            <DealButton onClick={() => toggleDiscount(_id)} discountObj={discountObj} price={price} />
         </div>
     )
 }
 
-const DealButton = ({ onClick }) => {
+const DealButton = ({ onClick, discountObj, price }) => {
+    let daysTilExpire;
+    let dicountPercent;
+    if(discountObj.length){
+        daysTilExpire = Math.round(((new Date(discountObj[0].expriresAt).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) * 100) / 100
+        dicountPercent = (1 - (Math.round(((discountObj[0].price / price) * 100)) / 100)) * 100;
+    }
     return(
-        <button className={s.deal} onClick={onClick}>
-            <span>Click to add Discount</span>
+        <button className={s.deal} onClick={discountObj.length ? undefined : onClick}>
+            <span>{discountObj.length ? `${dicountPercent}% off for ${daysTilExpire} more days` :'Click to add Discount'}</span>
         </button>
     )
 }

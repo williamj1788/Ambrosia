@@ -45,7 +45,17 @@ ProductScheme.statics.getAll = function(cb){
         }
     });
 
-    return this.find({}, {__v: 0}, cb);
+    return this.aggregate([
+        {
+            $lookup:{
+                from: "discounts",
+                localField: "discount",
+                foreignField: "_id",
+                as: "discountObj"
+            }
+        },
+        {$project: { discount: 0, __v: 0, 'discountObj._id': 0, 'discountObj.productID': 0, 'discountObj.__v': 0}}
+    ], cb);
 };
 
 const model = mongoose.model('product', ProductScheme);
