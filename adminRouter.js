@@ -78,7 +78,7 @@ router.post('/products/discount/create/:id', GetProduct, (req, res) => {
         Product.findByIdAndUpdate(req.product._id, {$set: {'discount': discount._id}}, {"new": true}, (err, product) => {
             if(err) throw err;
             product = product.toObject();
-            product.discount = discount;
+            product.discountObj = [discount];
             res.json(product);
         });
     })
@@ -102,7 +102,7 @@ router.post('/products/discount/edit/:id', GetProduct, (req, res) => {
             res.status(400).json({message: 'Product does not have a discount already'});
         }
         const product = req.product.toObject();
-        product.discount = discount;
+        product.discountObj = [discount];
         res.json(product);
     });
 });

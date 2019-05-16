@@ -11,7 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 class DiscountModal extends React.Component{
 
     state = {
-        date: new Date().setTime(new Date().getTime() + (1000 * 60 * 60 * 24)),
+        date: (this.props.product.discountObj[0].expriresAt && new Date(this.props.product.discountObj[0].expriresAt)) || new Date().setTime(new Date().getTime() + (1000 * 60 * 60 * 24)),
         error: null,
     }
 
@@ -22,10 +22,17 @@ class DiscountModal extends React.Component{
     handleSubmit = event => {
         event.preventDefault();
         if(this.isValidForm()){
-            this.addDiscount()
-            .then(product => this.props.dispatch(editProduct(product)))
-            .then(this.props.show)
-            .catch(console.log);
+            if(this.props.product.discountObj.length === 0){
+                this.Discount('create')
+                .then(product => this.props.dispatch(editProduct(product)))
+                .then(this.props.show)
+                .catch(console.log);
+            }else{
+                this.Discount('edit')
+                .then(product => this.props.dispatch(editProduct(product)))
+                .then(this.props.show)
+                .catch(console.log);
+            }
         }else{
             this.setState({
                 error: 'new price must be lower than old price'
@@ -39,20 +46,14 @@ class DiscountModal extends React.Component{
         return price < this.props.product.price;
     }
 
-    addDiscount = () => {
+    Discount = mode => {
         return new Promise((resolve, reject) => {
-            fetch(`/api/admin/products/discount/create/${this.props.product._id}`, {
+            fetch(`/api/admin/products/discount/${mode}/${this.props.product._id}`, {
                 method: 'POST',
                 body: this.getFormData()
             })
             .then(res => res.json())
-            .then(res => {
-                if(res.message){
-                    reject(res)
-                }else{
-                    resolve(res)
-                }
-            })
+            .then(res => res.message ? reject(res) : resolve(res))
             .catch(err => reject(err));
         })
     }
@@ -64,6 +65,8 @@ class DiscountModal extends React.Component{
     render(){
         const { product, show } = this.props;
         const { date, error } = this.state;
+        const discount = product.discountObj[0];
+        console.log(discount.expriresAt)
         return(
             <div className={s.dark}>
                 <div className={s.discountModal}>
@@ -84,7 +87,7 @@ class DiscountModal extends React.Component{
                     <form onSubmit={this.handleSubmit} id='discount-form' >
                         <div className={s.discountFormRecord}>
                             <label className={s.discountLabel} htmlFor="newPrice">New Price:</label>
-                            <input className={s.discountRignt} type="number" name="newPrice" step='0.01' />
+                            <input defaultValue={discount.price ? discount.price : undefined} className={s.discountRignt} type="number" name="newPrice" step='0.01' />
                         </div>
                         <div className={s.discountFormRecord}>
                             <label className={s.discountLabel} htmlFor="expireAt">Expires in:</label>

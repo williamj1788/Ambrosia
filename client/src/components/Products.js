@@ -212,7 +212,7 @@ const DealButton = ({ onClick, discountObj, price }) => {
         dicountPercent = (1 - (Math.round(((discountObj[0].price / price) * 100)) / 100)) * 100;
     }
     return(
-        <button className={s.deal} onClick={discountObj.length ? undefined : onClick}>
+        <button className={s.deal} onClick={onClick}>
             <span>{discountObj.length ? `${dicountPercent}% off for ${daysTilExpire} more days` :'Click to add Discount'}</span>
         </button>
     )
