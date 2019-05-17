@@ -22,11 +22,26 @@ export class HotDeals extends React.Component{
 }
 
 export const DealContainer = ({ products }) => {
-    const deals = products.map(product => {
-        return <Deal {...product} />
+    
+    if(products.length > 10){
+        products.length = 10;
+    }
+
+    products = products.sort((a,b) => {
+        const DateA =  new Date(a.discountObj[0].expiresAt).getTime();
+        const DateB =  new Date(b.discountObj[0].expiresAt).getTime();
+        if(DateA === DateB){
+            return 0;
+        }else if(DateA > DateB){
+            return 0;
+        }else{
+            return -1;
+        }
     });
-
-
+    
+    const deals = products.map((product, index) => {
+        return <Deal {...product} key={index} />
+    });
     return(
         <div className={s.dealsContainer}>
             {deals}
@@ -42,11 +57,8 @@ export const Deal = ({ name, picture, description, price, discountObj }) => {
             <div className={s.dealInfo}>
                 <span className={s.dealTitle}>{name}</span>
                 <p className={s.dealDesc}>{description}</p>
-                <div className={s.dealStat}>
-                    <span className={s.dealPrice}>{getDiscountPercent(discountObj[0].price, price) + '% off'}</span>
-                    <span className={s.dealPrice}>{Math.floor(1 + daysBetweenDates(discountObj[0].expiresAt, new Date())) + ' days left'}</span>
-                </div>
                 <div className={s.dealPriceContainer}>
+                    <span className={s.dealPrice}>{getDiscountPercent(discountObj[0].price, price) + '% off'}</span>
                     <span className={s.dealPrice}><s>{'$' + price}</s></span>
                     <span className={s.dealPrice}>{'$' + discountObj[0].price}</span>
                     <button className={s.dealButton}>Place Order</button>
@@ -62,12 +74,6 @@ function roundNumber(num, target = 2){
 
 function getDiscountPercent(discount, price) {
    return Math.round((1 - roundNumber(discount / price)) * 100)
-}
-
-function daysBetweenDates(day1, day2) {
-    console.log(day1, day2)
-    console.log(Math.round(((new Date(day1).getTime() - day2.getTime()) / (1000 * 60 * 60 * 24)) * 100) / 100)
-    return Math.round(((new Date(day1).getTime() - day2.getTime()) / (1000 * 60 * 60 * 24)) * 100) / 100
 }
 
 export default connect(state => {

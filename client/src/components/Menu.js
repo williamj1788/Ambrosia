@@ -117,7 +117,7 @@ export const ProductContainer = ({ products }) => {
     )
 }
 
-export const Product = ({ picture, name, description, price }) => {
+export const Product = ({ picture, name, description, price, discountObj }) => {
     return(
         <div className={s.product}>
             <img className={s.productImg} src={picture} alt="Product"/>
@@ -125,9 +125,10 @@ export const Product = ({ picture, name, description, price }) => {
                 <p className={s.productName}>{name}</p>
                 <p className={s.productDesc}>{description}</p>
                 <div className={s.productOrder}>
-                    <span className={s.productPrice}>{price}</span>
+                    <span className={s.productPrice}>{discountObj.length ? <s>{price}</s> :price}</span>
+                    {!!discountObj.length && <span className={s.productPrice} style={{marginLeft: '15px'}} >{discountObj[0].price}</span>}
                     <form className={s.productForm}>
-                    <label className={s.productLabel} htmlFor="quantity">Qty:</label>
+                        <label className={s.productLabel} htmlFor="quantity">Qty:</label>
                         <select className={s.productSelect} defaultValue='1' name="quantity">
                             <option value="1">1</option>
                             <option value="2">2</option>

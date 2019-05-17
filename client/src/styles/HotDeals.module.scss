@@ -19,7 +19,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1300px;
     height: fit-content;
     margin: 0 auto;
 }
@@ -27,7 +27,7 @@
 .deal{
     display: flex;
     align-items: center;
-    width: fit-content;
+    width: 600px;
     height: fit-content;
     margin: 20px 0;
 }
@@ -35,11 +35,15 @@
 .dealImg{
     width: 136px;
     height: 136px;
+    flex-shrink: 0;
 }
 .dealInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     max-width: 400px;
     width: 100%;
-    height: fit-content;
+    height: 136px;
     margin-left: 10px;
 }
 .dealTitle{
@@ -97,7 +101,7 @@
     }
 }
 
-@media (max-width: 1110px){
+@media (max-width: 1220px){
     .dealsContainer{
         display: block;
         width: fit-content;
@@ -105,16 +109,18 @@
     }
 }
 
-@media (max-width: 400px){
+@media (max-width: 550px){
     .deal{
         flex-direction: column;
-        margin: 35px 0;
+        width: 100%;
+        margin: 35px auto;
     }
     .dealTitle{
         text-align: center;
     }
     .dealInfo{
         margin: 0;
+        height: fit-content;
     }
     .dealDesc{
         text-align: center;

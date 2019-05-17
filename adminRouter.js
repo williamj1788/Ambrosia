@@ -30,7 +30,11 @@ router.post('/products/create', (req, res, next) => {
         price: helper.trimNumber(req.body.price),
     });
     newProduct.save()
-    .then(product => res.json(product))
+    .then(product => {
+        product = product.toObject();
+        product.discountObj = [];
+        res.json(product);
+    })
     .catch(error => {throw error});
     next();
 });
@@ -51,6 +55,8 @@ router.post('/products/edit/:id', (req, res, next) => {
         if(!product){
             return res.status(404).json({message: 'product not found' });
         }
+        product = product.toObject();
+        product.discountObj = []
         return res.json(product);
     });
     next();
@@ -103,6 +109,7 @@ router.post('/products/discount/edit/:id', GetProduct, (req, res) => {
         }
         const product = req.product.toObject();
         product.discountObj = [discount];
+        console.log(product);
         res.json(product);
     });
 });
