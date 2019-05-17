@@ -1,18 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { clearUser } from '../redux/action';
 import { GoogleLogout } from 'react-google-login';
 import s from '../styles/AccountDropdown.module.scss';
 
-class AccountDropdown extends React.Component{
+export class AccountDropdown extends React.Component{
     
     state = {
         redirect: null,
     }
     
     signOutUser = () => {
-        fetch('/api/user/signout', {
+        return fetch('/api/user/signout', {
             credentials: 'include',
         }).then(() => {
             this.props.dispatch(clearUser());
@@ -20,45 +20,32 @@ class AccountDropdown extends React.Component{
     }
 
     setRedirect = location => {
-        this.setState({
-            redirect: location,
-        });
-    }
-
-    componentDidUpdate(){ // Set redirect back to null or less you get a infinate loop
-        if(this.state.redirect){
-            this.setState({
-                redirect: null
-            });
+        if(location != this.props.location.pathname){
+           this.setState({
+                redirect: location,
+            }); 
         }
     }
     
     render(){
         const { user, show } = this.props;
         const { redirect } = this.state;
-        console.log(user.admin);
         if(redirect){
-            return <Redirect to={redirect} />
+            return <Redirect push to={redirect} />
         }
         let style = {
-            height: window.innerWidth > 1000 ? user.admin ? '200px' : '100px' : user.admin ? '100px': '50px'
+            height: window.innerWidth > 1000 ? user.admin ? '200px' : '100px' : user.admin ? '100px': '50px',
+            top: window.innerWidth < 1000 && user.admin ? "-40px" : null
         };
         if(!show){
-            if(window.innerWidth > 1000){
-                style.height = '0';
-            }else{
-                style.width = '0';
-            }
-        }
-        if(window.innerWidth < 1000 && user.admin){
-            style.top = "-40px";
+            style.height = '0';
         }
 
         return(
             <div className={s.dropDown} style={style}>
                 <div className={s.content}>
                     {user.admin && <Tab onClick={() => this.setRedirect('/admin/metrics')} text="Metrics" />} 
-                    {user.admin && <Tab onClick={() => this.setRedirect('/admin/products')} text="Product" />} 
+                    {user.admin && <Tab onClick={() => this.setRedirect('/admin/products')} text="Product" />}
                     <Tab onClick={() => this.setRedirect('/user/orders')} text="Order History" />
                     <GoogleLogout
                         onLogoutSuccess={() => {}}
@@ -86,7 +73,7 @@ class AccountDropdown extends React.Component{
     }
 }
 
-const Tab = ({onClick, text}) => {
+export const Tab = ({onClick, text}) => {
     return(
         <div className={s.tab} onClick={onClick} >
             <span>{text}</span>
@@ -94,6 +81,6 @@ const Tab = ({onClick, text}) => {
     )
 }
 
-export default connect(state => {
+export default withRouter(connect(state => {
     return {user: state.user}
-})(AccountDropdown);
+})(AccountDropdown));

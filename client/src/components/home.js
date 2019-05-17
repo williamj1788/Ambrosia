@@ -8,7 +8,9 @@ import HotDeals from './HotDeals';
 import s from '../styles/Home.module.scss';
 
 import { connect } from 'react-redux';
+import { setProducts } from '../redux/action';
 import { Redirect } from 'react-router-dom';
+
 
 import PizzaIcon from '../images/Pizza_icon_white.png';
 import MoneyIcon from '../images/Money_icon.png';
@@ -19,7 +21,26 @@ import ArrowDown from '../images/arrow-down.png';
 export class Home extends React.Component{
     
     state = {
-        redirectToMenu: false
+        redirectToMenu: false,
+        loading: !this.props.products
+    }
+
+    componentDidMount(){
+        if(!this.props.products){
+            this.loadProducts();
+        }
+    }
+
+    loadProducts = () => {
+        this.fetchProducts()
+        .then(products => this.props.dispatch(setProducts(products)))
+        .then(() => this.setState({loading: false}))
+    }
+
+    fetchProducts = () => {
+       return fetch('/api/admin/products')
+        .then(res => res.json())
+        .catch(console.log);
     }
 
     setRedirect = () => {
@@ -27,10 +48,12 @@ export class Home extends React.Component{
             redirectToMenu: true,
         });
     }
-
     render(){
         if(this.state.redirectToMenu){ 
             return <Redirect push to='/menu' />
+        }
+        if(this.state.loading){
+            return <div>Loading...</div>
         }
         return(
             <div>
@@ -110,4 +133,8 @@ const Copyright = () => {
     )
 }
 
-export default connect()(Home);
+export default connect(state => {
+    return {
+        products: state.products
+    }
+})(Home);

@@ -6,7 +6,7 @@ import s from '../styles/Navbar.module.scss';
 import { NavLinkWrapper } from './NavComponents';
 import AccountDropdown from './AccountDropdown';
 
-class AccountLink extends React.Component{
+export class AccountLink extends React.Component{
     
     state = {
         showDropdown: false,

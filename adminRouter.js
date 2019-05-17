@@ -1,69 +1,72 @@
 const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
+const moment = require('moment');
 const upload = multer({ dest: 'uploads/' });
 const router = express.Router();
 
+const helper = require('./helper');
 const Product = require('./Product');
+const Discount = require('./Discount');
+const User = require('./User');
+
+console.log(moment().add(2,'minutes'));
+
+router.use(upload.single('picture'));
 
 router.get('/products', (req, res) => {
-    Product.find({}, {__v: 0}, (err, products) => {
+    Product.getAll((err, products) => {
         if(err) throw err;
         res.json(products);
-    })
+    });
 });
 
-router.post('/products/create', upload.single('picture'), (req, res) => {
-    
-    let imageBit = fs.readFileSync(req.file.path,{ encoding: 'base64' });
-    imageBit = `data:${req.file.mimetype};base64,` + imageBit;
-    fs.unlink(req.file.path, err => {
-        console.log(err);
-    });
+router.post('/products/create', (req, res, next) => {
     const newProduct = new Product({
         type: req.body.type,
-        picture: imageBit,
+        picture: helper.toBase64(req.file),
         name: req.body.name,
         description: req.body.description,
-        price: req.body.price,
+        price: helper.trimNumber(req.body.price),
     });
-    newProduct.save().then(product => {
+    newProduct.save()
+    .then(product => {
+        product = product.toObject();
+        product.discountObj = [];
         res.json(product);
-    });
+    })
+    .catch(error => {throw error});
+    next();
 });
 
-router.post('/products/edit/:id', upload.single('picture'),(req, res) => {
-    let imageBit = null;
-    if(req.file){
-        imageBit = fs.readFileSync(req.file.path,{ encoding: 'base64' });
-        imageBit = `data:${req.file.mimetype};base64,` + imageBit;
-        fs.unlink(req.file.path, err => {
-            console.log(err);
-        });
-    }
+router.post('/products/edit/:id', (req, res, next) => {
+    const picture = req.file ? helper.toBase64(req.file): null;
     const update = {
         $set: {
             type: req.body.type,
-            ...(imageBit && {picture: imageBit}),
+            ...(picture && { picture }),
             name: req.body.name,
             description: req.body.description,
-            price: req.body.price
-
+            price:  helper.trimNumber(req.body.price),
         }
     }
-
-    const option ={
-        'new': true,
-    }
-    
-    Product.findByIdAndUpdate(req.params.id, update, option, (err, product) => {
+    Product.findByIdAndUpdate(req.params.id, update, {'new': true}, (err, product) => {
         if(err) throw err;
         if(!product){
             return res.status(404).json({message: 'product not found' });
         }
-        console.log(product);
-        return res.json(product);
+        product = product.toObject();
+        if(product.discount){
+            Discount.findById(product.discount, (err , discount) => {
+                if(err) throw err;
+                product.discountObj = [discount];
+                return res.json(product);
+            })
+        }else{
+            return res.json(product);
+        }
     });
+    next();
 });
 
 router.delete('/products/delete/:id', (req, res) => {
@@ -72,5 +75,99 @@ router.delete('/products/delete/:id', (req, res) => {
         res.send();
     });
 });
+
+router.post('/products/discount/create/:id', GetProduct, (req, res) => {
+    
+    if(req.product.discount){
+        return res.status(400).json({message: 'Product already has a discount'});
+    }
+    const newDiscount = new Discount({
+        price: req.body.newPrice,
+        expiresAt: req.body.expireAt,
+        productID: req.product._id,
+    });
+    newDiscount.save()
+    .then(discount => {
+        Product.findByIdAndUpdate(req.product._id, {$set: {'discount': discount._id}}, {"new": true}, (err, product) => {
+            if(err) throw err;
+            product = product.toObject();
+            product.discountObj = [discount];
+            res.json(product);
+        });
+    })
+    .catch(err => {
+        res.json({message: 'There was a validation error'})
+        throw err;
+    });
+});
+
+router.post('/products/discount/edit/:id', GetProduct, (req, res) => {
+    const update = {
+        $set: {
+            price: req.body.newPrice,
+            expiresAt: req.body.expireAt,
+        }
+    };
+
+    Discount.findByIdAndUpdate(req.product.discount, update, {'new': true}, (err, discount) => {
+        if(err) throw err;
+        if(!discount){
+            res.status(400).json({message: 'Product does not have a discount already'});
+        }
+        const product = req.product.toObject();
+        product.discountObj = [discount];
+        console.log(product);
+        res.json(product);
+    });
+});
+
+router.delete('/products/discounts/delete/:id', (req, res) => {
+    console.log(req.params.id);
+    Product.findByIdAndUpdate(req.params.id, {$unset: {discount: ""}}, (err, product) => {
+        if(err) throw err;
+        Discount.findByIdAndDelete(product.discount, (err) => {
+            if(err) throw err;
+            product = product.toObject();
+            product.discountObj = []
+            res.send(product);
+        })
+    });
+});
+
+router.get('/analytics', async (req, res) => {
+    let message = {
+        product:{}
+    };
+    await User.findOne({email: 'jacquezwilliams15@gmail.com'}).explain().then(stat =>{
+        const { nReturned : returned, totalKeysExamined : keys, totalDocsExamined: exam } = stat.executionStats;
+        message.product.find = { returned, keys, exam, };
+    });
+    res.send(message);
+});
+
+router.use((req, res) => {
+    if(req.file){
+        fs.unlink(req.file.path, err => {
+            if(err) throw err;
+        });
+    }
+});
+
+function GetProduct(req, res, next){
+    Product.findById(req.params.id, (err, product) => {
+        if(err){
+            if(err.name === 'CastError'){
+                return res.status(400).json({message: 'ID is invalid'});
+            }else{
+                throw err;
+            }
+        }
+        if(!product){
+            return res.status(404).json({message: 'Product Not Found'});
+        }
+        req.product = product;
+        next();
+    });
+}
 
 module.exports = router;

@@ -127,6 +127,14 @@
     cursor: pointer;
 }
 
+.trash{
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
 .form{
     margin: 20px auto;
     width: 100%;
@@ -140,6 +148,10 @@
     display: flex;
     justify-content: space-around;
     margin-top: 15px;
+    textarea{
+        height: 200px;
+        resize: none;
+    }
 }
 
 .label{
@@ -191,6 +203,54 @@
     &:hover{
         background-color: #a04800;
     }
+}
+
+.serverError{
+    text-align: center;
+    color: red;
+}
+
+.discountModal{
+    width: 300px;
+    height: 270px;
+    background-color: white;
+    border-radius: 15px;
+}
+
+.discountTitle{
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 10px 0;
+}
+.discountFormRecord{
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 5px 0;
+}
+.discountLabel{
+    display: inline-block;
+    text-align: right;
+    width: 40%;
+    margin: 0;
+}
+.discountRignt{
+    // overflow: hidden;
+    display: inline-block;
+    width: 45%;
+    text-align: left;
+    margin: 0 0 0 15px;
+}
+
+.datePicker{
+    width: 100%;
+}
+
+.discountButton{
+    @include button(117px, 30px);
+    background-color: $blue;
+    border-radius: 5px;
+    margin: 10px auto;
 }
 
 @media(min-width: 1981px){
@@ -258,5 +318,20 @@
     }
     .product{
         width: 300px;
+    }
+}
+
+@media(max-width: 500px){
+    .productModel{
+        height: 450px;
+    }
+    .dark{
+        padding-top: 50px;
+        align-items: initial;
+    }
+    .formRecord{
+        textarea{
+            height: 100px;
+        }
     }
 }

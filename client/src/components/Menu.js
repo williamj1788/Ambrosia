@@ -14,6 +14,7 @@ export class Menu extends React.Component{
     }
 
     redirectToProduct = productTarget => {
+        sessionStorage.setItem('scroll',window.scrollY);
         this.setState({
             redirect: true,
             productTarget,
@@ -26,16 +27,10 @@ export class Menu extends React.Component{
         }
     }
 
-    componentWillUpdate(){
-        if(window.scrollY !== 0){
-            sessionStorage.setItem('scroll',window.scrollY);
-        }
-        window.scrollTo(0, 800);
-    }
-
     componentDidUpdate(){
+        window.scrollTo(0, parseInt(sessionStorage.getItem('scroll')));
+        
         // set state back to default or else you get a infinite redirect loop
-        window.scrollTo(0, parseInt(sessionStorage.getItem('scroll')))
         if(this.state.redirect){
             this.setState({
                 redirect: false,
@@ -53,10 +48,10 @@ export class Menu extends React.Component{
                 loading: false,
             });
         })
-        .catch(error => console.log(error));;
+        .catch(console.log);
     }
 
-    getProductType = type => {
+    getProductsByType = type => {
         return this.props.products.filter(product => product.type === type);
     }
 
@@ -82,7 +77,7 @@ export class Menu extends React.Component{
                         <Tab product='dessert'>Desserts</Tab>
                         <Tab product='drink'>Drinks</Tab>
                     </TabContainer>
-                    <ProductContainer products={this.getProductType(this.props.match.params.product)}  />
+                    <ProductContainer products={this.getProductsByType(this.props.match.params.product)}  />
                 </div>
             </div>
         )
@@ -122,7 +117,7 @@ export const ProductContainer = ({ products }) => {
     )
 }
 
-export const Product = ({ picture, name, description, price }) => {
+export const Product = ({ picture, name, description, price, discountObj }) => {
     return(
         <div className={s.product}>
             <img className={s.productImg} src={picture} alt="Product"/>
@@ -130,9 +125,10 @@ export const Product = ({ picture, name, description, price }) => {
                 <p className={s.productName}>{name}</p>
                 <p className={s.productDesc}>{description}</p>
                 <div className={s.productOrder}>
-                    <span className={s.productPrice}>{price}</span>
+                    <span className={s.productPrice}>{discountObj.length ? <s>{'$' + price}</s> : '$' + price}</span>
+                    {!!discountObj.length && <span className={s.productPrice} style={{marginLeft: '15px'}} >{'$' + discountObj[0].price}</span>}
                     <form className={s.productForm}>
-                    <label className={s.productLabel} htmlFor="quantity">Qty:</label>
+                        <label className={s.productLabel} htmlFor="quantity">Qty:</label>
                         <select className={s.productSelect} defaultValue='1' name="quantity">
                             <option value="1">1</option>
                             <option value="2">2</option>

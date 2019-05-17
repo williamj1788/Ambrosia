@@ -7,7 +7,9 @@ import { FaTimes } from "react-icons/fa";
 class ProductModal extends React.Component{
     
     state = {
-        filename: 'Upload image',
+        filename: this.props.edit ? 'Replace Image' : 'Upload image',
+        fileIsLoaded: false,
+        serverError: null
     }
 
     clickFileInput = () =>{
@@ -15,41 +17,58 @@ class ProductModal extends React.Component{
     }
     handleFileChange = event => {
         this.setState({
-            filename: event.target.value.split('\\').pop()
+            filename: event.target.value.split('\\').pop(),
+            fileIsLoaded: true,
         })
     }
 
     createProduct = () => {
-        const form = document.getElementById('product-form');
-        const formData = new FormData(form);
-        
-        fetch('/api/admin/products/create', {
-            method: 'POST',
-            body: formData,
-        })
-        .then(res => res.json())
-        .then(res => this.props.dispatch(addProduct(res)))
-        .then(this.props.show);
+        if(this.isValidForm()){
+            fetch('/api/admin/products/create', {
+                method: 'POST',
+                body: this.getFormData(),
+            })
+            .then(res => res.json())
+            .then(res => this.props.dispatch(addProduct(res)))
+            .then(this.props.show);
+        }else{
+            this.setState({serverError: 'Please fill in form'});
+        }
     }
 
     editProduct =  id => {
-        const form = document.getElementById('product-form');
-        const formData = new FormData(form);
-        fetch(`/api/admin/products/edit/${id}`, {
-            method: 'POST',
-            body: formData,
-        })
-        .then(res => res.json())
-        .then(res => {
-            console.log(res);
-            return res
-        })
-        .then(res => this.props.dispatch(editProduct(res)))
-        .then(this.props.show);
+        if(this.isValidForm()){
+            fetch(`/api/admin/products/edit/${id}`, {
+                method: 'POST',
+                body: this.getFormData(),
+            })
+            .then(res => res.json())
+            .then(res => this.props.dispatch(editProduct(res)))
+            .then(this.props.show);
+        }else{
+            this.setState({serverError: 'Please fill in form'});
+        }
+    }
+
+    isValidForm = () => {
+        if(!this.props.edit && !this.state.fileIsLoaded){
+            return false;
+        }
+        const formData = this.getFormData();
+        for(let input of formData.entries()){
+            if(input[1].length <= 0){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    getFormData = () => {
+        return new FormData(document.getElementById('product-form'));
     }
     
     render(){
-        const { filename } = this.state;
+        const { filename, serverError } = this.state;
         const { product, edit } = this.props;
         return(
             <div className={s.dark}>
@@ -60,34 +79,35 @@ class ProductModal extends React.Component{
                             <FaTimes size="1.75em" />
                         </div>
                     </div>
-                    <form id="product-form" onSubmit={this.handleSubmit} className={s.form}>
+                    <form id="product-form" className={s.form}>
                         <div className={s.formRecord}>
                             <label className={s.label} htmlFor="type">Type:</label>
                             <select defaultValue={product && product.type} className={s.input} name="type">
                                 <option value="pizza">Pizza</option>
                                 <option value="pasta">Pasta</option>
                                 <option value="bread">Bread</option>
-                                <option value="desserts">Desserts</option>
+                                <option value="dessert">Dessert</option>
                                 <option value="drink">Drink</option>
                             </select>
                         </div>
                         <div className={s.formRecord}>
                             <label className={s.label} htmlFor="picture">Image:</label>
-                            <input onChange={this.handleFileChange} className={s.file} type="file" name="picture" required />
+                            <input onChange={this.handleFileChange} className={s.file} type="file" name="picture" />
                             <button onClick={this.clickFileInput} type='button' className={s.fileButton}>{filename}</button>
                         </div>
                         <div className={s.formRecord}>
                             <label className={s.label} htmlFor="name">Name:</label>
-                            <input defaultValue={product && product.name} className={s.input} type="text" name="name" required />
+                            <input defaultValue={product && product.name} className={s.input} type="text" name="name" />
                         </div>
                         <div className={s.formRecord}>
                             <label className={s.label} htmlFor="description">Desc:</label>
-                            <textarea defaultValue={product && product.description} className={s.input} style={{height: '200px', resize: 'none'}} name="description" cols="30" rows="10" placeholder="30 word limit" maxLength="200" required></textarea>
+                            <textarea defaultValue={product && product.description} className={s.input} name="description" cols="30" rows="10" placeholder="200 character limit" />
                         </div>
                         <div className={s.formRecord}>
                             <label className={s.label} htmlFor="price">Price:</label>
-                            <input defaultValue={product && product.price} className={s.input} minLength="0" step='0.01' type="number" name="price" required />
+                            <input defaultValue={product && product.price} className={s.input} type="number" name="price" />
                         </div>
+                        {serverError && <p className={s.serverError}>{serverError}</p> }
                         <div className={s.formRecord}>
                             {edit 
                             ? <button onClick={() => this.editProduct(product._id)} className={s.submitButton} type="button">Edit</button>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route, Redirect, Switch,BrowserRouter as Router } from 'react-router-dom';
-import ScrollMemory from 'react-router-scroll-memory';
 import './styles/global.scss';
 import './styles/Normalize.css';
 
