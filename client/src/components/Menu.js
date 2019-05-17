@@ -48,7 +48,7 @@ export class Menu extends React.Component{
                 loading: false,
             });
         })
-        .catch(error => console.log(error));
+        .catch(console.log);
     }
 
     getProductsByType = type => {

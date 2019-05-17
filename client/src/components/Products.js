@@ -38,7 +38,7 @@ class Products extends React.Component{
     fetchProducts = () => {
        return fetch('/api/admin/products')
         .then(res => res.json())
-        .catch(error => console.log(error));
+        .catch(console.log);
     }
 
     setLoading = value => {
