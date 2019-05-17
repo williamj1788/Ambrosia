@@ -56,8 +56,15 @@ router.post('/products/edit/:id', (req, res, next) => {
             return res.status(404).json({message: 'product not found' });
         }
         product = product.toObject();
-        product.discountObj = []
-        return res.json(product);
+        if(product.discount){
+            Discount.findById(product.discount, (err , discount) => {
+                if(err) throw err;
+                product.discountObj = [discount];
+                return res.json(product);
+            })
+        }else{
+            return res.json(product);
+        }
     });
     next();
 });
