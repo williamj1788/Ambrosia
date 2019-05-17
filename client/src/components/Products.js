@@ -212,11 +212,15 @@ function getDiscountPercent(discount, price) {
    return Math.round((1 - roundNumber(discount / price)) * 100)
 }
 
+function daysBetweenDates(day1, day2) {
+    return Math.round(((new Date(day1).getTime() - day2.getTime()) / (1000 * 60 * 60 * 24)) * 100) / 100
+}
+
 const DealButton = ({ onClick, discountObj, price }) => {
     let daysTilExpire;
     let dicountPercent;
     if(discountObj && discountObj.length){
-        daysTilExpire = Math.round(((new Date(discountObj[0].expriresAt).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) * 100) / 100
+        daysTilExpire = daysBetweenDates(discountObj[0].expiresAt, new Date());
         dicountPercent = getDiscountPercent(discountObj[0].price, price);
     }
     return(

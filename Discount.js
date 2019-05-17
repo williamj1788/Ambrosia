@@ -7,7 +7,7 @@ const DiscountScheme = new Scheme({
         required: true,
         min: 0
     },
-    expriresAt: {
+    expiresAt: {
         type: Date,
         required: true,
     },
@@ -17,7 +17,7 @@ const DiscountScheme = new Scheme({
     }
 });
 
-DiscountScheme.index({expriresAt: 1}, {expireAfterSeconds: 0});
+DiscountScheme.index({expiresAt: 1}, {expireAfterSeconds: 0});
 
 const Discount = mongoose.model('discount', DiscountScheme);
 

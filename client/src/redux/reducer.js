@@ -35,6 +35,7 @@ function reducer(state = initialState, action){
         case EDIT_PRODUCT:{
             const products = state.products.slice();
             const index = products.findIndex(x => x._id === action.payload._id);
+            console.log(action.payload);
             products[index] = action.payload;
             return{
                 ...state,

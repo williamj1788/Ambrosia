@@ -52,13 +52,17 @@
     font-weight: normal;
     font-size: 1.2rem;
 }
+.dealStat{
+    display: flex;
+}
+
 .dealPriceContainer{
     display: flex;
     width: fit-content;
 }
 .dealPrice{
     display: block;
-    color: white;
+    color: black;
     font-size: 1.4rem;
     font-weight: bold;
     margin: 0 5px;

@@ -70,7 +70,7 @@ router.post('/products/discount/create/:id', GetProduct, (req, res) => {
     }
     const newDiscount = new Discount({
         price: req.body.newPrice,
-        expriresAt: req.body.expireAt,
+        expiresAt: req.body.expireAt,
         productID: req.product._id,
     });
     newDiscount.save()
@@ -92,7 +92,7 @@ router.post('/products/discount/edit/:id', GetProduct, (req, res) => {
     const update = {
         $set: {
             price: req.body.newPrice,
-            expriresAt: req.body.expireAt,
+            expiresAt: req.body.expireAt,
         }
     };
 

@@ -9,11 +9,15 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
 class DiscountModal extends React.Component{
-
-    state = {
-        date: (this.props.product.discountObj[0] && new Date(this.props.product.discountObj[0].expriresAt)) || new Date().setTime(new Date().getTime() + (1000 * 60 * 60 * 24)),
-        error: null,
+    
+    constructor(props){
+        super(props);
+        this.state = {
+            date: (props.product.discountObj[0] && new Date(props.product.discountObj[0].expiresAt)) || new Date().setTime(new Date().getTime() + (1000 * 60 * 60 * 24)),
+            error: null,
+        }
     }
+    
 
     handleChange = (date) => {
         this.setState({date});
@@ -81,7 +85,7 @@ class DiscountModal extends React.Component{
                         {discount && <div className={s.trash} onClick={this.deleteDiscount}>
                             <FaTrashAlt size="1.75em" />
                         </div>}
-                        <span style={{color: 'white'}} >Add A Discount</span>
+                        <span style={{color: 'white'}}>Add A Discount</span>
                         <div className={s.close} onClick={show}>
                             <FaTimes size="1.75em" />
                         </div>
