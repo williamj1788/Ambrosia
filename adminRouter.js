@@ -10,8 +10,6 @@ const Product = require('./Product');
 const Discount = require('./Discount');
 const User = require('./User');
 
-console.log(moment().add(2,'minutes'));
-
 router.use(upload.single('picture'));
 
 router.get('/products', (req, res) => {
@@ -116,13 +114,11 @@ router.post('/products/discount/edit/:id', GetProduct, (req, res) => {
         }
         const product = req.product.toObject();
         product.discountObj = [discount];
-        console.log(product);
         res.json(product);
     });
 });
 
 router.delete('/products/discounts/delete/:id', (req, res) => {
-    console.log(req.params.id);
     Product.findByIdAndUpdate(req.params.id, {$unset: {discount: ""}}, (err, product) => {
         if(err) throw err;
         Discount.findByIdAndDelete(product.discount, (err) => {
