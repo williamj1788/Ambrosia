@@ -18,7 +18,7 @@ export class Navbar extends React.Component{
         isFixed: false,
         isHamburger: window.innerWidth < 1000,
         isHamburgerDropdownOpen: false,
-        showCart: true
+        showCart: false
     }
     
     componentWillMount() {

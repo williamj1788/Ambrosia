@@ -66,7 +66,7 @@ export const NavLinkWrapper = ({ to, icon, exact, strict, active, children, onCl
     if(strict){
         props.strict = true
     }
-
+    
     return(
         <div className={s.navLink} onClick={onClick}>
             {icon && <img className={s.linkLogo} src={icon} alt="nav-link icon" />}

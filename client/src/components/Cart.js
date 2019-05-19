@@ -9,6 +9,7 @@ class Cart extends React.Component{
             <div className={s.dark}>
                 <div className={s.cart} >
                     <Header toggle={this.props.toggle} />
+                    <OrderContainer />
                     <Footer />
                 </div>
             </div>
@@ -47,6 +48,41 @@ const Footer = () => {
                 <span>25.99</span>
             </div>
             <button type='button' className={s.button} >Checkout</button>
+        </div>
+    )
+}
+
+const OrderContainer = () => {
+    return(
+        <div className={s.OrderContainer}>
+            <Order />
+            <Order />
+            <Order />
+            <Order />
+            <Order />
+            <Order />
+            <Order />
+        </div>
+    )
+};
+
+const Order = () => {
+    return(
+        <div className={s.order}>
+            <div className={s.orderInfo}>
+                <p className={s.orderTitle}>Pizza1</p>
+                <p>12.99</p>
+                <select name="Qty">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                </select>
+            </div>
+            <button type='button' className={s.orderRemove} >Remove</button>
         </div>
     )
 }
