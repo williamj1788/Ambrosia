@@ -30,19 +30,19 @@ export const NavContainer = ({ transparent, children }) => {
     )
 }
 
-export const NavLinkContainer = ({ className, style = {} }) => {
+export const NavLinkContainer = ({ className, toggleCart , style = {} }) => {
     return(
         <div className={className} style={style} >
-            <NavLinkWrapper active exact to='/' >Home</NavLinkWrapper>
+            <NavLinkWrapper active exact to='/'>Home</NavLinkWrapper>
             <NavLinkWrapper active strict to='/menu'>Menu</NavLinkWrapper>
-            <NavLinkWrapper active to='/meet' >Meet The Chiefs</NavLinkWrapper>
-            <NavLinkWrapper icon={cartIcon}>Cart</NavLinkWrapper>
+            <NavLinkWrapper active to='/meet'>Meet The Chiefs</NavLinkWrapper>
+            <NavLinkWrapper icon={cartIcon} onClick={toggleCart} >Cart</NavLinkWrapper>
             <AccountLink />
         </div>
     )
 }
 
-export const HamburgerDropdown = ({ open }) => {
+export const HamburgerDropdown = ({ open, toggleCart }) => {
     let style = {};
     if(open){
         style.height = '200px';
@@ -51,11 +51,11 @@ export const HamburgerDropdown = ({ open }) => {
         style.paddingBottom = '0';
     }
     return(
-        <NavLinkContainer className={s.HamburgerDropdown} style={style} />
+        <NavLinkContainer className={s.HamburgerDropdown} style={style} toggleCart={toggleCart} />
     )
 }
 
-export const NavLinkWrapper = ({ to, icon, exact, strict, active, children }) => {
+export const NavLinkWrapper = ({ to, icon, exact, strict, active, children, onClick }) => {
     let props = { to };
     if(active){
         props.activeClassName = s.active;
@@ -68,7 +68,7 @@ export const NavLinkWrapper = ({ to, icon, exact, strict, active, children }) =>
     }
 
     return(
-        <div className={s.navLink}>
+        <div className={s.navLink} onClick={onClick}>
             {icon && <img className={s.linkLogo} src={icon} alt="nav-link icon" />}
             {to 
             ?<NavLink {...props}>{children}</NavLink>

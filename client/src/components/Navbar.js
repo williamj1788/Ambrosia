@@ -87,10 +87,10 @@ export class Navbar extends React.Component{
                         open={isHamburgerDropdownOpen} 
                         onClick={this.toggleHamburgerDropdown} 
                     />
-                    :<NavLinkContainer className={s.linkContainer} />}
+                    :<NavLinkContainer className={s.linkContainer} toggleCart={this.toggleCart} />}
                 </NavContainer>
-                {isHamburger && <HamburgerDropdown open={isHamburgerDropdownOpen} />}
-                {showCart && <Cart />}
+                {isHamburger && <HamburgerDropdown open={isHamburgerDropdownOpen} toggleCart={this.toggleCart} />}
+                {showCart && <Cart toggle={this.toggleCart} />}
             </Navigation>
         )
     }

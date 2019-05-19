@@ -8,7 +8,7 @@ class Cart extends React.Component{
         return(
             <div className={s.dark}>
                 <div className={s.cart} >
-                    <Header />
+                    <Header toggle={this.props.toggle} />
                     <Footer />
                 </div>
             </div>
@@ -16,11 +16,11 @@ class Cart extends React.Component{
     }
 }
 
-const Header = () => {
+const Header = ({ toggle }) => {
     return(
         <div className={s.header} >
             <span>Cart</span>
-            <div className={s.close}>
+            <div className={s.close} onClick={toggle} >
                 <FaTimes size='2em' />
             </div>
         </div>
@@ -46,7 +46,7 @@ const Footer = () => {
                 <span>Total:</span>
                 <span>25.99</span>
             </div>
-            <button className={s.button} >Checkout</button>
+            <button type='button' className={s.button} >Checkout</button>
         </div>
     )
 }
