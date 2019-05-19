@@ -4,12 +4,59 @@ import Pizza from '../images/chef.jpg';
 import { FaTimes } from 'react-icons/fa';
 
 class Cart extends React.Component{
+    
+    state = {
+        orders: [
+            {
+                name: 'pizza1',
+                price: 32.99,
+                qty: 1
+            },
+            {
+                name: 'pizza2',
+                price: 20.99,
+                qty: 3
+            },
+            {
+                name: 'pizza3',
+                price: 6.99,
+                qty: 1
+            },
+            {
+                name: 'pizza4',
+                price: 7.99,
+                qty: 4
+            },
+            {
+                name: 'pizza5',
+                price: 9.99,
+                qty: 2
+            },
+            {
+                name: 'pizza6',
+                price: 22.99,
+                qty: 1
+            },
+            {
+                name: 'pizza7',
+                price: 10.99,
+                qty: 3
+            }
+        ]
+    }
+
+    removeOrder = index => {
+        const orders = this.state.orders.slice();
+        orders.splice(index,1);
+        this.setState({ orders });
+    }
+    
     render(){
         return(
             <div className={s.dark}>
-                <div className={s.cart} >
+                <div className={s.cart}>
                     <Header toggle={this.props.toggle} />
-                    <OrderContainer />
+                    <OrderContainer orders={this.state.orders} remove={this.removeOrder} />
                     <Footer />
                 </div>
             </div>
@@ -52,27 +99,28 @@ const Footer = () => {
     )
 }
 
-const OrderContainer = () => {
+const OrderContainer = ({ orders, remove }) => {
+    orders = orders.map((order, index) => {
+        return <Order key={index} id={index} remove={remove} {...order} />
+    });
+    
     return(
         <div className={s.OrderContainer}>
-            <Order />
-            <Order />
-            <Order />
-            <Order />
-            <Order />
-            <Order />
-            <Order />
+            {orders}
+            <div>
+                counter
+            </div>
         </div>
     )
 };
 
-const Order = () => {
+const Order = ({ name, price, qty, id, remove }) => {
     return(
         <div className={s.order}>
             <div className={s.orderInfo}>
-                <p className={s.orderTitle}>Pizza1</p>
-                <p>12.99</p>
-                <select name="Qty">
+                <p className={s.orderTitle}>{name}</p>
+                <p>{price}</p>
+                <select defaultValue={qty} name="Qty">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -82,7 +130,7 @@ const Order = () => {
                     <option value="7">7</option>
                 </select>
             </div>
-            <button type='button' className={s.orderRemove} >Remove</button>
+            <button type='button' className={s.orderRemove} onClick={() => remove(id)} >Remove</button>
         </div>
     )
 }
