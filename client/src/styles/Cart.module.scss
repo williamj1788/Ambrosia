@@ -14,8 +14,61 @@
 }
 
 .cart{
+    position: relative;
     width: 80%;
     margin: 0 auto;
     background-color: white;
-    height: 400px;
+    height: 500px;
+    border-radius: 16px;
+}
+
+.header{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    background-color: $light-orange;
+    border-radius: 16px 16px 0 0;
+    span{
+        font-family: 'Playball', cursive;
+        font-size: 2rem;
+        color: black;
+    }
+}
+
+.close{
+    width: fit-content;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 125px;
+    background-color: $light-orange;
+    border-radius: 0 0 16px 16px;
+    box-sizing: border-box;
+    padding: 10px 0;
+}
+
+.flexTotal{
+    display: flex;
+    width: 70%;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+.button{
+    @include button(100px, 33px);
+    margin: 0 auto;
+    background-color: $blue;
+    font-size: 1rem;
+    border-radius: 5px;
 }
