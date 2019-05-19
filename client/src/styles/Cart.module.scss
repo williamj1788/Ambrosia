@@ -1,0 +1,21 @@
+@import '../styles/global.scss';
+
+.dark{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99;
+    background-color: #1f1f1f73;
+}
+
+.cart{
+    width: 80%;
+    margin: 0 auto;
+    background-color: white;
+    height: 400px;
+}

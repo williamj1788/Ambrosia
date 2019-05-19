@@ -10,6 +10,7 @@ import {
     Hamburger,
     Logo,
  } from './NavComponents';
+ import Cart from './Cart';
 
 export class Navbar extends React.Component{
     
@@ -17,6 +18,7 @@ export class Navbar extends React.Component{
         isFixed: false,
         isHamburger: window.innerWidth < 1000,
         isHamburgerDropdownOpen: false,
+        showCart: true
     }
     
     componentWillMount() {
@@ -66,9 +68,15 @@ export class Navbar extends React.Component{
             isHamburgerDropdownOpen: !this.state.isHamburgerDropdownOpen,
         });
     }
+
+    toggleCart = () => {
+        this.setState({
+            showCart: !this.state.showCart,
+        })
+    }
     
     render(){
-        const { isFixed, isHamburger,isHamburgerDropdownOpen } = this.state;
+        const { isFixed, isHamburger,isHamburgerDropdownOpen, showCart } = this.state;
         const { pathname } = this.props.location;
         return(
             <Navigation fixed={isFixed}>
@@ -82,6 +90,7 @@ export class Navbar extends React.Component{
                     :<NavLinkContainer className={s.linkContainer} />}
                 </NavContainer>
                 {isHamburger && <HamburgerDropdown open={isHamburgerDropdownOpen} />}
+                {showCart && <Cart />}
             </Navigation>
         )
     }
