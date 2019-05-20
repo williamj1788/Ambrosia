@@ -1,90 +1,18 @@
 import React from 'react';
 import s from '../styles/Cart.module.scss';
-import Pizza from '../images/chef.jpg';
+import { connect } from 'react-redux';
+import { editOrder, removeOrder } from '../redux/action';
 import { FaTimes } from 'react-icons/fa';
+import uuid from 'uuid';
 
 class Cart extends React.Component{
     
     state = {
-        orders: [
-            {
-                name: 'pizza1',
-                price: 32.99,
-                qty: 1
-            },
-            {
-                name: 'pizza2',
-                price: 20.99,
-                qty: 3
-            },
-            {
-                name: 'pizza3',
-                price: 6.99,
-                qty: 1
-            },
-            {
-                name: 'pizza4',
-                price: 7.99,
-                qty: 4
-            },
-            {
-                name: 'pizza5',
-                price: 9.99,
-                qty: 2
-            },
-            {
-                name: 'pizza6',
-                price: 22.99,
-                qty: 1
-            },
-            {
-                name: 'pizza7',
-                price: 10.99,
-                qty: 3
-            },
-            {
-                name: 'pizza8',
-                price: 32.99,
-                qty: 1
-            },
-            {
-                name: 'pizza9',
-                price: 20.99,
-                qty: 3
-            },
-            {
-                name: 'pizza10',
-                price: 6.99,
-                qty: 1
-            },
-            {
-                name: 'pizza11',
-                price: 7.99,
-                qty: 4
-            },
-            {
-                name: 'pizza12',
-                price: 9.99,
-                qty: 2
-            },
-            {
-                name: 'pizza13',
-                price: 22.99,
-                qty: 1
-            },
-            {
-                name: 'pizza14',
-                price: 10.99,
-                qty: 3
-            }
-        ],
         active: 1,
     }
 
-    removeOrder = index => {
-        const orders = this.state.orders.slice();
-        orders.splice(index,1);
-        this.setState({ orders });
+    removeOrder = id => {
+        this.props.dispatch(removeOrder(id));
     }
 
     setActive = value => {
@@ -97,11 +25,11 @@ class Cart extends React.Component{
                 <div className={s.cart}>
                     <Header toggle={this.props.toggle} />
                     <OrderContainer 
-                    orders={this.state.orders} 
+                    orders={this.props.orders} 
                     remove={this.removeOrder} 
                     active={this.state.active}
                     setActive={this.setActive}  />
-                    <Footer />
+                    <Footer orders={this.props.orders}  />
                 </div>
             </div>
         )
@@ -119,24 +47,34 @@ const Header = ({ toggle }) => {
     )
 }
 
-const Footer = () => {
+const Footer = ({ orders }) => {
+    let subTotal = orders.reduce((acc, val) => {
+        return acc + (val.price * val.qty);
+    }, 0);
+
+    let tax = subTotal * 0.06;
+
+    let deliveryFee = 3;
+
+    let total = subTotal + tax + deliveryFee;
+
     return(
         <div className={s.footer}>
             <div className={s.flexTotal}>
                 <span>Sub Total:</span>
-                <span>10.99</span>
+                <span>{'$' + subTotal.toFixed(2)}</span>
             </div>
             <div className={s.flexTotal}>
                 <span>Tax(6%):</span>
-                <span>2.99</span>
+                <span>{'$' + tax.toFixed(2)}</span>
             </div>
             <div className={s.flexTotal}>
                 <span>Delivery fees:</span>
-                <span>3.00</span>
+                <span>{'$' + deliveryFee.toFixed(2)}</span>
             </div>
             <div className={s.flexTotal}>
                 <span>Total:</span>
-                <span>25.99</span>
+                <span>{'$' + total.toFixed(2)}</span>
             </div>
             <button type='button' className={s.button} >Checkout</button>
         </div>
@@ -146,20 +84,24 @@ const Footer = () => {
 const OrderContainer = ({ orders, remove, active, setActive }) => {
     const MaxOrders = 7;
     let  curOrders = orders.slice((MaxOrders * (active - 1)), (MaxOrders * active));
-    curOrders = curOrders.map((order, index) => {
-        return <Order key={index} id={index} remove={remove} {...order} />
+    curOrders = curOrders.map((order) => {
+        return <Order key={uuid()} remove={remove} {...order} />
     });
+
+    if(curOrders.length < 1 && active != 1){
+        setActive(active - 1);
+    }
 
     let counters = [];
     for(let i = 1; i <= Math.ceil(orders.length / MaxOrders); i++){
-        counters.push(<button onClick={() => setActive(i)} className={`${s.counter} ${active === i && s.active}`}>{i}</button>);
+        counters.push(<button key={uuid()} onClick={() => setActive(i)} className={`${s.counter} ${active === i && s.active}`}>{i}</button>);
     };
     
     return(
         <div className={s.OrderContainer}>
             {curOrders}
             <div className={s.counterCounter}>
-                {counters}
+                {counters.length > 1 && counters}
             </div>
         </div>
     )
@@ -186,4 +128,8 @@ const Order = ({ name, price, qty, id, remove }) => {
     )
 }
 
-export default Cart;
+export default connect(state => {
+    return{
+        orders: state.orders
+    }
+} )(Cart);
