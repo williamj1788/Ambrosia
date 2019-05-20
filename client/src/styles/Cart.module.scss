@@ -67,7 +67,7 @@
 
 .orderInfo{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 300px;
     font-size: 1.3rem;
     p{
@@ -76,6 +76,13 @@
 }
 .orderTitle{
     font-weight: bold;
+    width: 150px;
+    overflow: hidden;
+}
+
+.orderPrice{
+    text-align: center;
+    width: 65px;
 }
 
 .orderRemove{

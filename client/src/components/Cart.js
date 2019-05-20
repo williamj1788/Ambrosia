@@ -119,7 +119,7 @@ const Order = ({ name, price, qty, id, remove, edit }) => {
         <div className={s.order}>
             <div className={s.orderInfo}>
                 <p className={s.orderTitle}>{name}</p>
-                <p>{price}</p>
+                <p className={s.orderPrice}>{price}</p>
                 <select onChange={event => edit(id, event.target.value)} defaultValue={qty} name="Qty">
                     <option value="1">1</option>
                     <option value="2">2</option>

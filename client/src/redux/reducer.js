@@ -28,6 +28,10 @@ function reducer(state = initialState, action){
         case TYPE.ADD_ORDER:{
             const orders = state.orders.slice();
             orders.push(action.payload);
+            return{
+                ...state,
+                orders,
+            }
 
         }
         case TYPE.ADD_PRODUCT:{
