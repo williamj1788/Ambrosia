@@ -41,8 +41,44 @@ class Cart extends React.Component{
                 name: 'pizza7',
                 price: 10.99,
                 qty: 3
+            },
+            {
+                name: 'pizza8',
+                price: 32.99,
+                qty: 1
+            },
+            {
+                name: 'pizza9',
+                price: 20.99,
+                qty: 3
+            },
+            {
+                name: 'pizza10',
+                price: 6.99,
+                qty: 1
+            },
+            {
+                name: 'pizza11',
+                price: 7.99,
+                qty: 4
+            },
+            {
+                name: 'pizza12',
+                price: 9.99,
+                qty: 2
+            },
+            {
+                name: 'pizza13',
+                price: 22.99,
+                qty: 1
+            },
+            {
+                name: 'pizza14',
+                price: 10.99,
+                qty: 3
             }
-        ]
+        ],
+        active: 1,
     }
 
     removeOrder = index => {
@@ -50,13 +86,21 @@ class Cart extends React.Component{
         orders.splice(index,1);
         this.setState({ orders });
     }
+
+    setActive = value => {
+        this.setState({active: value});
+    }
     
     render(){
         return(
             <div className={s.dark}>
                 <div className={s.cart}>
                     <Header toggle={this.props.toggle} />
-                    <OrderContainer orders={this.state.orders} remove={this.removeOrder} />
+                    <OrderContainer 
+                    orders={this.state.orders} 
+                    remove={this.removeOrder} 
+                    active={this.state.active}
+                    setActive={this.setActive}  />
                     <Footer />
                 </div>
             </div>
@@ -99,16 +143,23 @@ const Footer = () => {
     )
 }
 
-const OrderContainer = ({ orders, remove }) => {
-    orders = orders.map((order, index) => {
+const OrderContainer = ({ orders, remove, active, setActive }) => {
+    const MaxOrders = 7;
+    let  curOrders = orders.slice((MaxOrders * (active - 1)), (MaxOrders * active));
+    curOrders = curOrders.map((order, index) => {
         return <Order key={index} id={index} remove={remove} {...order} />
     });
+
+    let counters = [];
+    for(let i = 1; i <= Math.ceil(orders.length / MaxOrders); i++){
+        counters.push(<button onClick={() => setActive(i)} className={`${s.counter} ${active === i && s.active}`}>{i}</button>);
+    };
     
     return(
         <div className={s.OrderContainer}>
-            {orders}
-            <div>
-                counter
+            {curOrders}
+            <div className={s.counterCounter}>
+                {counters}
             </div>
         </div>
     )

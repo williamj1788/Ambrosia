@@ -21,7 +21,7 @@
     background-color: white;
     min-height: 500px;
     height: 100%;
-    max-height: 500px;
+    max-height: 525px;
     border-radius: 16px;
 }
 
@@ -109,13 +109,41 @@
     border-radius: 5px;
 }
 
+.counterCounter{
+    display: flex;
+    width: fit-content;
+    height: 40px;
+    margin: 0 auto;
+}
+
+.counter{
+    border: 1px solid $dark-orange;
+    background-color: transparent;
+    width: 40px;
+    height: 100%;
+    cursor: pointer;
+    transition: 500ms;
+    &:hover{
+        background-color: $dark-orange;
+        color: white;
+    }
+    &:focus{
+        outline: none;
+    }
+}
+.active{
+    background-color: $dark-orange;
+    color: white;
+}
+
+
 @media (min-width: 500px){
     .OrderContainer{
-        height: 475px;
+        height: 425px;
     }
     
     .cart{
-        max-height: 700px;
+        max-height: 575px;
     }
     .footer{
         height: 175px;
