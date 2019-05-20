@@ -30,7 +30,6 @@ class Product extends React.Component{
     render(){
         const { _id, picture, name, description, price, discountObj } = this.props;
         const order = this.props.orders.find(x => x.productID === _id);
-        console.log(order);
         return(
             <div className={s.product}>
                 <img className={s.productImg} src={picture} alt="Product"/>

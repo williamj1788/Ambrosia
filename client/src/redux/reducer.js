@@ -1,14 +1,15 @@
 import * as TYPE from './actionTypes';
-import uuid from 'uuid';
+
+const Storage = JSON.parse(sessionStorage.getItem('orders'));
 
 const initialState = {
     page: null,
     user: null,
     products: null,
-    orders: [],
+    orders: Storage ?  Storage.orders : [],
 };
-
 function reducer(state = initialState, action){
+
     switch (action.type) {
         case TYPE.SET_PAGE:
             return {
@@ -28,6 +29,7 @@ function reducer(state = initialState, action){
         case TYPE.ADD_ORDER:{
             const orders = state.orders.slice();
             orders.push(action.payload);
+            sessionStorage.setItem('orders', JSON.stringify({orders}))
             return{
                 ...state,
                 orders,
@@ -55,6 +57,7 @@ function reducer(state = initialState, action){
             const orders = state.orders.slice();
             const index = orders.findIndex(x => x.id === action.payload.id);
             orders[index].qty = action.payload.qty;
+            sessionStorage.setItem('orders', JSON.stringify({orders}))
             return{
                 ...state,
                 orders,
@@ -73,6 +76,7 @@ function reducer(state = initialState, action){
             const orders = state.orders.slice();
             const index = orders.findIndex(x => x.id === action.payload);
             orders.splice(index,1);
+            sessionStorage.setItem('orders', JSON.stringify({orders}))
             return{
                 ...state,
                 orders,

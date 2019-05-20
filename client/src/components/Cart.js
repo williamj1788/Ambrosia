@@ -13,7 +13,6 @@ class Cart extends React.Component{
 
     removeOrder = id => {
         this.props.dispatch(removeOrder(id));
-        console.log(id);
     }
 
     editOrder = (id, qty) => {
