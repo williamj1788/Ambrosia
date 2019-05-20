@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addOrder } from '../redux/action';
+import { addOrder, removeOrder } from '../redux/action';
 import s from '../styles/Menu.module.scss';
 import uuid from 'uuid';
 
@@ -23,8 +23,14 @@ class Product extends React.Component{
         this.props.dispatch(addOrder(order));
     }
 
+    removeOrder = id => {
+        this.props.dispatch(removeOrder(id))
+    }
+
     render(){
-        const { _id, picture, name, description, price, discountObj, createOrder } = this.props;
+        const { _id, picture, name, description, price, discountObj } = this.props;
+        const order = this.props.orders.find(x => x.productID === _id);
+        console.log(order);
         return(
             <div className={s.product}>
                 <img className={s.productImg} src={picture} alt="Product"/>
@@ -34,7 +40,8 @@ class Product extends React.Component{
                     <div className={s.productOrder}>
                         <span className={s.productPrice}>{discountObj.length ? <s>{'$' + price}</s> : '$' + price}</span>
                         {!!discountObj.length && <span className={s.productPrice} style={{marginLeft: '15px'}} >{'$' + discountObj[0].price}</span>}
-                        <form onSubmit={this.handleSubmit} className={s.productForm}>
+                        {!order 
+                        ?<form onSubmit={this.handleSubmit} className={s.productForm}>
                             <label className={s.productLabel} htmlFor="quantity">Qty:</label>
                             <select className={s.productSelect} defaultValue='1' name="quantity">
                                 <option value="1">1</option>
@@ -47,6 +54,7 @@ class Product extends React.Component{
                             </select>
                             <button type='submit' onClick={() => addOrder(_id)} className={s.productButton}>Place Order</button>
                         </form>
+                        : <button onClick={() => this.removeOrder(order.id)} className={s.cartButton}>{`In Cart: ${order.qty}`}</button>}
                     </div>
                 </div>
             </div>
