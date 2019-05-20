@@ -55,6 +55,10 @@ export class Menu extends React.Component{
         return this.props.products.filter(product => product.type === type);
     }
 
+    createOrder = order => {
+        
+    }
+
 
     render(){
         const { redirect, productTarget, loading } = this.state;
@@ -117,7 +121,13 @@ export const ProductContainer = ({ products }) => {
     )
 }
 
-export const Product = ({ picture, name, description, price, discountObj }) => {
+export const Product = ({ _id, picture, name, description, price, discountObj }) => {
+    const order = {
+        _id, 
+        name, 
+        price: discountObj.length ? discountObj[0].price : price, 
+        qty: document.querySelector('select[name=quantity]').value
+    };
     return(
         <div className={s.product}>
             <img className={s.productImg} src={picture} alt="Product"/>
@@ -138,7 +148,7 @@ export const Product = ({ picture, name, description, price, discountObj }) => {
                             <option value="6">6</option>
                             <option value="7">7</option>
                         </select>
-                        <button type='submit' className={s.productButton}>Place Order</button>
+                        <button type='button' onClick={} className={s.productButton}>Place Order</button>
                     </form>
                 </div>
             </div>
@@ -148,6 +158,7 @@ export const Product = ({ picture, name, description, price, discountObj }) => {
 
 export default connect(state => {
     return{
-        products: state.products
+        products: state.products,
+        orders: state.orders,
     }
 })(Menu);

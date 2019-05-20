@@ -26,6 +26,10 @@ export function removeProduct(payload){
     return {type: TYPE.REMOVE_PRODUCT, payload}
 }
 
+export function addOrder(payload) {
+    return {type: TYPE.ADD_ORDER, payload}
+}
+
 export function editOrder(payload) {
     return {type: TYPE.EDIT_ORDER, payload}
 }

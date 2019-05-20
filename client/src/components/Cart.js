@@ -13,7 +13,13 @@ class Cart extends React.Component{
 
     removeOrder = id => {
         this.props.dispatch(removeOrder(id));
+        console.log(id);
     }
+
+    editOrder = (id, qty) => {
+        this.props.dispatch(editOrder({id,qty}));
+    }
+
 
     setActive = value => {
         this.setState({active: value});
@@ -26,7 +32,8 @@ class Cart extends React.Component{
                     <Header toggle={this.props.toggle} />
                     <OrderContainer 
                     orders={this.props.orders} 
-                    remove={this.removeOrder} 
+                    remove={this.removeOrder}
+                    edit={this.editOrder}
                     active={this.state.active}
                     setActive={this.setActive}  />
                     <Footer orders={this.props.orders}  />
@@ -81,11 +88,11 @@ const Footer = ({ orders }) => {
     )
 }
 
-const OrderContainer = ({ orders, remove, active, setActive }) => {
+const OrderContainer = ({ orders, remove, edit, active, setActive }) => {
     const MaxOrders = 7;
     let  curOrders = orders.slice((MaxOrders * (active - 1)), (MaxOrders * active));
     curOrders = curOrders.map((order) => {
-        return <Order key={uuid()} remove={remove} {...order} />
+        return <Order key={order.id} remove={remove} edit={edit} {...order} />
     });
 
     if(curOrders.length < 1 && active != 1){
@@ -107,13 +114,13 @@ const OrderContainer = ({ orders, remove, active, setActive }) => {
     )
 };
 
-const Order = ({ name, price, qty, id, remove }) => {
+const Order = ({ name, price, qty, id, remove, edit }) => {
     return(
         <div className={s.order}>
             <div className={s.orderInfo}>
                 <p className={s.orderTitle}>{name}</p>
                 <p>{price}</p>
-                <select defaultValue={qty} name="Qty">
+                <select onChange={event => edit(id, event.target.value)} defaultValue={qty} name="Qty">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
