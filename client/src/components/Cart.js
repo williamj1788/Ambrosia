@@ -4,11 +4,19 @@ import { connect } from 'react-redux';
 import { editOrder, removeOrder } from '../redux/action';
 import { FaTimes } from 'react-icons/fa';
 import uuid from 'uuid';
+import { Redirect, withRouter } from 'react-router-dom';
 
 class Cart extends React.Component{
     
     state = {
         active: 1,
+        redirect: false,
+    }
+
+    handleClick = () => {
+        if(!this.props.user){
+            this.setRedirect(true);
+        }
     }
 
     removeOrder = id => {
@@ -23,19 +31,33 @@ class Cart extends React.Component{
     setActive = value => {
         this.setState({active: value});
     }
+
+    setRedirect = value => {
+        this.setState({redirect: value});
+    }
     
     render(){
+        const { redirect, active } = this.state;
+        const { orders, location, toggle } = this.props;
+        if(redirect){
+            if(location.pathname !== '/signup'){
+                return <Redirect push to='/signup' />
+            }else{
+                toggle();
+            }
+        }
+
         return(
             <div className={s.dark}>
                 <div className={s.cart}>
-                    <Header toggle={this.props.toggle} />
+                    <Header toggle={toggle} />
                     <OrderContainer 
                     orders={this.props.orders} 
                     remove={this.removeOrder}
                     edit={this.editOrder}
-                    active={this.state.active}
+                    active={active}
                     setActive={this.setActive}  />
-                    <Footer orders={this.props.orders}  />
+                    <Footer orders={orders} onClick={this.handleClick} />
                 </div>
             </div>
         )
@@ -53,7 +75,7 @@ const Header = ({ toggle }) => {
     )
 }
 
-const Footer = ({ orders }) => {
+const Footer = ({ orders, onClick }) => {
     let subTotal = orders.reduce((acc, val) => {
         return acc + (val.price * val.qty);
     }, 0);
@@ -82,7 +104,7 @@ const Footer = ({ orders }) => {
                 <span>Total:</span>
                 <span>{'$' + total.toFixed(2)}</span>
             </div>
-            <button type='button' className={s.button} >Checkout</button>
+            <button onClick={onClick} type='button' className={s.button} >Checkout</button>
         </div>
     )
 }
@@ -134,8 +156,9 @@ const Order = ({ name, price, qty, id, remove, edit }) => {
     )
 }
 
-export default connect(state => {
+export default withRouter(connect(state => {
     return{
+        user: state.user,
         orders: state.orders
     }
-} )(Cart);
+})(Cart));
