@@ -15,7 +15,9 @@ class Cart extends React.Component{
 
     handleClick = () => {
         if(!this.props.user){
-            this.setRedirect(true);
+            this.setRedirect('/signup');
+        }else{
+            this.setRedirect('/order');
         }
     }
 
@@ -40,8 +42,10 @@ class Cart extends React.Component{
         const { redirect, active } = this.state;
         const { orders, location, toggle } = this.props;
         if(redirect){
-            if(location.pathname !== '/signup'){
-                return <Redirect push to='/signup' />
+            if(redirect === '/signup' && location.pathname !== '/signup'){
+                return <Redirect push to={redirect} />
+            }else if(redirect === '/order' && location.pathname !== '/order'){
+                return <Redirect push to={redirect} />
             }else{
                 toggle();
             }
