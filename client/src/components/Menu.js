@@ -2,9 +2,8 @@ import React from 'react';
 import Navbar from './Navbar';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { setProducts, addOrder } from '../redux/action';
+import { setProducts } from '../redux/action';
 import s from '../styles/Menu.module.scss';
-import uuid from 'uuid';
 
 import Product from './MenuProduct';
 

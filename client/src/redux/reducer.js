@@ -1,6 +1,6 @@
 import * as TYPE from './actionTypes';
 
-const Storage = JSON.parse(sessionStorage.getItem('orders'));
+const Storage = JSON.parse(localStorage.getItem('orders'));
 
 const initialState = {
     page: null,
@@ -29,7 +29,7 @@ function reducer(state = initialState, action){
         case TYPE.ADD_ORDER:{
             const orders = state.orders.slice();
             orders.push(action.payload);
-            sessionStorage.setItem('orders', JSON.stringify({orders}))
+            localStorage.setItem('orders', JSON.stringify({orders}))
             return{
                 ...state,
                 orders,
@@ -57,7 +57,7 @@ function reducer(state = initialState, action){
             const orders = state.orders.slice();
             const index = orders.findIndex(x => x.id === action.payload.id);
             orders[index].qty = action.payload.qty;
-            sessionStorage.setItem('orders', JSON.stringify({orders}))
+            localStorage.setItem('orders', JSON.stringify({orders}))
             return{
                 ...state,
                 orders,

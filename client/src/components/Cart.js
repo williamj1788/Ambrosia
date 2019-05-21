@@ -94,7 +94,7 @@ const OrderContainer = ({ orders, remove, edit, active, setActive }) => {
         return <Order key={order.id} remove={remove} edit={edit} {...order} />
     });
 
-    if(curOrders.length < 1 && active != 1){
+    if(curOrders.length < 1 && active !== 1){
         setActive(active - 1);
     }
 
