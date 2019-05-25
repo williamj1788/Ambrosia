@@ -84,7 +84,9 @@ router.get('/signout', (req,res) => {
     res.send();
 });
 
-router.get('/email', ValidateEmail);
+router.get('/email', ValidateEmail, (req, res) => {
+    res.send();
+});
 
 // Middleware Functions
 
@@ -95,15 +97,14 @@ function ValidateEmail(req, res, next){
     }else{
         query.email = req.query.email
     }
-
     User.findOne(query, (err, user) => {
         if(err) throw err;
-        if(!user){
-            next();
-        }else{
+        if(user){
             res.status(400).json({
                 message: 'There is already an account with this email'
             });
+        }else{
+            next();
         }
     })
 }
