@@ -1,9 +1,19 @@
 @import '../styles/global.scss';
+
+.content{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    max-height: 675px;
+}
+
 .flexContainer{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 900px;
+    width: 100%;
+    max-width: 900px;
     height: 75px;
     margin: 0 auto;
 }
@@ -12,15 +22,18 @@
     @include button(200px, 38px, bold);
     border-radius: 5px;
     transition: 300ms;
+    flex-shrink: 0;
     &:hover{
         background-color: rgb(173, 78, 0);
     }
 }
 
 .map{
-    width: 900px;
+    width: 100%;
+    max-width: 900px;
     height: 600px;
     margin: 0 auto;
+    flex: 1;
 }
 
 .marker{
@@ -52,5 +65,23 @@
         border-left: 15px solid transparent;
         border-right: 15px solid transparent;
         border-top: 50px solid black;
+    }
+}
+
+@media(min-width: 1981px){
+    .flexContainer{
+        max-width: 900px * 1.5;
+    }
+    .map{
+        margin-top: 30px;
+        max-width: 900px * 1.5;
+    }
+    .content{
+        margin-top: 50px;
+        max-height: 1000px;
+    }
+    .button{
+        width: 300px;
+        height: 68px;
     }
 }
