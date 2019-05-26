@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from './Navbar';
 import Geosuggest from 'react-geosuggest';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import GoogleMapReact from 'google-map-react';
 import s from '../styles/OrderConfirm.module.scss';
 import '../styles/geosuggest.scss'
@@ -12,11 +13,14 @@ class OrderConfirm extends React.Component{
         address: this.props.user && this.props.user.address,
         center: false,
         mapHieght: window.innerWidth > 1980 ? 900 : window.innerHeight - 140 > 600 ? 600 : window.innerHeight - 140,
-
+        suggest: null,
+        confirm: false,
     }
 
     componentDidMount(){
-        this.refs.geo.focus();
+        if(this.state.address){
+            this.refs.geo.focus(); 
+        }
         window.addEventListener('resize', this.handleResize);
     }
     componentWillUnmount() {;
@@ -34,12 +38,22 @@ class OrderConfirm extends React.Component{
 
     handleSuggest = suggest => {
         this.setState({
+            suggest,
             center: suggest.location
         });
     }
 
+    handleClick = () => {
+        if(this.state.suggest){
+            
+        }
+    }
+
     render(){
         const { address, center, mapHieght } = this.state;
+        if(!this.props.user){
+            return <Redirect to='/' />
+        }
         return(
             <div>
                 <Navbar />
@@ -49,12 +63,12 @@ class OrderConfirm extends React.Component{
                         autoActivateFirstSuggest
                         className={s.geo}
                         country='us'
-                        placeholder='Type address here'
+                        placeholder='Enter address'
                         initialValue={address}
                         queryDelay={500}
                         ref='geo'
                         onSuggestSelect={this.handleSuggest} />
-                        <button className={s.button} type='button' >Confirm Address</button>
+                        <button onClick={this.handleClick} className={s.button} type='button' >Confirm Address</button>
                     </div>
                     <div className={s.map} style={{height: mapHieght}} >
                         <GoogleMapReact
@@ -82,5 +96,6 @@ const Marker = ({lat, lng}) => {
 export default connect(state => {
     return{
         user: state.user,
+        orders: state.orders,
     }
 })(OrderConfirm);
