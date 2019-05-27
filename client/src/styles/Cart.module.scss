@@ -15,7 +15,7 @@
 
 .cart{
     position: relative;
-    width: 80%;
+    width: 100%;
     max-width: 600px;
     margin: 0 auto;
     background-color: white;
@@ -61,6 +61,7 @@
 .order{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
     margin: 10px 0;
 }
@@ -68,6 +69,7 @@
 .orderInfo{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 300px;
     font-size: 1.3rem;
     p{
@@ -76,19 +78,25 @@
 }
 .orderTitle{
     font-weight: bold;
-    width: 150px;
+    width: 75px;
     overflow: hidden;
 }
 
 .orderPrice{
+    height: fit-content;
     text-align: center;
     width: 65px;
 }
 
 .orderRemove{
     @include button(100px, 25px);
+    margin-left: 10px;
     font-size: 0.8rem;
     background-color: #BC0000;
+}
+
+.select{
+    height: fit-content;
 }
 
 .footer{
@@ -154,6 +162,12 @@
 }
 
 
+@media(max-width: 350px){
+    .orderInfo{
+        width: fit-content;
+    }
+}
+
 @media (min-width: 500px){
     .OrderContainer{
         height: 350px;
@@ -171,6 +185,9 @@
     .button{
         @include button(150px, 50px);
         background-color: $blue;
+    }
+    .orderTitle{
+        width: 150px;
     }
     .orderInfo{
         width: 400px;
