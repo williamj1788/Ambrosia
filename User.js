@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Scheme = mongoose.Schema;
 
+const OrderScheme = require('./Order');
+
 const UserScheme = new Scheme({
     email:{
         required: true,
@@ -36,6 +38,10 @@ const UserScheme = new Scheme({
     admin:{
         default: false,
         type: Boolean
+    },
+    orders:{
+        type:[OrderScheme],
+        default:[],
     }
 });
 

@@ -1,11 +1,15 @@
 const express = require('express');
+const bodyParser = require('body-parser')
 const multer = require('multer');
 const upload = multer();
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { OAuth2Client } = require('google-auth-library');
+
 const User = require('./User');
+const Product = require('./Product');
+
 const secretKey = require('./config').secretKey;
 const clientID = require('./config').clientID;
 
@@ -39,6 +43,36 @@ router.post('/create', ValidateEmail, (req, res, next) => {
         .catch(err => {throw err});
     })
 },signTokenWithUser);
+
+router.post('/order/create', bodyParser.json(),  verifyToken , async (req, res) => {
+
+    let newOrder = {
+        address: req.body.address,
+        productList: []
+    }
+    
+    for(let order of req.body.orders){
+        await Product.findById(order.productID, (err, product) => {
+            if(err) throw err;
+            newOrder.productList.push({
+                type: product.type,
+                name: product.name,
+                price: order.price,
+                qty: order.qty
+            });
+        });
+    }
+
+    User.findById(req.payload.UserID, (err, user) => {
+        if(err) throw err;
+        user.orders.push(newOrder);
+        user.save((err, user) => {
+            if(err) throw err;
+            res.json(user);
+        })
+    });
+
+});
 
 router.post('/login',(req, res, next) => {
     User.findOne({email: req.body.Email},'+password', (err, user) => {
