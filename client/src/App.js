@@ -16,6 +16,7 @@ import Login from './components/Login';
 import UserOrder from './components/UserOrder';
 import Products from './components/Products';
 import Metrics from './components/Metrics';
+import OrderConfirm from './components/OrderConfirm';
 
 export class App extends Component {
   render() {
@@ -30,6 +31,7 @@ export class App extends Component {
                 <Route path='/meet' component={Meet} />
                 <Route path='/signup' component={SignUp} />
                 <Route path='/login' component={Login} />
+                <Route path='/order' component={OrderConfirm} />
                 <Route path='/user/orders' component={UserOrder} />
                 <Route path='/admin/products' component={Products} />
                 <Route path='/admin/metrics' component={Metrics} />

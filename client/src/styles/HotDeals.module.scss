@@ -80,12 +80,15 @@
     border: 1px solid $dark-orange;
     border-radius: 3px;
     margin: 0 5px;
-    transition: 0.5s;
-    &:hover{
-        background: $blue;
-        color: white;
-        cursor: pointer;
-    }
+    cursor: pointer;
+}
+
+.cartButton{
+    @include button(90px, 30px, bold);
+    font-size: 1rem;
+    border-radius: 5px;
+    margin-left: 15px;
+    background-color: #048b04;
 }
 
 @media (min-width: 1981px){

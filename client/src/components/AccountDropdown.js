@@ -20,7 +20,7 @@ export class AccountDropdown extends React.Component{
     }
 
     setRedirect = location => {
-        if(location != this.props.location.pathname){
+        if(location !== this.props.location.pathname){
            this.setState({
                 redirect: location,
             }); 

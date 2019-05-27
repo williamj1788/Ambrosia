@@ -5,3 +5,7 @@ export const SET_PRODUCTS = 'SET_PRODUCTS';
 export const ADD_PRODUCT = 'ADD_PRODUCT';
 export const EDIT_PRODUCT = 'EDIT_PRODUCT';
 export const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
+export const ADD_ORDER = 'ADD_ORDER';
+export const EDIT_ORDER = 'EDIT_ORDER';
+export const REMOVE_ORDER = 'REMOVE_ORDER';
+export const CLEAR_ORDER = 'CLEAR_ORDER';

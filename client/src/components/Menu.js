@@ -5,6 +5,8 @@ import { Redirect } from 'react-router-dom';
 import { setProducts } from '../redux/action';
 import s from '../styles/Menu.module.scss';
 
+import Product from './MenuProduct';
+
 export class Menu extends React.Component{
     
     state = {
@@ -56,6 +58,7 @@ export class Menu extends React.Component{
     }
 
 
+
     render(){
         const { redirect, productTarget, loading } = this.state;
         if(redirect){ 
@@ -77,7 +80,7 @@ export class Menu extends React.Component{
                         <Tab product='dessert'>Desserts</Tab>
                         <Tab product='drink'>Drinks</Tab>
                     </TabContainer>
-                    <ProductContainer products={this.getProductsByType(this.props.match.params.product)}  />
+                    <ProductContainer products={this.getProductsByType(this.props.match.params.product)} />
                 </div>
             </div>
         )
@@ -105,7 +108,7 @@ const Tab = ({ productPage, redirect, product, children }) => {
     )
 } 
 
-export const ProductContainer = ({ products }) => {
+export const ProductContainer = ({ products, createOrder }) => {
     return(
         <div className={s.productContainer} >
             {products.map((product, index) => {
@@ -117,37 +120,9 @@ export const ProductContainer = ({ products }) => {
     )
 }
 
-export const Product = ({ picture, name, description, price, discountObj }) => {
-    return(
-        <div className={s.product}>
-            <img className={s.productImg} src={picture} alt="Product"/>
-            <div className={s.productInfo}>
-                <p className={s.productName}>{name}</p>
-                <p className={s.productDesc}>{description}</p>
-                <div className={s.productOrder}>
-                    <span className={s.productPrice}>{discountObj.length ? <s>{'$' + price}</s> : '$' + price}</span>
-                    {!!discountObj.length && <span className={s.productPrice} style={{marginLeft: '15px'}} >{'$' + discountObj[0].price}</span>}
-                    <form className={s.productForm}>
-                        <label className={s.productLabel} htmlFor="quantity">Qty:</label>
-                        <select className={s.productSelect} defaultValue='1' name="quantity">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                        </select>
-                        <button type='submit' className={s.productButton}>Place Order</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    )
-}
-
 export default connect(state => {
     return{
-        products: state.products
+        products: state.products,
+        orders: state.orders,
     }
 })(Menu);

@@ -8,6 +8,8 @@ import Person5 from '../images/Person5.jpg';
 import starFull from '../images/star-full.png';
 import starEmpty from '../images/star.png';
 
+
+let interval
 export class ReviewSection extends React.Component{
     state = {
         selected: 0,
@@ -15,7 +17,11 @@ export class ReviewSection extends React.Component{
     }
 
     componentDidMount(){
-        setInterval(this.incrementSelected, 6000);
+        interval = setInterval(this.incrementSelected, 6000);
+    }
+
+    componentWillUnmount(){
+        clearInterval(interval);
     }
 
     incrementSelected = () => {

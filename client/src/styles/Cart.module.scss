@@ -1,0 +1,200 @@
+@import '../styles/global.scss';
+
+.dark{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99;
+    background-color: #1f1f1f73;
+}
+
+.cart{
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    min-height: 500px;
+    height: 100%;
+    max-height: 525px;
+    border-radius: 16px;
+}
+
+.header{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    background-color: $light-orange;
+    border-radius: 16px 16px 0 0;
+    span{
+        font-family: 'Playball', cursive;
+        font-size: 2rem;
+        color: black;
+    }
+}
+
+.close{
+    width: fit-content;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.OrderContainer{
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    height: 325px;
+    padding: 10px;
+}
+
+.order{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.orderInfo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    font-size: 1.3rem;
+    p{
+        margin: 0;
+    }
+}
+.orderTitle{
+    font-weight: bold;
+    width: 75px;
+    overflow: hidden;
+}
+
+.orderPrice{
+    height: fit-content;
+    text-align: center;
+    width: 65px;
+}
+
+.orderRemove{
+    @include button(100px, 25px);
+    margin-left: 10px;
+    font-size: 0.8rem;
+    background-color: #BC0000;
+}
+
+.select{
+    height: fit-content;
+}
+
+.footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 125px;
+    background-color: $light-orange;
+    border-radius: 0 0 16px 16px;
+    box-sizing: border-box;
+    padding: 10px 0;
+}
+
+.flexTotal{
+    display: flex;
+    width: 70%;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+.button{
+    @include button(100px, 33px);
+    margin: 0 auto;
+    background-color: $blue;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+.counterCounter{
+    position: absolute;
+    display: flex;
+    width: fit-content;
+    height: 40px;
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%);
+}
+
+.counter{
+    border: 1px solid $dark-orange;
+    background-color: transparent;
+    width: 40px;
+    height: 100%;
+    cursor: pointer;
+    transition: 500ms;
+    &:hover{
+        background-color: $dark-orange;
+        color: white;
+    }
+    &:focus{
+        outline: none;
+    }
+}
+.active{
+    background-color: $dark-orange;
+    color: white;
+}
+
+.error{
+    width: fit-content;
+    margin: 0 auto;
+    font-size: 1.3rem;
+}
+
+
+@media(max-width: 350px){
+    .orderInfo{
+        width: fit-content;
+    }
+}
+
+@media (min-width: 500px){
+    .OrderContainer{
+        height: 350px;
+    }
+    
+    .cart{
+        max-height: 575px;
+    }
+    .footer{
+        height: 190px;
+    }
+    .flexTotal{
+        font-size: 1.3rem;
+    }
+    .button{
+        @include button(150px, 50px);
+        background-color: $blue;
+    }
+    .orderTitle{
+        width: 150px;
+    }
+    .orderInfo{
+        width: 400px;
+    }
+    .orderRemove{
+        @include button(125px, 30px);
+        font-size: 1rem;
+        background-color: #BC0000;
+    }
+}

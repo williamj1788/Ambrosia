@@ -10,8 +10,7 @@
 
 # production
 /build
-
-/src/key.js
+/public/index.html
 
 # misc
 .DS_Store

@@ -43,6 +43,10 @@ class ProductModal extends React.Component{
                 body: this.getFormData(),
             })
             .then(res => res.json())
+            .then(res => {
+                console.log(res);
+                return res;
+            })
             .then(res => this.props.dispatch(editProduct(res)))
             .then(this.props.show);
         }else{

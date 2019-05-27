@@ -128,6 +128,13 @@ $product-width: 500px;
     cursor: pointer;
 }
 
+.cartButton{
+    @include button(100px, 30px);
+    border-radius: 5px;
+    margin-left: 15px;
+    background-color: #048b04;
+}
+
 @media (min-width: 1981px){
     .tab{
         width: $tab-width * 1.4;

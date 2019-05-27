@@ -1,30 +1,42 @@
-import { SET_PAGE, SET_USER, CLEAR_USER, SET_PRODUCTS, ADD_PRODUCT, EDIT_PRODUCT, REMOVE_PRODUCT } from './actionTypes';
+import * as TYPE from './actionTypes';
 
+const Storage = JSON.parse(localStorage.getItem('orders'));
 
 const initialState = {
     page: null,
     user: null,
     products: null,
+    orders: Storage ?  Storage.orders : [],
 };
-
 function reducer(state = initialState, action){
+
     switch (action.type) {
-        case SET_PAGE:
+        case TYPE.SET_PAGE:
             return {
                 ...state,
                 page: action.payload,
             }
-        case SET_USER:
+        case TYPE.SET_USER:
             return {
                 ...state,
                 user: action.payload,
             }
-        case SET_PRODUCTS:
+        case TYPE.SET_PRODUCTS:
             return {
                 ...state,
                 products: action.payload,
             }
-        case ADD_PRODUCT:{
+        case TYPE.ADD_ORDER:{
+            const orders = state.orders.slice();
+            orders.push(action.payload);
+            localStorage.setItem('orders', JSON.stringify({orders}))
+            return{
+                ...state,
+                orders,
+            }
+
+        }
+        case TYPE.ADD_PRODUCT:{
             const products = state.products.slice();
             products.push(action.payload);
             return{
@@ -32,7 +44,7 @@ function reducer(state = initialState, action){
                 products,
             }
         }
-        case EDIT_PRODUCT:{
+        case TYPE.EDIT_PRODUCT:{
             const products = state.products.slice();
             const index = products.findIndex(x => x._id === action.payload._id);
             products[index] = action.payload;
@@ -41,7 +53,17 @@ function reducer(state = initialState, action){
                 products,
             }
         }
-        case REMOVE_PRODUCT:{
+        case TYPE.EDIT_ORDER :{
+            const orders = state.orders.slice();
+            const index = orders.findIndex(x => x.id === action.payload.id);
+            orders[index].qty = action.payload.qty;
+            localStorage.setItem('orders', JSON.stringify({orders}))
+            return{
+                ...state,
+                orders,
+            }
+        }
+        case TYPE.REMOVE_PRODUCT:{
             const products = state.products.slice();
             const index = products.findIndex(x => x._id === action.payload);
             products.splice(index, 1);
@@ -50,10 +72,25 @@ function reducer(state = initialState, action){
                 products,
             }
         }
-        case CLEAR_USER:
+        case TYPE.REMOVE_ORDER:{
+            const orders = state.orders.slice();
+            const index = orders.findIndex(x => x.id === action.payload);
+            orders.splice(index,1);
+            localStorage.setItem('orders', JSON.stringify({orders}))
+            return{
+                ...state,
+                orders,
+            }
+        }
+        case TYPE.CLEAR_USER:
             return {
                 ...state,
                 user: null,
+            }
+        case TYPE.CLEAR_ORDER:
+            return{
+                ...state,
+                orders: [],
             }
         default:
             return state;
