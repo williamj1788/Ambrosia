@@ -36,8 +36,8 @@ class Deal extends React.Component{
                     <p className={s.dealDesc}>{description}</p>
                     <div className={s.dealPriceContainer}>
                         <span className={s.dealPrice}>{getDiscountPercent(discountObj[0].price, price) + '% off'}</span>
-                        <span className={s.dealPrice}><s>{'$' + price}</s></span>
-                        <span className={s.dealPrice}>{'$' + discountObj[0].price}</span>
+                        <span className={s.dealPrice}><s>{'$' + price.toFixed(2)}</s></span>
+                        <span className={s.dealPrice}>{'$' + discountObj[0].price.toFixed(2)}</span>
                         {order 
                         ? <button onClick={() => this.removeOrder(order.id)} className={s.cartButton}>{`In Cart: ${order.qty}`}</button>
                         : <button onClick={this.handleClick} className={s.dealButton}>Place Order</button>}

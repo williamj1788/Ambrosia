@@ -45,12 +45,10 @@ router.post('/create', ValidateEmail, (req, res, next) => {
 },signTokenWithUser);
 
 router.post('/order/create', bodyParser.json(),  verifyToken , async (req, res) => {
-
     let newOrder = {
         address: req.body.address,
         productList: []
     }
-    
     for(let order of req.body.orders){
         await Product.findById(order.productID, (err, product) => {
             if(err) throw err;
@@ -65,10 +63,14 @@ router.post('/order/create', bodyParser.json(),  verifyToken , async (req, res) 
 
     User.findById(req.payload.UserID, (err, user) => {
         if(err) throw err;
+        if(!user.orders){
+            user.orders = [];
+        }
         user.orders.push(newOrder);
         user.save((err, user) => {
             if(err) throw err;
-            res.json(user);
+            const { _id, ...userWithoutID } = user.toObject();
+            res.json(userWithoutID);
         })
     });
 

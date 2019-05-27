@@ -12,8 +12,9 @@ class DiscountModal extends React.Component{
     
     constructor(props){
         super(props);
+        console.log(this.props);
         this.state = {
-            date: (props.product.discountObj[0] && new Date(props.product.discountObj[0].expiresAt)) || new Date().setTime(new Date().getTime() + (1000 * 60 * 60 * 24)),
+            date: (this.props.product.discountObj[0] && new Date(this.props.product.discountObj[0].expiresAt)) || new Date().setTime(new Date().getTime() + (1000 * 60 * 60 * 24)),
             error: null,
         }
     }

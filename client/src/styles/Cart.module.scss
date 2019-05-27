@@ -147,6 +147,12 @@
     color: white;
 }
 
+.error{
+    width: fit-content;
+    margin: 0 auto;
+    font-size: 1.3rem;
+}
+
 
 @media (min-width: 500px){
     .OrderContainer{
@@ -157,7 +163,7 @@
         max-height: 575px;
     }
     .footer{
-        height: 175px;
+        height: 190px;
     }
     .flexTotal{
         font-size: 1.3rem;

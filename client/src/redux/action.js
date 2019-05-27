@@ -37,3 +37,7 @@ export function editOrder(payload) {
 export function removeOrder(payload) {
     return {type: TYPE.REMOVE_ORDER, payload}
 }
+
+export function clearOrders() {
+    return {type: TYPE.CLEAR_ORDER, payload: null}
+}

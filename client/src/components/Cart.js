@@ -11,11 +11,16 @@ class Cart extends React.Component{
     state = {
         active: 1,
         redirect: false,
+        error: null,
     }
 
     handleClick = () => {
         if(!this.props.user){
             this.setRedirect('/signup');
+        }else if(this.props.orders.length <= 0){
+            this.setState({
+                error: 'There are no items'
+            });
         }else{
             this.setRedirect('/order');
         }
@@ -39,7 +44,7 @@ class Cart extends React.Component{
     }
     
     render(){
-        const { redirect, active } = this.state;
+        const { redirect, active, error } = this.state;
         const { orders, location, toggle } = this.props;
         if(redirect){
             if(redirect === '/signup' && location.pathname !== '/signup'){
@@ -61,7 +66,7 @@ class Cart extends React.Component{
                     edit={this.editOrder}
                     active={active}
                     setActive={this.setActive}  />
-                    <Footer orders={orders} onClick={this.handleClick} />
+                    <Footer orders={orders} onClick={this.handleClick} error={error} />
                 </div>
             </div>
         )
@@ -79,7 +84,7 @@ const Header = ({ toggle }) => {
     )
 }
 
-const Footer = ({ orders, onClick }) => {
+const Footer = ({ orders, onClick, error }) => {
     let subTotal = orders.reduce((acc, val) => {
         return acc + (val.price * val.qty);
     }, 0);
@@ -109,6 +114,7 @@ const Footer = ({ orders, onClick }) => {
                 <span>{'$' + total.toFixed(2)}</span>
             </div>
             <button onClick={onClick} type='button' className={s.button} >Checkout</button>
+            {error && <p className={s.error}>{error}</p>}
         </div>
     )
 }

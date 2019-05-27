@@ -76,7 +76,7 @@ function reducer(state = initialState, action){
             const orders = state.orders.slice();
             const index = orders.findIndex(x => x.id === action.payload);
             orders.splice(index,1);
-            sessionStorage.setItem('orders', JSON.stringify({orders}))
+            localStorage.setItem('orders', JSON.stringify({orders}))
             return{
                 ...state,
                 orders,
@@ -86,6 +86,11 @@ function reducer(state = initialState, action){
             return {
                 ...state,
                 user: null,
+            }
+        case TYPE.CLEAR_ORDER:
+            return{
+                ...state,
+                orders: [],
             }
         default:
             return state;
