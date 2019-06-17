@@ -56,14 +56,14 @@ export class Home extends React.Component{
             return <div>Loading...</div>
         }
         return(
-            <div>
+            <main>
                 <Hero redirect={this.setRedirect}/>
                 <About />
                 <HotDeals />
                 <ReviewSection />
                 <Footer />
                 <Copyright />
-            </div>
+            </main>
         )
     }
 }
@@ -86,17 +86,17 @@ const About = () => {
         <section className={s.about}>
             <AboutTitle />
             <div className={s.flexContainer} >
-                <Unit 
+                <Perk 
                 img={PizzaIcon}
                 title={'Great Pizza'}
                 desc={'We go through multiple checks of each ingredient to ensure that our pizza is top quality'}
                 />
-                <Unit 
+                <Perk 
                 img={MoneyIcon}
                 title={'Low Prices'}
                 desc={'We work with our local farmers to provide affordable and quality ingredients and pass the savings to our customers'}
                 />
-                <Unit 
+                <Perk 
                 img={TruckIcon}
                 title={'Fast Service'}
                 desc={'With active drivers that are always on standby, we guarantee a delivery in under 30 mins or the order is free'}
@@ -115,7 +115,7 @@ const AboutTitle = () => {
     )
 }
 
-export const Unit = ({ img, title, desc }) => {
+export const Perk = ({ img, title, desc }) => {
     return(
         <div className={s.AboutUnits}>
             <img className={s.aboutUnitImg} src={img} alt="Icon"/>

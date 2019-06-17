@@ -1,11 +1,4 @@
 @import '../styles/global.scss';
-.title{
-    @extend %title;
-    margin: 0;
-}
-.content{
-    @extend %content;
-}
 
 .createButton{
     display: block;

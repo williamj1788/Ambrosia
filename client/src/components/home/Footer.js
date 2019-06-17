@@ -1,5 +1,6 @@
 import React from 'react';
 import s from '../../styles/Footer.module.scss';
+import Title from '../shared/Title';
 
 import locationIcon from '../../images/location-icon.png';
 import phoneIcon from '../../images/phone-icon.png';

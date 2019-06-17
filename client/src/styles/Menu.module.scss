@@ -1,15 +1,5 @@
 @import '../styles/global.scss';
 
-.content{
-    @extend %content;
-    margin-bottom: 40px;
-}
-
-.title{
-    @extend %title;
-    margin: 50px 0 0 0;
-}
-
 .tabContainer{
     display: flex;
     flex-wrap: wrap;

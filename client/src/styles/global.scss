@@ -17,14 +17,14 @@ $blue: #0033ff;
 
 }
 
-%content{
+.content{
     position: absolute;
     width: 100%;
     height: fit-content;
     top: 65px; // size of navbar
 }
 
-%title{
+.title{
     font-family: 'Playball', cursive;
     font-size: 4rem;
     font-weight: normal;

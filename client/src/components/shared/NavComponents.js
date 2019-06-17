@@ -35,7 +35,7 @@ export const NavLinkContainer = ({ className, toggleCart , style = {} }) => {
         <div className={className} style={style} >
             <NavLinkWrapper active exact to='/'>Home</NavLinkWrapper>
             <NavLinkWrapper active strict to='/menu'>Menu</NavLinkWrapper>
-            <NavLinkWrapper active to='/meet'>Meet The Chiefs</NavLinkWrapper>
+            <NavLinkWrapper active to='/meet'>Meet The Chefs</NavLinkWrapper>
             <NavLinkWrapper icon={cartIcon} onClick={toggleCart} >Cart</NavLinkWrapper>
             <AccountLink />
         </div>

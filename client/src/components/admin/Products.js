@@ -1,5 +1,7 @@
 import React from 'react';
 import Navbar from '../shared/Navbar';
+import Content from '../shared/Content';
+import Title from '../shared/Title';
 import { connect } from 'react-redux';
 import { setProducts, removeProduct } from '../../redux/action';
 import { Redirect } from 'react-router-dom';
@@ -116,7 +118,8 @@ class Products extends React.Component{
         return(
             <div>
                 <Navbar />
-                <div className={s.content}>
+                <Content>
+                    <Title style={{margin: 0}}>Products</Title>
                     <h1 className={s.title}>Products</h1>
                     <button onClick={this.toggleProductModal} className={s.createButton} type="button">Create A Product</button>
                     <input onChange={this.handleChange} className={s.searchBar} type="search" placeholder="Search for a product" />
@@ -129,7 +132,7 @@ class Products extends React.Component{
                     />
                     {showProductModal && <ProductModal show={this.toggleProductModal} product={ProductModalEdit ? editProduct: undefined} edit={ProductModalEdit} />}
                     {showDiscountModal && <DiscountModal show={this.toggleDiscountModal} product={discountProduct} />}
-                </div>
+                </Content>
             </div>
         )
     }
