@@ -11,6 +11,7 @@
 # production
 /build
 /public/index.html
+key.js
 
 # misc
 .DS_Store
