@@ -8,7 +8,7 @@ import {
     Form, 
     FormBlock, 
     Input 
-} from '../components/SignUpForm';
+} from '../components/shared/SignUpForm';
 
 import toBeType from "jest-tobetype";
 import toJson from 'enzyme-to-json';

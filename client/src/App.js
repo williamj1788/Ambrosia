@@ -8,14 +8,14 @@ import store from './redux/store';
 
 import LoadUser from './components/LoadUser';
 
-import Home from './components/home';
-import Menu from './components/Menu';
+import Home from './components/home/home';
+import Menu from './components/menu/Menu';
 import Meet from './components/Meet';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import UserOrder from './components/UserOrder';
-import Products from './components/Products';
-import Metrics from './components/Metrics';
+import Products from './components/admin/Products';
+import Metrics from './components/admin/Metrics';
 import OrderConfirm from './components/OrderConfirm';
 
 export class App extends Component {

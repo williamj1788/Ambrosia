@@ -1,5 +1,5 @@
 import React from 'react';
-import { AccountLink } from '../components/AccountLink';
+import { AccountLink } from '../components/shared/AccountLink';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 

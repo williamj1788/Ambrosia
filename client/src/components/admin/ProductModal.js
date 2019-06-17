@@ -1,7 +1,7 @@
 import React from 'react';
-import s from '../styles/Products.module.scss';
+import s from '../../styles/Products.module.scss';
 import { connect } from 'react-redux';
-import { addProduct, editProduct } from '../redux/action';
+import { addProduct, editProduct } from '../../redux/action';
 import { FaTimes } from "react-icons/fa";
 
 class ProductModal extends React.Component{

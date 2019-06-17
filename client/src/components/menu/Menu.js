@@ -1,9 +1,9 @@
 import React from 'react';
-import Navbar from './Navbar';
+import Navbar from '../shared/Navbar';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { setProducts } from '../redux/action';
-import s from '../styles/Menu.module.scss';
+import { setProducts } from '../../redux/action';
+import s from '../../styles/Menu.module.scss';
 
 import Product from './MenuProduct';
 

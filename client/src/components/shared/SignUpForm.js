@@ -1,5 +1,5 @@
 import React from 'react';
-import s from '../styles/SignUpForm.module.scss';
+import s from '../../styles/SignUpForm.module.scss';
 
 import { NavLink, Redirect } from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
@@ -10,10 +10,10 @@ import {
     validateConfirmPassword,
     validateFirstname,
     validateLastname,
- } from './validator';
+ } from '../../validator';
 
 import { connect } from 'react-redux';
-import { setUser } from '../redux/action';
+import { setUser } from '../../redux/action';
 
 const mapStateToProps = state => {
     return {

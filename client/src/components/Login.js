@@ -1,11 +1,11 @@
 import React from 'react';
 import s from '../styles/Login.module.scss';
-import Navbar from './Navbar';
-import { Header, Input } from './SignUpForm';
+import Navbar from './shared/Navbar';
+import { Header, Input } from './shared/SignUpForm';
 import { 
     validateEmail,
     validatePassword,
- } from './validator';
+ } from '../validator';
  import GoogleLogin from 'react-google-login';
  import { NavLink, Redirect } from 'react-router-dom';
  import { connect } from 'react-redux';

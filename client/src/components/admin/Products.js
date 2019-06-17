@@ -1,9 +1,9 @@
 import React from 'react';
-import Navbar from './Navbar';
+import Navbar from '../shared/Navbar';
 import { connect } from 'react-redux';
-import { setProducts, removeProduct } from '../redux/action';
+import { setProducts, removeProduct } from '../../redux/action';
 import { Redirect } from 'react-router-dom';
-import s from '../styles/Products.module.scss';
+import s from '../../styles/Products.module.scss';
 import { FaTrashAlt } from "react-icons/fa";
 import ProductModal from './ProductModal';
 import DiscountModal from './DiscountModal';

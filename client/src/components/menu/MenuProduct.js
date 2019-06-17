@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addOrder, removeOrder } from '../redux/action';
-import s from '../styles/Menu.module.scss';
+import { addOrder, removeOrder } from '../../redux/action';
+import s from '../../styles/Menu.module.scss';
 import uuid from 'uuid';
 
 class Product extends React.Component{

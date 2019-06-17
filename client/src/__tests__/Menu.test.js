@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Redirect } from 'react-router-dom';
-import { Menu, ProductContainer, Product } from '../components/Menu';
+import { Menu, ProductContainer, Product } from '../components/menu/Menu';
 import toJson from 'enzyme-to-json';
 
 let props,

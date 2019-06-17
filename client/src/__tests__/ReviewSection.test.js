@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
-import { ReviewSection, calulateRelativeOffset, Selection } from '../components/ReviewSection';
+import { ReviewSection, calulateRelativeOffset, Selection } from '../components/home/ReviewSection';
 
 afterEach(() => {
     jest.restoreAllMocks()

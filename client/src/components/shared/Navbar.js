@@ -1,5 +1,5 @@
 import React from 'react';
-import s from '../styles/Navbar.module.scss';
+import s from '../../styles/Navbar.module.scss';
 import { withRouter } from'react-router-dom'
 
 import { 

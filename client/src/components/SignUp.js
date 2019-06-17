@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Navbar from './Navbar';
-import SignUpForm from './SignUpForm';
+import Navbar from './shared/Navbar';
+import SignUpForm from './shared/SignUpForm';
 import s from '../styles/SignUp.module.scss';
 
 import SaveIcon from '../images/save-icon.png';

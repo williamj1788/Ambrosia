@@ -1,7 +1,7 @@
 import React from 'react';
-import s from '../styles/Cart.module.scss';
+import s from '../../styles/Cart.module.scss';
 import { connect } from 'react-redux';
-import { editOrder, removeOrder } from '../redux/action';
+import { editOrder, removeOrder } from '../../redux/action';
 import { FaTimes } from 'react-icons/fa';
 import uuid from 'uuid';
 import { Redirect, withRouter } from 'react-router-dom';

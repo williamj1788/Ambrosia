@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from './Navbar';
+import Navbar from './shared/Navbar';
 
 import s from '../styles/Meet.module.scss';
 import chef from '../images/chef.jpg';
@@ -18,7 +18,7 @@ export class Meet extends React.Component{
                         desc='Lorem ipsum dolor sit amet, 
                         consectetur adipiscing elit. Nullam sit amet purus porta, 
                         dapibus felis in malesuada diam. Integer quis imperdiet 
-                        arcu, ut ornare sem. Phasellus magna justo, tincidunt quis'
+                       s arcu, ut ornare sem. Phasellus magna justo, tincidunt quis'
                         />
                         <Chief 
                         img={chef}

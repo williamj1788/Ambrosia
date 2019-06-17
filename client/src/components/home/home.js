@@ -1,21 +1,21 @@
 import React from 'react';
 
-import Navbar from './Navbar';
+import Navbar from '../shared/Navbar';
 import ReviewSection from './ReviewSection';
 import Footer from './Footer';
 import HotDeals from './HotDeals';
 
-import s from '../styles/Home.module.scss';
+import s from '../../styles/Home.module.scss';
 
 import { connect } from 'react-redux';
-import { setProducts } from '../redux/action';
+import { setProducts } from '../../redux/action';
 import { Redirect } from 'react-router-dom';
 
 
-import PizzaIcon from '../images/Pizza_icon_white.png';
-import MoneyIcon from '../images/Money_icon.png';
-import TruckIcon from '../images/truck_icon.png';
-import ArrowDown from '../images/arrow-down.png';
+import PizzaIcon from '../../images/Pizza_icon_white.png';
+import MoneyIcon from '../../images/Money_icon.png';
+import TruckIcon from '../../images/truck_icon.png';
+import ArrowDown from '../../images/arrow-down.png';
 
 
 export class Home extends React.Component{

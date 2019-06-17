@@ -1,5 +1,5 @@
 import React from 'react';
-import s from '../styles/HotDeals.module.scss';
+import s from '../../styles/HotDeals.module.scss';
 import { connect } from 'react-redux';
 import Deal from './Deal';
 

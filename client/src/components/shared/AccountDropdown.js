@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, withRouter } from 'react-router-dom';
-import { clearUser } from '../redux/action';
+import { clearUser } from '../../redux/action';
 import { GoogleLogout } from 'react-google-login';
-import s from '../styles/AccountDropdown.module.scss';
+import s from '../../styles/AccountDropdown.module.scss';
 
 export class AccountDropdown extends React.Component{
     

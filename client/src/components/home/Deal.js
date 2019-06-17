@@ -1,6 +1,6 @@
 import React from 'react';
-import s from '../styles/HotDeals.module.scss';
-import { addOrder, removeOrder } from '../redux/action';
+import s from '../../styles/HotDeals.module.scss';
+import { addOrder, removeOrder } from '../../redux/action';
 import uuid from 'uuid';
 import { connect } from 'react-redux';
 class Deal extends React.Component{

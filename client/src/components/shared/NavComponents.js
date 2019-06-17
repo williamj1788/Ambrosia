@@ -1,7 +1,7 @@
 import React from 'react';
-import s from '../styles/Navbar.module.scss';
-import logoIcon from '../images/Logo.png';
-import cartIcon from '../images/CartIcon.png';
+import s from '../../styles/Navbar.module.scss';
+import logoIcon from '../../images/Logo.png';
+import cartIcon from '../../images/CartIcon.png';
 
 import HamburgerMenu from 'react-hamburger-menu';
 import AccountLink from './AccountLink';

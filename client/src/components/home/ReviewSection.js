@@ -1,12 +1,12 @@
 import React from 'react';
-import s from '../styles/ReviewSection.module.scss';
-import Person from '../images/Person.jpg';
-import Person2 from '../images/Person2.jpg';
-import Person3 from '../images/Person3.jpg';
-import Person4 from '../images/Person4.jpg';
-import Person5 from '../images/Person5.jpg';
-import starFull from '../images/star-full.png';
-import starEmpty from '../images/star.png';
+import s from '../../styles/ReviewSection.module.scss';
+import Person from '../../images/Person.jpg';
+import Person2 from '../../images/Person2.jpg';
+import Person3 from '../../images/Person3.jpg';
+import Person4 from '../../images/Person4.jpg';
+import Person5 from '../../images/Person5.jpg';
+import starFull from '../../images/star-full.png';
+import starEmpty from '../../images/star.png';
 
 
 let interval

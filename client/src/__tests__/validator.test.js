@@ -4,7 +4,7 @@ import {
     validateConfirmPassword,
     validateFirstname,
     validateLastname,
-} from '../components/validator';
+} from '../validator';
 import toBeType from "jest-tobetype";
 expect.extend(toBeType);
 global.window.fetch = jest.fn(() => Promise.resolve({status: 200}));

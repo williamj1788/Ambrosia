@@ -6,7 +6,7 @@ import {
     NavLinkContainer,
     HamburgerDropdown,
     NavLinkWrapper,
- } from '../components/NavComponents';
+ } from '../components/shared/NavComponents';
 import toJson from 'enzyme-to-json';
 import { Redirect } from 'react-router-dom';
 
