@@ -81,6 +81,11 @@ $product-width: 500px;
     font-size: 1.1rem;
     height: fit-content;
 }
+
+.productDiscount{
+    margin-left: 15px;
+}
+
 .productForm{
     display: flex;
     align-items: center;
@@ -182,18 +187,29 @@ $product-width: 500px;
     }
     .productInfo{
         margin: 0;
-        height: 160px;
+        height: 200px;
     }
     .productName{
         text-align: center;
+        margin: 10px 0;
     }
     .productDesc{
         text-align: center;
+        margin: 10px 0;
     }
     .productOrder{
         flex-direction: column;
         justify-content: space-between;
-        height: 60px;
+        height: 90px;
+    }
+    .productPrice{
+        margin: 5px 0;
+    }
+    .productDiscount{
+        margin-left: 0;
+    }
+    .cartButton{
+        margin-left: 0;
     }
 }
 

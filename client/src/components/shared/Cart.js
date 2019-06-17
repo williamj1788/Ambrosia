@@ -106,7 +106,7 @@ const Footer = ({ orders, onClick, error }) => {
                 <span>{'$' + tax.toFixed(2)}</span>
             </div>
             <div className={s.flexTotal}>
-                <span>Delivery fees:</span>
+                <span>Delivery fee:</span>
                 <span>{'$' + deliveryFee.toFixed(2)}</span>
             </div>
             <div className={s.flexTotal}>
@@ -120,7 +120,7 @@ const Footer = ({ orders, onClick, error }) => {
 }
 
 const OrderContainer = ({ orders, remove, edit, active, setActive }) => {
-    const MaxOrders = 7;
+    const MaxOrders = window.innerWidth < 500 ? 4 : 6;
     let  curOrders = orders.slice((MaxOrders * (active - 1)), (MaxOrders * active));
     curOrders = curOrders.map((order) => {
         return <Order key={order.id} remove={remove} edit={edit} {...order} />
