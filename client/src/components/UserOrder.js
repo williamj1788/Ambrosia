@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import Navbar from './shared/Navbar';
 import Content from './shared/Content';
@@ -11,12 +12,17 @@ import s from '../styles/UserOrder.module.scss';
 class UserOrder extends React.Component{
     
     render(){
+        const { user } = this.props;
+        if(!user){
+            return <Redirect to='/' />
+        }
+
         return(
             <div>
                 <Navbar />
                 <Content>
                     <Title>Past Orders</Title>
-                    <OrderHistory orders={this.props.user.orders} />
+                    <OrderHistory orders={user.orders} />
                 </Content>
             </div>
         )
@@ -26,15 +32,10 @@ class UserOrder extends React.Component{
 const OrderHistory = ({ orders }) => {
     
     orders = orders.sort((a, b) => {
-        const dateA = new Date(a).getTime();
-        const dateB = new Date(b).getTime();
-        if(dateA === dateB){
-            return 0;
-        }else if(dateA > dateB){
-            return 0;
-        }else{
-            return -1;
-        }
+
+        const dateA = new Date(a.createAt).getTime();
+        const dateB = new Date(b.createAt).getTime();
+        return dateB - dateA;
 
     });
 

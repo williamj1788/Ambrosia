@@ -80,6 +80,7 @@ class Login extends React.Component{
     }
 
     loginUser = () => {
+        console.log('sdfsd');
         return new Promise((resolve, reject) => {
             fetch('/api/user/login', {
                 method: 'POST',
@@ -107,6 +108,7 @@ class Login extends React.Component{
     }
 
     loginWithGoogle = token => {
+        console.log('sdfsdfddd')
         return fetch('/api/user/google', {
             method: 'POST',
             headers: {'Authorization': `Bearer ${token}`}
