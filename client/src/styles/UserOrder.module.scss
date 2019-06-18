@@ -1,0 +1,84 @@
+@import '../styles/global.scss';
+
+.orderContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.order{
+    width: 600px;
+    margin: 30px 0;
+}
+
+.date{
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    margin: 15px 0;
+}
+
+.deliver{
+    display: flex;
+    color: white;
+    font-size: 1.4rem;
+    justify-content: center;
+
+    p{
+        margin: 0;
+    }
+}
+
+.table{
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    tr{
+        width: 100%;
+        box-sizing: border-box;
+
+    }
+    tbody{
+        tr:nth-child(even){
+            background-color: rgba(255, 115, 0, 0.4)
+        }
+    }
+    th{
+        background-color: $light-orange;
+        font-size: 1.7rem;
+        border: 0;
+    }
+
+    td{
+        border: 2px solid white;
+        text-align: center;
+        color: white;
+        font-size: 1.3rem;
+        box-sizing: border-box;
+    }
+    tfoot{
+        background-color: $light-orange;
+        td{
+            border: 0;
+            p{
+                margin: 0;
+                color: black;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.total{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    color: black;
+    font-weight: bold;
+    p{
+        margin: 0;
+    }
+}
