@@ -124,7 +124,7 @@
 @media(max-width: 960px){
     .container{
         flex-direction: column;
-        max-width: fit-content;
+        align-items: center;
     }
     .opening{
         margin: 0 auto;

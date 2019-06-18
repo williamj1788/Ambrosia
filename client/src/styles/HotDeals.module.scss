@@ -84,7 +84,7 @@
 }
 
 .cartButton{
-    @include button(90px, 30px, bold);
+    @include button(inital, 30px, bold);
     font-size: 1rem;
     border-radius: 5px;
     margin-left: 15px;
@@ -92,11 +92,29 @@
 }
 
 @media (min-width: 1981px){
+    .cartButton{
+        height: 50px;
+    }
+
+    .deal{
+        width: 900px;
+        height: 100%;
+    }
+    .dealImg{
+        width: 175px;
+        height: 175px;
+    }
+    .dealPriceContainer{
+        min-width: 650px;
+        justify-content: space-between;
+    }
+
     .dealsContainer{
-        max-width: 1800px;
+        max-width: 1900px;
     }
     .dealInfo{
         max-width: 700px;
+        height: 100%;
     }
     .dealButton{
         border-radius: 6px;
@@ -106,9 +124,8 @@
 
 @media (max-width: 1220px){
     .dealsContainer{
-        display: block;
-        width: fit-content;
-        margin: 0 auto;
+        flex-direction: row;
+        justify-content: center;
     }
 }
 

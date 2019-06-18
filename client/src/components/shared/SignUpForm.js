@@ -244,7 +244,7 @@ export class SignUpForm extends React.Component{
                 </View>
                 <Controllers active={activeFormBlock} progress={formBlockProgress} onClick={this.handleOnClick} />
                 <ControllerButtons active={activeFormBlock} onClick={this.handleOnClick} submit={this.handleSubmit} />
-                <div style={{display: 'block', margin: '10px auto', width: 'fit-content'}}>
+                <div style={{display: 'flex', margin: '10px 0', justifyContent: 'space-around', height: 50}}>
                     <GoogleLogin
                         clientId="1064409062816-te616f091t5s0vh9mgnkacur1oqrqpr8.apps.googleusercontent.com"
                         onSuccess={this.onSuccess}

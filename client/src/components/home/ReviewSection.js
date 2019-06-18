@@ -96,7 +96,7 @@ export function calulateRelativeOffset(selected) {
 export const ReviewContainer = ({ selected, children }) => {
     return(
         <div className={s.view}>
-            <div className={s.container} style={{right: calulateRelativeOffset(selected)}}>
+            <div className={s.container} style={{right: calulateRelativeOffset(selected), width: `${100 * children.length}vw`}}>
                 {children}
             </div>  
         </div>

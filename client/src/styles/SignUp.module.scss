@@ -39,6 +39,9 @@
     .flexContainer{
         max-width: 1500px;
     }
+    .accountPerks{
+        height: 900px;
+    }
 }
 
 @media (max-width: 1025px){
@@ -49,7 +52,7 @@
         flex-direction: row;
         width: 100%;
         max-width: 900px;
-        height: fit-content;
+        height: 100%;
         margin: 0 auto;
     }
     

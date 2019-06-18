@@ -143,13 +143,14 @@ class Login extends React.Component{
                         {serverError && <p style={{margin: 0, color: 'red', textAlign: 'center'}}>{serverError}</p> }
                         <button className={s.button} type='submit' >Login</button>
                     </form>
-                    <div style={{display: 'block', margin: '10px auto', width: 'fit-content'}}>
+                    <div style={{display: 'flex', margin: '10px 0', justifyContent: 'space-around', height: 50, fontSize: '1.2rem'}}>
                     <GoogleLogin
                     clientId={keys.clientID}
                     buttonText="Login with Google"
                     onSuccess={this.onSuccess}
                     onFailure={this.onFailure}
                     isSignedIn={true}
+                    style={{fontSize: '1.2rem'}}
                     />
                     </div>
                     <Account accountText="Don't have an account?" linkText='Sign Up here' to='/signup' />
