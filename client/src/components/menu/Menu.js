@@ -1,9 +1,11 @@
 import React from 'react';
-import Navbar from './Navbar';
+import Navbar from '../shared/Navbar';
+import Content from '../shared/Content';
+import Title from '../shared/Title';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { setProducts } from '../redux/action';
-import s from '../styles/Menu.module.scss';
+import { setProducts } from '../../redux/action';
+import s from '../../styles/Menu.module.scss';
 
 import Product from './MenuProduct';
 
@@ -66,13 +68,13 @@ export class Menu extends React.Component{
         }
 
         if(loading){
-            return <div>Loading...</div>
+            return <div className='loading'>Loading...</div>
         }
         return(
             <div>
                 <Navbar />
-                <div className={s.content}>
-                    <h1 className={s.title}>Menu</h1>
+                <Content style={{marginBottom: '40px'}}>
+                    <Title style={{margin: '50px 0 0 0'}}>Menu</Title>
                     <TabContainer redirect={this.redirectToProduct} productPage={this.props.match.params.product} >
                         <Tab product='pizza'>Pizza</Tab>
                         <Tab product='pasta'>Pasta</Tab>
@@ -81,7 +83,7 @@ export class Menu extends React.Component{
                         <Tab product='drink'>Drinks</Tab>
                     </TabContainer>
                     <ProductContainer products={this.getProductsByType(this.props.match.params.product)} />
-                </div>
+                </Content>
             </div>
         )
     }

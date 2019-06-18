@@ -1,5 +1,5 @@
 import React from 'react';
-import s from '../styles/Navbar.module.scss';
+import s from '../../styles/Navbar.module.scss';
 import { withRouter } from'react-router-dom'
 
 import { 
@@ -22,10 +22,12 @@ export class Navbar extends React.Component{
     }
     
     componentWillMount() {
+        window.addEventListener('click', this.handleClick);
         window.addEventListener('scroll', this.handleScroll);
         window.addEventListener('resize', this.handleResize);
     }
     componentWillUnmount() {
+        window.removeEventListener('click', this.handleClick);
         window.removeEventListener('scroll', this.handleScroll);
         window.removeEventListener('resize', this.handleResize);
     }
@@ -45,6 +47,10 @@ export class Navbar extends React.Component{
                 isFixed: false,
                 isHamburgerDropdownOpen: false,
             })
+        }else{
+            this.setState({
+                isHamburgerDropdownOpen: false,
+            })
         }
     }
 
@@ -58,6 +64,15 @@ export class Navbar extends React.Component{
         }else if(window.innerWidth > HamburgerTarget && isHamburger){
             this.setState({
                 isHamburger: false,
+                isHamburgerDropdownOpen: false,
+            })
+        }
+    }
+
+    handleClick = event => {
+        const { isHamburgerDropdownOpen } = this.state;
+        if(isHamburgerDropdownOpen && event.clientY > 275){
+            this.setState({
                 isHamburgerDropdownOpen: false,
             })
         }

@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from './Navbar';
+import Navbar from './shared/Navbar';
 import Geosuggest from 'react-geosuggest';
 import { connect } from 'react-redux';
 import { setUser, clearOrders } from '../redux/action';

@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
-import { HoursSection, LinkIcon, ContactSection, Footer, Opening, Contact } from '../components/Footer';
+import { HoursSection, LinkIcon, ContactSection, Footer, Opening, Contact } from '../components/home/Footer';
 
 describe('<Footer />', () => {
     test('Snapshot Test', () => {

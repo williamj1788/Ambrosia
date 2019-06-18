@@ -1,11 +1,11 @@
 import React from 'react';
 import s from '../styles/Login.module.scss';
-import Navbar from './Navbar';
-import { Header, Input } from './SignUpForm';
+import Navbar from './shared/Navbar';
+import { Header, Input } from './shared/SignUpForm';
 import { 
     validateEmail,
     validatePassword,
- } from './validator';
+ } from '../validator';
  import GoogleLogin from 'react-google-login';
  import { NavLink, Redirect } from 'react-router-dom';
  import { connect } from 'react-redux';
@@ -143,13 +143,14 @@ class Login extends React.Component{
                         {serverError && <p style={{margin: 0, color: 'red', textAlign: 'center'}}>{serverError}</p> }
                         <button className={s.button} type='submit' >Login</button>
                     </form>
-                    <div style={{display: 'block', margin: '10px auto', width: 'fit-content'}}>
+                    <div style={{display: 'flex', margin: '10px 0', justifyContent: 'space-around', height: 50, fontSize: '1.2rem'}}>
                     <GoogleLogin
                     clientId={keys.clientID}
                     buttonText="Login with Google"
                     onSuccess={this.onSuccess}
                     onFailure={this.onFailure}
                     isSignedIn={true}
+                    style={{fontSize: '1.2rem'}}
                     />
                     </div>
                     <Account accountText="Don't have an account?" linkText='Sign Up here' to='/signup' />

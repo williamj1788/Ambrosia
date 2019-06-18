@@ -8,7 +8,7 @@
     transition: 0.5s;
 }
 
-.content{
+.main{
     width: 100%;
     height: fit-content;
     display: flex;
@@ -46,7 +46,7 @@
     .dropDown{
         width: 200px;
     }
-    .content{
+    .main{
         width: 200px;
     }
     .tab{
@@ -60,7 +60,7 @@
         left: 120px;
         width: 230px;
     }
-    .content{
+    .main{
         flex-direction: row;
         flex-wrap: wrap;
         width: fit-content;

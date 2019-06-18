@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { AccountDropdown, Tab } from '../components/AccountDropdown';
+import { AccountDropdown, Tab } from '../components/shared/AccountDropdown';
 import * as TYPE from '../redux/actionTypes';
 import { Redirect } from 'react-router-dom';
 import toJson from 'enzyme-to-json';

@@ -1,5 +1,5 @@
 import React from 'react';
-import s from '../styles/SignUpForm.module.scss';
+import s from '../../styles/SignUpForm.module.scss';
 
 import { NavLink, Redirect } from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
@@ -10,10 +10,10 @@ import {
     validateConfirmPassword,
     validateFirstname,
     validateLastname,
- } from './validator';
+ } from '../../validator';
 
 import { connect } from 'react-redux';
-import { setUser } from '../redux/action';
+import { setUser } from '../../redux/action';
 
 const mapStateToProps = state => {
     return {
@@ -244,7 +244,7 @@ export class SignUpForm extends React.Component{
                 </View>
                 <Controllers active={activeFormBlock} progress={formBlockProgress} onClick={this.handleOnClick} />
                 <ControllerButtons active={activeFormBlock} onClick={this.handleOnClick} submit={this.handleSubmit} />
-                <div style={{display: 'block', margin: '10px auto', width: 'fit-content'}}>
+                <div style={{display: 'flex', margin: '10px 0', justifyContent: 'space-around', height: 50}}>
                     <GoogleLogin
                         clientId="1064409062816-te616f091t5s0vh9mgnkacur1oqrqpr8.apps.googleusercontent.com"
                         onSuccess={this.onSuccess}

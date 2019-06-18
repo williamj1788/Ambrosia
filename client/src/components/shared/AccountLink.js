@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import userIcon from '../images/UserIcon.png';
-import UserArrow from '../images/Account-arrow.png';
-import s from '../styles/Navbar.module.scss';
+import userIcon from '../../images/UserIcon.png';
+import UserArrow from '../../images/Account-arrow.png';
+import s from '../../styles/Navbar.module.scss';
 import { NavLinkWrapper } from './NavComponents';
 import AccountDropdown from './AccountDropdown';
 

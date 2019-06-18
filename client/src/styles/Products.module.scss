@@ -1,11 +1,4 @@
 @import '../styles/global.scss';
-.title{
-    @extend %title;
-    margin: 0;
-}
-.content{
-    @extend %content;
-}
 
 .createButton{
     display: block;
@@ -326,7 +319,6 @@
         height: 450px;
     }
     .dark{
-        padding-top: 50px;
         align-items: initial;
     }
     .formRecord{

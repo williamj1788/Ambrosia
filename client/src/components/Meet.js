@@ -1,5 +1,7 @@
 import React from 'react';
-import Navbar from './Navbar';
+import Navbar from './shared/Navbar';
+import Content from './shared/Content';
+import Title from './shared/Title';
 
 import s from '../styles/Meet.module.scss';
 import chef from '../images/chef.jpg';
@@ -9,10 +11,18 @@ export class Meet extends React.Component{
         return(
             <div>
                 <Navbar />
-                <div className={s.content}>
-                    <h1 className={s.title}>Meet The Cheifs</h1>
+                <Content>
+                    <Title style={{margin: '50px 0 0 0'}}>Meet The Chefs</Title>
                     <div className={s.chiefContainer}>
-                        <Chief 
+                        <Chef 
+                        img={chef}
+                        name='joe down'
+                        desc='Lorem ipsum dolor sit amet, 
+                        consectetur adipiscing elit. Nullam sit amet purus porta, 
+                        dapibus felis in malesuada diam. Integer quis imperdiet 
+                       s arcu, ut ornare sem. Phasellus magna justo, tincidunt quis'
+                        />
+                        <Chef 
                         img={chef}
                         name='joe down'
                         desc='Lorem ipsum dolor sit amet, 
@@ -20,7 +30,7 @@ export class Meet extends React.Component{
                         dapibus felis in malesuada diam. Integer quis imperdiet 
                         arcu, ut ornare sem. Phasellus magna justo, tincidunt quis'
                         />
-                        <Chief 
+                        <Chef 
                         img={chef}
                         name='joe down'
                         desc='Lorem ipsum dolor sit amet, 
@@ -28,15 +38,7 @@ export class Meet extends React.Component{
                         dapibus felis in malesuada diam. Integer quis imperdiet 
                         arcu, ut ornare sem. Phasellus magna justo, tincidunt quis'
                         />
-                        <Chief 
-                        img={chef}
-                        name='joe down'
-                        desc='Lorem ipsum dolor sit amet, 
-                        consectetur adipiscing elit. Nullam sit amet purus porta, 
-                        dapibus felis in malesuada diam. Integer quis imperdiet 
-                        arcu, ut ornare sem. Phasellus magna justo, tincidunt quis'
-                        />
-                        <Chief 
+                        <Chef 
                         img={chef}
                         name='joe down'
                         desc='Lorem ipsum dolor sit amet, 
@@ -45,13 +47,13 @@ export class Meet extends React.Component{
                         arcu, ut ornare sem. Phasellus magna justo, tincidunt quis'
                         />
                     </div>
-                </div>
+                </Content>
             </div>
         )
     }
 }
 
-export const Chief = ({ img, name, desc }) => {
+export const Chef = ({ img, name, desc }) => {
     return(
         <div className={s.chief}>
             <img className={s.chiefImg} src={img} alt={name}/>

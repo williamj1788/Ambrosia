@@ -1,21 +1,21 @@
 import React from 'react';
 
-import Navbar from './Navbar';
+import Navbar from '../shared/Navbar';
 import ReviewSection from './ReviewSection';
 import Footer from './Footer';
 import HotDeals from './HotDeals';
 
-import s from '../styles/Home.module.scss';
+import s from '../../styles/Home.module.scss';
 
 import { connect } from 'react-redux';
-import { setProducts } from '../redux/action';
+import { setProducts } from '../../redux/action';
 import { Redirect } from 'react-router-dom';
 
 
-import PizzaIcon from '../images/Pizza_icon_white.png';
-import MoneyIcon from '../images/Money_icon.png';
-import TruckIcon from '../images/truck_icon.png';
-import ArrowDown from '../images/arrow-down.png';
+import PizzaIcon from '../../images/Pizza_icon_white.png';
+import MoneyIcon from '../../images/Money_icon.png';
+import TruckIcon from '../../images/truck_icon.png';
+import ArrowDown from '../../images/arrow-down.png';
 
 
 export class Home extends React.Component{
@@ -53,17 +53,17 @@ export class Home extends React.Component{
             return <Redirect push to='/menu' />
         }
         if(this.state.loading){
-            return <div>Loading...</div>
+            return <div className='loading'>Loading...</div>
         }
         return(
-            <div>
+            <main>
                 <Hero redirect={this.setRedirect}/>
                 <About />
                 <HotDeals />
                 <ReviewSection />
                 <Footer />
                 <Copyright />
-            </div>
+            </main>
         )
     }
 }
@@ -86,17 +86,17 @@ const About = () => {
         <section className={s.about}>
             <AboutTitle />
             <div className={s.flexContainer} >
-                <Unit 
+                <Perk 
                 img={PizzaIcon}
                 title={'Great Pizza'}
                 desc={'We go through multiple checks of each ingredient to ensure that our pizza is top quality'}
                 />
-                <Unit 
+                <Perk 
                 img={MoneyIcon}
                 title={'Low Prices'}
                 desc={'We work with our local farmers to provide affordable and quality ingredients and pass the savings to our customers'}
                 />
-                <Unit 
+                <Perk 
                 img={TruckIcon}
                 title={'Fast Service'}
                 desc={'With active drivers that are always on standby, we guarantee a delivery in under 30 mins or the order is free'}
@@ -115,7 +115,7 @@ const AboutTitle = () => {
     )
 }
 
-export const Unit = ({ img, title, desc }) => {
+export const Perk = ({ img, title, desc }) => {
     return(
         <div className={s.AboutUnits}>
             <img className={s.aboutUnitImg} src={img} alt="Icon"/>

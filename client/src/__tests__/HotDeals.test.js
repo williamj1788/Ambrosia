@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import { HotDeals, DealContainer, Deal } from "../components/HotDeals";
+import { HotDeals, DealContainer, Deal } from "../components/home/HotDeals";
 
 describe('<HotDeals />', () => {
     test('Snapshot Test', () => {

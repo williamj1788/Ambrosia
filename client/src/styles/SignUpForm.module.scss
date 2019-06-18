@@ -34,7 +34,7 @@ $mobile-width: 100%;
 .form{
     display: flex;
     position: relative;
-    width: fit-content;
+    width: $Width * 2;
     height: fit-content;
     transition: 1s;
 }
@@ -131,6 +131,9 @@ $mobile-width: 100%;
     }
     .view{
         width: 900px;
+    }
+    .form{
+        width: 900px * 2;
     }
     .formBlock{
         width: 900px;

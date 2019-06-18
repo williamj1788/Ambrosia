@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Unit, Home } from '../components/home';
+import { Unit, Home } from '../components/home/home';
 import { Redirect } from 'react-router-dom';
 import toJson from 'enzyme-to-json';
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, withRouter } from 'react-router-dom';
-import { clearUser } from '../redux/action';
+import { clearUser } from '../../redux/action';
 import { GoogleLogout } from 'react-google-login';
-import s from '../styles/AccountDropdown.module.scss';
+import s from '../../styles/AccountDropdown.module.scss';
 
 export class AccountDropdown extends React.Component{
     
@@ -43,7 +43,7 @@ export class AccountDropdown extends React.Component{
 
         return(
             <div className={s.dropDown} style={style}>
-                <div className={s.content}>
+                <div className={s.main}>
                     {user.admin && <Tab onClick={() => this.setRedirect('/admin/metrics')} text="Metrics" />} 
                     {user.admin && <Tab onClick={() => this.setRedirect('/admin/products')} text="Product" />}
                     <Tab onClick={() => this.setRedirect('/user/orders')} text="Order History" />

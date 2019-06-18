@@ -1,8 +1,8 @@
 import React from 'react';
-import s from '../styles/Products.module.scss';
+import s from '../../styles/Products.module.scss';
 import { FaTimes, FaTrashAlt } from "react-icons/fa";
 import { connect } from 'react-redux'
-import { editProduct } from '../redux/action';
+import { editProduct } from '../../redux/action';
 
 import DatePicker from 'react-datepicker';
  

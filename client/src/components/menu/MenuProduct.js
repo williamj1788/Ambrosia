@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addOrder, removeOrder } from '../redux/action';
-import s from '../styles/Menu.module.scss';
+import { addOrder, removeOrder } from '../../redux/action';
+import s from '../../styles/Menu.module.scss';
 import uuid from 'uuid';
 
 class Product extends React.Component{
@@ -20,10 +20,12 @@ class Product extends React.Component{
     }
     
     addOrder = order => {
+        sessionStorage.setItem('scroll',window.scrollY);
         this.props.dispatch(addOrder(order));
     }
 
     removeOrder = id => {
+        sessionStorage.setItem('scroll',window.scrollY);
         this.props.dispatch(removeOrder(id))
     }
 
@@ -37,8 +39,8 @@ class Product extends React.Component{
                     <p className={s.productName}>{name}</p>
                     <p className={s.productDesc}>{description}</p>
                     <div className={s.productOrder}>
-                        <span className={s.productPrice}>{discountObj.length ? <s>{'$' + price}</s> : '$' + price.toFixed(2)}</span>
-                        {!!discountObj.length && <span className={s.productPrice} style={{marginLeft: '15px'}} >{'$' + discountObj[0].price.toFixed(2)}</span>}
+                        <span className={s.productPrice}>{discountObj.length ? <s>{'$' + price.toFixed(2)}</s> : '$' + price.toFixed(2)}</span>
+                        {!!discountObj.length && <span className={s.productPrice + " " + s.productDiscount}>{'$' + discountObj[0].price.toFixed(2)}</span>}
                         {!order 
                         ?<form onSubmit={this.handleSubmit} className={s.productForm}>
                             <label className={s.productLabel} htmlFor="quantity">Qty:</label>

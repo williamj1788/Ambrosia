@@ -1,7 +1,7 @@
 import React from 'react';
-import s from '../styles/Navbar.module.scss';
-import logoIcon from '../images/Logo.png';
-import cartIcon from '../images/CartIcon.png';
+import s from '../../styles/Navbar.module.scss';
+import logoIcon from '../../images/Logo.png';
+import cartIcon from '../../images/CartIcon.png';
 
 import HamburgerMenu from 'react-hamburger-menu';
 import AccountLink from './AccountLink';
@@ -35,7 +35,7 @@ export const NavLinkContainer = ({ className, toggleCart , style = {} }) => {
         <div className={className} style={style} >
             <NavLinkWrapper active exact to='/'>Home</NavLinkWrapper>
             <NavLinkWrapper active strict to='/menu'>Menu</NavLinkWrapper>
-            <NavLinkWrapper active to='/meet'>Meet The Chiefs</NavLinkWrapper>
+            <NavLinkWrapper active to='/meet'>Meet The Chefs</NavLinkWrapper>
             <NavLinkWrapper icon={cartIcon} onClick={toggleCart} >Cart</NavLinkWrapper>
             <AccountLink />
         </div>

@@ -1,8 +1,9 @@
 import React from 'react';
 
-import Navbar from './Navbar';
-import SignUpForm from './SignUpForm';
+import Navbar from './shared/Navbar';
+import SignUpForm from './shared/SignUpForm';
 import s from '../styles/SignUp.module.scss';
+import Content from './shared/Content';
 
 import SaveIcon from '../images/save-icon.png';
 import HistoryIcon from '../images/history-icon.png';
@@ -14,12 +15,12 @@ export class SignUp extends React.Component{
         return(
             <div>
                 <Navbar />
-                <div className={s.content}>
+                <Content>
                     <div className={s.flexContainer}>
                         <AccountPerks />
                         <SignUpForm />
                     </div>
-                </div>
+                </Content>
             </div>
         )
     }
