@@ -42,7 +42,7 @@ export class LoadUser extends React.Component{
     render(){
         if(this.state.loading){
             return(
-                <div>Loading...</div>
+                <div className='loading'>Loading...</div>
             )
         }
         return(

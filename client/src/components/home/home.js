@@ -53,7 +53,7 @@ export class Home extends React.Component{
             return <Redirect push to='/menu' />
         }
         if(this.state.loading){
-            return <div>Loading...</div>
+            return <div className='loading'>Loading...</div>
         }
         return(
             <main>

@@ -32,6 +32,16 @@ $blue: #0033ff;
     color: white;
 }
 
+.loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+    font-size: 3rem;
+    font-weight: bold;
+    height: 100vh;
+}
+
 html{
     font-family: 'Raleway', sans-serif;
     font-size: 16px;
