@@ -88,6 +88,7 @@ function reducer(state = initialState, action){
                 user: null,
             }
         case TYPE.CLEAR_ORDER:
+            localStorage.setItem('orders', JSON.stringify({orders: []}))
             return{
                 ...state,
                 orders: [],
