@@ -120,7 +120,6 @@ class Products extends React.Component{
                 <Navbar />
                 <Content>
                     <Title style={{margin: 0}}>Products</Title>
-                    <h1 className={s.title}>Products</h1>
                     <button onClick={this.toggleProductModal} className={s.createButton} type="button">Create A Product</button>
                     <input onChange={this.handleChange} className={s.searchBar} type="search" placeholder="Search for a product" />
                     <ProductContainer 
