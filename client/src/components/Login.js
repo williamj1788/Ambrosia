@@ -108,7 +108,6 @@ class Login extends React.Component{
     }
 
     loginWithGoogle = token => {
-        console.log('sdfsdfddd')
         return fetch('/api/user/google', {
             method: 'POST',
             headers: {'Authorization': `Bearer ${token}`}

@@ -21,13 +21,7 @@ app.use(allowCrossDomain);
 app.use('/api/user', userRouter);
 app.use('/api/admin', adminRouter);
 
-if(process.env.NODE_ENV === 'production'){
-    app.use(express.static(path.join(__dirname, 'client/build')));
-
-    app.get('*', (req, res) => {
-        res.sendfile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-    });
-}
+app.use(express.static(path.join(__dirname, 'build')));
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}...`));

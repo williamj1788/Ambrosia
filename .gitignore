@@ -2,3 +2,5 @@ DESIGN.md
 config.js
 package-lock.json
 /node_modules
+client/public/manifest.json
+client/src/key.js
