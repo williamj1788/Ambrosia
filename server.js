@@ -22,6 +22,9 @@ app.use('/api/user', userRouter);
 app.use('/api/admin', adminRouter);
 
 app.use(express.static(path.join(__dirname, 'build')));
+app.use('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}...`));
