@@ -8,10 +8,10 @@ const bcrypt = require('bcrypt');
 const { OAuth2Client } = require('google-auth-library');
 
 const User = require('./User');
-const Product = require('./Product');
+const Product = require('../products/Product');
 
-const secretKey = require('./config').secretKey;
-const clientID = require('./config').clientID;
+const secretKey = require('../config').secretKey;
+const clientID = require('../config').clientID;
 
 router.use(upload.none());
 
