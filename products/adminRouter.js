@@ -75,11 +75,13 @@ router.post("/products/edit/:id", (req, res, next) => {
   next();
 });
 
-router.delete("/products/delete/:id", (req, res) => {
-  Product.findByIdAndDelete(req.params.id, err => {
-    if (err) throw err;
+router.delete("/products/delete/:id", async (req, res, next) => {
+  try {
+    await productService.deleteProductById(req.params.id);
     res.send();
-  });
+  } catch (err) {
+    next(err);
+  }
 });
 
 router.post("/products/discount/create/:id", GetProduct, (req, res) => {

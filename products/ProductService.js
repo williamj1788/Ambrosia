@@ -11,55 +11,9 @@ const s3 = new AWS.S3({
 
 class ProductService {
   /**
-   * gets all products from database. will throw if unable to retrieve products.
-   */
-  async getAllProducts() {
-    Product.find(
-      { discount: { $exists: true } },
-      (err, productsWithDiscounts) => {
-        if (err) throw err;
-        for (let product of productsWithDiscounts) {
-          Discount.findById(product.discount, (err, discount) => {
-            if (err) throw err;
-            if (!discount) {
-              this.findByIdAndUpdate(
-                product._id,
-                { $unset: { discount: "" } },
-                err => {
-                  if (err) throw err;
-                }
-              );
-            }
-          });
-        }
-      }
-    );
-
-    return Product.aggregate([
-      {
-        $lookup: {
-          from: "discounts",
-          localField: "discount",
-          foreignField: "_id",
-          as: "discountObj"
-        }
-      },
-      {
-        $project: {
-          discount: 0,
-          __v: 0,
-          "discountObj._id": 0,
-          "discountObj.productID": 0,
-          "discountObj.__v": 0
-        }
-      }
-    ]).exec();
-  }
-
-  /**
    * creates a product from the given form and saves it to the database
    * @param {Object} productForm
-   * @param {Object} picture picture to be saved. Will be convert to base64.
+   * @param {Object} picture picture to be saved.
    */
   async createProduct(productForm, picture) {
     if (!picture) {
@@ -85,6 +39,29 @@ class ProductService {
     productJson.discountObj = [];
 
     return productJson;
+  }
+  /**
+   * deletes the product that has a match id from the database.
+   * will throw if no product is found.
+   * @param {string} id 
+   */
+  async deleteProductById(id) {
+    const product = await Product.findById(id);
+
+    if (!product) {
+      throw new Error("product not found");
+    }
+    const index = product.picture.lastIndexOf("/");
+    const filename = product.picture.slice(index + 1);
+
+    console.log(filename);
+
+    await s3.deleteObject({
+      Bucket: bucket,
+      Key: filename
+    }).promise();
+
+    await product.remove();
   }
 }
 
