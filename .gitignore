@@ -1,6 +1,6 @@
 DESIGN.md
-config.js
 package-lock.json
 /node_modules
 client/public/index.html
 client/src/key.js
+.env
