@@ -22,6 +22,7 @@
   "homepage": "https://github.com/williamj1788/Ambrosia#readme",
   "dependencies": {
     "@hapi/joi": "^17.0.2",
+    "aws-sdk": "^2.606.0",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",

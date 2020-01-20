@@ -31,7 +31,6 @@ router.get("/products", (req, res) => {
 router.post("/products/create", async (req, res, next) => {
   try {
     const product = await productService.createProduct(req.body, req.file);
-
     res.json(product);
   } catch (err) {
     next(err);

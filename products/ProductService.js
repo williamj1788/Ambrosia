@@ -1,5 +1,13 @@
+const fs = require("fs");
 const Product = require("./Product");
 const helper = require("../helper");
+const AWS = require("aws-sdk");
+const { awsID, awsKey, bucket } = require("../config");
+
+const s3 = new AWS.S3({
+  accessKeyId: awsID,
+  secretAccessKey: awsKey
+});
 
 class ProductService {
   /**
@@ -58,7 +66,16 @@ class ProductService {
       throw new Error("a picture must be included");
     }
 
-    productForm.picture = helper.toBase64(picture);
+    const pictureStream = fs.createReadStream(picture.path);
+    const mimetype = picture.originalname.split(".")[1];
+    const { Location } = await s3.upload({
+      Bucket: bucket,
+      Key: `${picture.filename}.${mimetype}`,
+      Body: pictureStream
+    }).promise();
+
+
+    productForm.picture = Location;
     productForm.price = helper.trimNumber(productForm.price);
 
     const product = await Product.create(productForm);
