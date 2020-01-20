@@ -1,8 +1,12 @@
+const { verifyAdmin } = require("../middleware/verifyAdmin");
+
 const express = require("express");
 const multer = require("multer");
 const fs = require("fs");
 const upload = multer({ dest: "uploads/" });
 const router = express.Router();
+
+const { verifyToken } = require("../middleware/verifyToken");
 
 const helper = require("../helper");
 const Product = require("./Product");
@@ -11,6 +15,9 @@ const User = require("../users/User");
 const ProductService = require("./ProductService");
 
 const productService = new ProductService();
+
+router.use(verifyToken);
+router.use(verifyAdmin);
 
 router.use(upload.single("picture"));
 
