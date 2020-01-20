@@ -8,6 +8,9 @@ const helper = require("../helper");
 const Product = require("./Product");
 const Discount = require("./Discount");
 const User = require("../users/User");
+const ProductService = require("./ProductService");
+
+const productService = new ProductService();
 
 router.use(upload.single("picture"));
 
@@ -18,25 +21,16 @@ router.get("/products", (req, res) => {
   });
 });
 
-router.post("/products/create", (req, res, next) => {
-  const newProduct = new Product({
-    type: req.body.type,
-    picture: helper.toBase64(req.file),
-    name: req.body.name,
-    description: req.body.description,
-    price: helper.trimNumber(req.body.price)
-  });
-  newProduct
-    .save()
-    .then(product => {
-      product = product.toObject();
-      product.discountObj = [];
-      res.json(product);
-    })
-    .catch(error => {
-      throw error;
-    });
-  next();
+router.post("/products/create", async (req, res, next) => {
+  try {
+    const product = await productService.createProduct(req.body, req.file);
+
+    res.json(product);
+  } catch (err) {
+    next(err);
+  } finally {
+    await fs.promises.unlink(req.file.path);
+  }
 });
 
 router.post("/products/edit/:id", (req, res, next) => {
