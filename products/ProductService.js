@@ -51,10 +51,9 @@ class ProductService {
     if (!product) {
       throw new Error("product not found");
     }
+
     const index = product.picture.lastIndexOf("/");
     const filename = product.picture.slice(index + 1);
-
-    console.log(filename);
 
     await s3.deleteObject({
       Bucket: bucket,

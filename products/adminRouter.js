@@ -16,9 +16,6 @@ const ProductService = require("./ProductService");
 
 const productService = new ProductService();
 
-router.use(verifyToken);
-router.use(verifyAdmin);
-
 router.use(upload.single("picture"));
 
 router.get("/products", (req, res) => {
@@ -27,6 +24,9 @@ router.get("/products", (req, res) => {
     res.json(products);
   });
 });
+
+router.use(verifyToken);
+router.use(verifyAdmin);
 
 router.post("/products/create", async (req, res, next) => {
   try {
