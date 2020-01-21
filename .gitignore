@@ -4,3 +4,4 @@ package-lock.json
 client/public/index.html
 client/src/key.js
 .env
+/build

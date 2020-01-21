@@ -27,10 +27,13 @@ const ProductScheme = new Scheme({
     min: 0,
     required: true
   },
-  discount: mongoose.Types.ObjectId
+  discount: {
+    type: mongoose.Types.ObjectId,
+    ref: "discount"
+  }
 });
 
-ProductScheme.statics.getAll = function(cb) {
+ProductScheme.statics.getAll = function (cb) {
   this.find({ discount: { $exists: true } }, (err, productsWithDiscounts) => {
     if (err) throw err;
     for (let product of productsWithDiscounts) {

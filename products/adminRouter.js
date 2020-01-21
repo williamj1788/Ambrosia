@@ -39,40 +39,29 @@ router.post("/products/create", async (req, res, next) => {
   }
 });
 
-router.post("/products/edit/:id", (req, res, next) => {
-  const picture = req.file ? helper.toBase64(req.file) : null;
-  const update = {
-    $set: {
-      type: req.body.type,
-      ...(picture && { picture }),
-      name: req.body.name,
-      description: req.body.description,
-      price: helper.trimNumber(req.body.price)
+router.post("/products/edit/:id", async (req, res, next) => {
+  try {
+    const form = {
+      ...req.body,
+      picture: req.file
     }
-  };
-  Product.findByIdAndUpdate(
-    req.params.id,
-    update,
-    { new: true },
-    (err, product) => {
-      if (err) throw err;
-      if (!product) {
-        return res.status(404).json({ message: "product not found" });
-      }
-      product = product.toObject();
-      product.discountObj = [];
-      if (product.discount) {
-        Discount.findById(product.discount, (err, discount) => {
-          if (err) throw err;
-          product.discountObj = [discount];
-          return res.json(product);
-        });
-      } else {
-        return res.json(product);
-      }
+    const product = await productService.updateProductById(form, req.params.id);
+
+    // have to do it this way because the front-end needs it this way
+    product.discountObj = [];
+
+    if (product.discount) {
+      product.discountObj.push(product.discount);
     }
-  );
-  next();
+
+    res.json(product);
+  } catch (err) {
+    next(err);
+  } finally {
+    if (req.file) {
+      await fs.promises.unlink(req.file.path);
+    }
+  }
 });
 
 router.delete("/products/delete/:id", async (req, res, next) => {
